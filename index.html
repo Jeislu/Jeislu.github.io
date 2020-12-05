@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Jeislu的书屋</title>
+  <title>Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu的书屋">
+<meta property="og:title" content="Jeislu">
 <meta property="og:url" content="https://jeislu.github.io/index.html">
-<meta property="og:site_name" content="Jeislu的书屋">
+<meta property="og:site_name" content="Jeislu">
 <meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="Java,编程,努力,学习">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Jeislu的书屋" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/webIcon.png">
@@ -59,8 +59,6 @@
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-			
-				<li><a href="/tags">分类</a></li>
 			
 			</ul>
 		</nav>
@@ -118,8 +116,6 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -140,9 +136,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags">分类</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -159,125 +153,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Servlet第一个综合案例2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Jeislu的简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B2/">Servlet第一个综合案例2</a>
+      <a class="article-title" href="/2020/12/05/Jeislu%E7%9A%84%E7%AE%80%E4%BB%8B/">Jeislu的简介</a>
     </h1>
   
 
         
-        <a href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B2/" class="archive-article-date">
-  	<time datetime="2020-12-05T14:36:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
+        <a href="/2020/12/05/Jeislu%E7%9A%84%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+  	<time datetime="2020-12-05T14:53:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>​    通过数据库验证登录账号</p>
-<h3 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h3><ol>
-<li>编写 login.html 登录页面（ username 和 password 两个输入框）</li>
-<li>使用 Druid 数据库连接池技术，操作 mysql，day14数据库中 user 表</li>
-<li>使用 JdbcTemplate 技术封装 JDBC</li>
-<li>登录：<ul>
-<li>登录成功跳转到 SuccessServlet 展示：登录成功，用户名，欢迎你</li>
-<li>登录失败跳转到 FailServelet 展示：登录失败，用户名或密码错误</li>
-</ul>
-</li>
-</ol>
-<h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a>具体实现：</h3><ol>
-<li><p>编写 login.html 登录页面（ username 和 password 两个输入框）</p>
-<ul>
-<li>一个 form 表格，使用 post 提交<ul>
-<li>两个 div 分别书写账号和密码框</li>
-<li>还有一个提交按钮</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>使用 Druid 数据库连接池技术，操作 mysql，day14数据库中 user 表</p>
-<ul>
-<li><p>首先需要相应的导包</p>
-</li>
-<li><p>配置 druid.properties 配置文件</p>
-<ul>
-<li>driverClassName：固定配置 com.mysql.jdbc.Driver</li>
-<li>url：<code>jdbc : mysql://ip地址:端口号/数据库名</code></li>
-<li>username：数据库用户名</li>
-<li>password：数据库用户密码</li>
-<li>initialSize：初始连接池数量</li>
-<li>maxActive：最大连接池数量</li>
-<li>maxWait：达到最大连接池数量后延迟报错时间</li>
-</ul>
-</li>
-<li><p>创建 Druid 工具类，实现获取连接池对象和 Connection 对象功能</p>
-<ul>
-<li><pre><code class="java">package Utilis;
-
-import com.alibaba.druid.pool.DruidDataSourceFactory;
-
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Properties;
-
-public class DruidUtilis &#123;
-    private static DataSource ds;
-
-    // 静态加载代码
-    static&#123;
-        // 1.加载配置文件
-        Properties p = new Properties();
-        try &#123;
-            p.load(DruidUtilis.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;));
-        &#125; catch (IOException e) &#123;
-            e.printStackTrace();
-        &#125;
-
-        // 2.初始化连接池对象
-        try &#123;
-            ds = DruidDataSourceFactory.createDataSource(p);
-        &#125; catch (Exception e) &#123;
-            e.printStackTrace();
-        &#125;
-
-    &#125;
-    // 获取连接池对象
-    public static DataSource getDataSource()&#123;
-        return ds;
-    &#125;
-
-    // 获取 Connection 对象
-    public static Connection getConnection() throws SQLException &#123;
-        return ds.getConnection();
-    &#125;
-&#125;
-
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">3.</span> 使用 JdbcTemplate 技术封装 JDBC</span><br><span class="line"></span><br><span class="line">   - 创建 <span class="keyword">User</span> 对象，封装相应数据</span><br><span class="line"></span><br><span class="line">   - 创建工具类，对 <span class="keyword">User</span> 对象进行登录账号和密码的校验</span><br><span class="line"></span><br><span class="line">   - 相关方法的代码如下</span><br><span class="line"></span><br><span class="line">     - ```java</span><br><span class="line">       <span class="built_in">public</span> <span class="keyword">User</span> <span class="keyword">login</span>(<span class="keyword">User</span> loginUser)&#123;</span><br><span class="line">               // <span class="keyword">sql</span>查询语句</span><br><span class="line">               try&#123;</span><br><span class="line">                   String <span class="keyword">sql</span> = &quot;select * from user where username = ? and password = ?&quot;;</span><br><span class="line">                   // 执行 <span class="keyword">sql</span> 语句，并把结果封装为一个 <span class="keyword">User</span> 对象</span><br><span class="line">                   <span class="keyword">User</span> <span class="keyword">user</span> = jdbc.queryForObject(<span class="keyword">sql</span>,</span><br><span class="line">                           <span class="built_in">new</span> BeanPropertyRowMapper&lt;<span class="keyword">User</span>&gt;(<span class="keyword">User</span>.<span class="keyword">class</span>),</span><br><span class="line">                           loginUser.getUsername(),loginUser.getPassword());</span><br><span class="line">       </span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">user</span>;</span><br><span class="line">               &#125; catch (DataAccessException e)&#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure></code></pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>登录：</p>
-<ul>
-<li>编写 Servlet 类，继承 HttpServlet ，重写 doGet 和 doPost方法。<ul>
-<li>调用工具类中的 login 方法，校验账号是否正确。<ul>
-<li>如果正确，跳转到登陆成功的 successServlet</li>
-<li>否则跳转到登陆失败的 failServlet</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
+        <p>​    一只正在努力的菜鸡！</p>
 
       
 
@@ -296,7 +192,7 @@ public class DruidUtilis &#123;
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人简介</a>
         		</li>
       		
 		</ul>
@@ -306,171 +202,7 @@ public class DruidUtilis &#123;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Servlet第一个综合案例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/">Servlet</a>
-    </h1>
-  
-
-        
-        <a href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/" class="archive-article-date">
-  	<time datetime="2020-12-05T14:16:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>​    通过数据库验证登录账号</p>
-<h3 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h3><ol>
-<li>编写 login.html 登录页面（ username 和 password 两个输入框）</li>
-<li>使用 Druid 数据库连接池技术，操作 mysql，day14数据库中 user 表</li>
-<li>使用 JdbcTemplate 技术封装 JDBC</li>
-<li>登录：<ul>
-<li>登录成功跳转到 SuccessServlet 展示：登录成功，用户名，欢迎你</li>
-<li>登录失败跳转到 FailServelet 展示：登录失败，用户名或密码错误</li>
-</ul>
-</li>
-</ol>
-<h3 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a>具体实现：</h3><ol>
-<li><p>编写 login.html 登录页面（ username 和 password 两个输入框）</p>
-<ul>
-<li>一个 form 表格，使用 post 提交<ul>
-<li>两个 div 分别书写账号和密码框</li>
-<li>还有一个提交按钮</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>使用 Druid 数据库连接池技术，操作 mysql，day14数据库中 user 表</p>
-<ul>
-<li><p>首先需要相应的导包</p>
-</li>
-<li><p>配置 druid.properties 配置文件</p>
-<ul>
-<li>driverClassName：固定配置 com.mysql.jdbc.Driver</li>
-<li>url：<code>jdbc : mysql://ip地址:端口号/数据库名</code></li>
-<li>username：数据库用户名</li>
-<li>password：数据库用户密码</li>
-<li>initialSize：初始连接池数量</li>
-<li>maxActive：最大连接池数量</li>
-<li>maxWait：达到最大连接池数量后延迟报错时间</li>
-</ul>
-</li>
-<li><p>创建 Druid 工具类，实现获取连接池对象和 Connection 对象功能</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Utilis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidUtilis</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态加载代码</span></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="comment">// 1.加载配置文件</span></span><br><span class="line">        Properties p = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            p.load(DruidUtilis.class.getClassLoader().getResourceAsStream(<span class="string">&quot;druid.properties&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.初始化连接池对象</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(p);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取连接池对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 Connection 对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用 JdbcTemplate 技术封装 JDBC</p>
-<ul>
-<li><p>创建 User 对象，封装相应数据</p>
-</li>
-<li><p>创建工具类，对 User 对象进行登录账号和密码的校验</p>
-</li>
-<li><p>相关方法的代码如下</p>
-<ul>
-<li><pre><code class="java">public User login(User loginUser)&#123;
-        // sql查询语句
-        try&#123;
-            String sql = &quot;select * from user where username = ? and password = ?&quot;;
-            // 执行 sql 语句，并把结果封装为一个 User 对象
-            User user = jdbc.queryForObject(sql,
-                    new BeanPropertyRowMapper&lt;User&gt;(User.class),
-                    loginUser.getUsername(),loginUser.getPassword());
-
-            return user;
-        &#125; catch (DataAccessException e)&#123;
-            e.printStackTrace();
-            return null;
-        &#125;
-    &#125;</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>登录：</p>
-<ul>
-<li>编写 Servlet 类，继承 HttpServlet ，重写 doGet 和 doPost方法。<ul>
-<li>调用工具类中的 login 方法，校验账号是否正确。<ul>
-<li>如果正确，跳转到登陆成功的 successServlet</li>
-<li>否则跳转到登陆失败的 failServlet</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/05/Servlet%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/05/Jeislu%E7%9A%84%E7%AE%80%E4%BB%8B/">展开全文 >></a>
         </p>
       
 
@@ -593,11 +325,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
             
             <div class="clearfix"></div>
@@ -660,7 +388,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Jeislu&lt;br&gt;一只广财在读，努力摆脱懒惰的菜鸡&lt;br&gt;希望我每天都可以多学一点</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">Jeislu&lt;br&gt;&lt;br&gt;一只广财在读，努力摆脱懒惰的菜鸡&lt;br&gt;希望我每天都可以多学一点</div>
   	  	
     	</section>
     
