@@ -393,50 +393,33 @@ public class DruidUtilis &#123;
 </ul>
 </li>
 <li><p>创建 Druid 工具类，实现获取连接池对象和 Connection 对象功能</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Utilis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidUtilis</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态加载代码</span></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="comment">// 1.加载配置文件</span></span><br><span class="line">        Properties p = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            p.load(DruidUtilis.class.getClassLoader().getResourceAsStream(<span class="string">&quot;druid.properties&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.初始化连接池对象</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(p);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取连接池对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 Connection 对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 JdbcTemplate 技术封装 JDBC</p>
 <ul>
-<li><pre><code class="java">package Utilis;
+<li><p>创建 User 对象，封装相应数据</p>
+</li>
+<li><p>创建工具类，对 User 对象进行登录账号和密码的校验</p>
+</li>
+<li><p>相关方法的代码如下</p>
+<ul>
+<li><pre><code class="java">public User login(User loginUser)&#123;
+        // sql查询语句
+        try&#123;
+            String sql = &quot;select * from user where username = ? and password = ?&quot;;
+            // 执行 sql 语句，并把结果封装为一个 User 对象
+            User user = jdbc.queryForObject(sql,
+                    new BeanPropertyRowMapper&lt;User&gt;(User.class),
+                    loginUser.getUsername(),loginUser.getPassword());
 
-import com.alibaba.druid.pool.DruidDataSourceFactory;
-
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Properties;
-
-public class DruidUtilis &#123;
-    private static DataSource ds;
-
-    // 静态加载代码
-    static&#123;
-        // 1.加载配置文件
-        Properties p = new Properties();
-        try &#123;
-            p.load(DruidUtilis.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;));
-        &#125; catch (IOException e) &#123;
+            return user;
+        &#125; catch (DataAccessException e)&#123;
             e.printStackTrace();
+            return null;
         &#125;
-
-        // 2.初始化连接池对象
-        try &#123;
-            ds = DruidDataSourceFactory.createDataSource(p);
-        &#125; catch (Exception e) &#123;
-            e.printStackTrace();
-        &#125;
-
-    &#125;
-    // 获取连接池对象
-    public static DataSource getDataSource()&#123;
-        return ds;
-    &#125;
-
-    // 获取 Connection 对象
-    public static Connection getConnection() throws SQLException &#123;
-        return ds.getConnection();
-    &#125;
-&#125;
-
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">3.</span> 使用 JdbcTemplate 技术封装 JDBC</span><br><span class="line"></span><br><span class="line">   - 创建 <span class="keyword">User</span> 对象，封装相应数据</span><br><span class="line"></span><br><span class="line">   - 创建工具类，对 <span class="keyword">User</span> 对象进行登录账号和密码的校验</span><br><span class="line"></span><br><span class="line">   - 相关方法的代码如下</span><br><span class="line"></span><br><span class="line">     - ```java</span><br><span class="line">       <span class="built_in">public</span> <span class="keyword">User</span> <span class="keyword">login</span>(<span class="keyword">User</span> loginUser)&#123;</span><br><span class="line">               // <span class="keyword">sql</span>查询语句</span><br><span class="line">               try&#123;</span><br><span class="line">                   String <span class="keyword">sql</span> = &quot;select * from user where username = ? and password = ?&quot;;</span><br><span class="line">                   // 执行 <span class="keyword">sql</span> 语句，并把结果封装为一个 <span class="keyword">User</span> 对象</span><br><span class="line">                   <span class="keyword">User</span> <span class="keyword">user</span> = jdbc.queryForObject(<span class="keyword">sql</span>,</span><br><span class="line">                           <span class="built_in">new</span> BeanPropertyRowMapper&lt;<span class="keyword">User</span>&gt;(<span class="keyword">User</span>.<span class="keyword">class</span>),</span><br><span class="line">                           loginUser.getUsername(),loginUser.getPassword());</span><br><span class="line">       </span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">user</span>;</span><br><span class="line">               &#125; catch (DataAccessException e)&#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure></code></pre>
+    &#125;</code></pre>
 </li>
 </ul>
 </li>
@@ -473,11 +456,11 @@ public class DruidUtilis &#123;
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
         		</li>
       		
 		</ul>
@@ -610,11 +593,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
             
             <div class="clearfix"></div>
