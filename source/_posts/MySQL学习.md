@@ -70,3 +70,6 @@ MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器
 - `SHOW CREATE DATABASE`：显示创建特定数据库或表的MySQL语句。
 - `SHOW ERRORS`和`SHOW WARNINGS`：用来显示服务器错误或警告消息。
 - `HELP SHOW`：显示允许的SHOW语句
+
+## 检索数据
+
