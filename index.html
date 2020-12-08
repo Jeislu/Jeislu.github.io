@@ -433,6 +433,83 @@
 
 
   
+    <article id="post-浅析排序算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/08/%E6%B5%85%E6%9E%90%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">浅析排序算法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/08/%E6%B5%85%E6%9E%90%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-12-08T11:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/08/%E6%B5%85%E6%9E%90%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MySQL学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -481,44 +558,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="MySQL简介"><a href="#MySQL简介" class="headerlink" title="MySQL简介"></a>MySQL简介</h2><h3 id="什么是MySQL"><a href="#什么是MySQL" class="headerlink" title="什么是MySQL"></a>什么是MySQL</h3><p>MySQL被广泛使用的理由：</p>
-<ul>
-<li>成本——MySQL是开放源代码的，一般可以免费使用(甚至可以免费修改)。</li>
-<li>性能——MySQL执行很快，非常快。</li>
-<li>可信赖——MySQL不会收集使用者的数据。</li>
-<li>简单——MySQL容易安装和使用。</li>
-</ul>
-<p>MySQL唯一受到真正的批评是它并不总是支持其他DBMS提供的功能和特性。然而，这一点也在逐步得到改善。</p>
-<h3 id="客户机-服务器软件"><a href="#客户机-服务器软件" class="headerlink" title="客户机-服务器软件"></a>客户机-服务器软件</h3><p>DBMS可分为两类：</p>
-<ul>
-<li>基于共享文件系统的DBMS</li>
-<li>基于客户机-服务器的DBMS</li>
-</ul>
-<p>前者(包括Microsoft Access 和 FileMaker)用于桌面用途，通常不用于高端或更关键的应用。</p>
-<p>MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器的数据库。</p>
-<ul>
-<li>服务器：负责所有数据访问和处理的一个软件。</li>
-<li>客户机：用于间接获取数据的软件。</li>
-</ul>
-<h2 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h2><h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>为了连接到MySQL，需要以下信息</p>
-<ul>
-<li>主机名——如果连接的是本地MySQL服务器，则为localhost；</li>
-<li>端口；</li>
-<li>用户名；</li>
-<li>密码；</li>
-</ul>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
-<li><code>USE xx数据库</code>：使用某数据库。</li>
-<li><code>SHOW DATABASES</code>：显示所有数据库。</li>
-<li><code>SHOW TABLES</code>：显示当前使用数据的所有表。</li>
-<li><code>SHOW COLUMNS FROM xx表</code>：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。</li>
-<li><code>DESCRIBE xx表</code>：和<code>SHOW COLUMNS FROM xx表</code>的功能一样。</li>
-<li><code>SHOW STATUS</code>：用于显示广泛的服务器状态信息。</li>
-<li><code>SHOW CREATE DATABASE</code>：显示创建特定数据库或表的MySQL语句。</li>
-<li><code>SHOW ERRORS</code>和<code>SHOW WARNINGS</code>：用来显示服务器错误或警告消息。</li>
-<li><code>HELP SHOW</code>：显示允许的SHOW语句</li>
-</ul>
-<h2 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h2>
+        
       
 
       
@@ -669,6 +709,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>
