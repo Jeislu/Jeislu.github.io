@@ -21,6 +21,8 @@ tags: MySQL
     - 任意两行都不具有相同的主键值
     - 每个行都必须具有一个主键值(主键列不允许NULL值)
 
+<!-- more -->
+
 ## MySQL简介
 
 ### 什么是MySQL
@@ -73,3 +75,4 @@ MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器
 
 ## 检索数据
 
+​	
