@@ -16,9 +16,11 @@
 <meta property="og:description" content="数据库基本概念 数据库(database)：保存有组织的数据的容器(通常是一个文件或一组文件)。 数据库不代表人们常使用的数据库软件，数据库软件是DBMS(数据库管理系统)。通过DBMS来访问数据库   表(table)：某种特定类型数据的结构化清单。 模式(schema)：关系数据库和表的布局及特性的信息。 有时候模式用作数据库的同义词，本文中指的是上面给出的含义。   列(column)：表中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:12.000Z">
-<meta property="article:modified_time" content="2020-12-08T11:15:26.876Z">
+<meta property="article:modified_time" content="2020-12-09T16:56:54.483Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="摘抄">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -230,18 +232,45 @@
 <li>用户名；</li>
 <li>密码；</li>
 </ul>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
-<li><code>USE xx数据库</code>：使用某数据库。</li>
-<li><code>SHOW DATABASES</code>：显示所有数据库。</li>
-<li><code>SHOW TABLES</code>：显示当前使用数据的所有表。</li>
-<li><code>SHOW COLUMNS FROM xx表</code>：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。</li>
-<li><code>DESCRIBE xx表</code>：和<code>SHOW COLUMNS FROM xx表</code>的功能一样。</li>
-<li><code>SHOW STATUS</code>：用于显示广泛的服务器状态信息。</li>
-<li><code>SHOW CREATE DATABASE</code>：显示创建特定数据库或表的MySQL语句。</li>
-<li><code>SHOW ERRORS</code>和<code>SHOW WARNINGS</code>：用来显示服务器错误或警告消息。</li>
-<li><code>HELP SHOW</code>：显示允许的SHOW语句</li>
-</ul>
-<h2 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h2><p>​    </p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><code>USE xx数据库</code>：使用某数据库。</p>
+<p><code>SHOW DATABASES</code>：显示所有数据库。</p>
+<p><code>SHOW TABLES</code>：显示当前使用数据的所有表。</p>
+<p><code>SHOW COLUMNS FROM xx表</code>：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。</p>
+<p><code>DESCRIBE xx表</code>：和<code>SHOW COLUMNS FROM xx表</code>的功能一样。</p>
+<p><code>SHOW STATUS</code>：用于显示广泛的服务器状态信息。</p>
+<p><code>SHOW CREATE DATABASE</code>：显示创建特定数据库或表的MySQL语句。</p>
+<p><code>SHOW ERRORS</code>和<code>SHOW WARNINGS</code>：用来显示服务器错误或警告消息。</p>
+<p><code>HELP SHOW</code>：显示允许的SHOW语句</p>
+<h2 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h2><h3 id="Select命令"><a href="#Select命令" class="headerlink" title="Select命令"></a>Select命令</h3><p><code>SELECT xx列 FROM xx表</code>：从xx表中选出xx列，查询单列。</p>
+<blockquote>
+<p>未排序数据：查询结果的顺序是不保证的，因为mysql认为没有明确排序查询结果，则返回的数据的顺序没有特殊意义</p>
+</blockquote>
+<blockquote>
+<p>结束SQL语句：多条SQL语句必须以 ‘ ; ’ 分割。MySQL如图多数DBMS一样，不需要在单条SQL语句后加分号。如果你使用的是mysql命令行，则必须加上分号来结束SQL语句</p>
+</blockquote>
+<blockquote>
+<p>SQL语句和大小写：SQL语句不区分大小写，但是许多SQL开发人员喜欢对所有SQL关键字使用大写，而对所有列和表名使用小写，这样做使代码更易于阅读和调试。在MySQL4.1及其之前版本中，某些标识符默认是区分大小写的，但是在之后版本是不区分的。最好的方式就是按照上面的规范来。</p>
+</blockquote>
+<p><code>SELECT x1列,x2列...xn列 FROM xx表</code>：从xx表中选出n个列，查询多列，列与列之间用<code>,</code>分隔。</p>
+<p><code>SELECT * FROM xx表</code>：从xx表中选出该表所有列，查询所有列。</p>
+<blockquote>
+<p>除非你要使用所有列，不然一般不要用 * 通配符来查询，会降低检索和应用程序的性能。</p>
+</blockquote>
+<p><code>SELECT DISTINCT xx列 FROM xx表</code>：返回不带重复的单列数据，DISITINCT指示MySQL只返回不同的值。</p>
+<blockquote>
+<p>要注意，不能部分使用DISTINCT，DISITINCT关键字应用于所有列而不仅是前置它的列，如果给出<code>SELECT DISITINCT vend_id prod_price</code>，除非指定的两个列都不同，否则所有列都将被检索出来。</p>
+</blockquote>
+<p><code>SELECT xx列 FROM xx表 LIMIT 5</code>：返回数据至多5行。LIMIT限制返回不多于5行，为了得出下一个5行，可指定要检索的开始行和行数，例如<code>SELECT xx列 FROM xx表 LIMIT 5,5</code>，这个语句将返回从行5开始的5行数据，第一个数为开始位置，第二个数为要检索的行数。</p>
+<blockquote>
+<p>带一个值的LIMIT总是从第一行开始，给出的数为检索的行数。</p>
+</blockquote>
+<blockquote>
+<p>检索出来的第一行为行0而不是行1，<code>LIMIT 1,1</code>将检索出第二行</p>
+</blockquote>
+<blockquote>
+<p>MySQL 5的LIMIT语法：MySQL 5支持LIMIT的另一种替代语法，<code>LIMIT 4 OFFSET 3</code>意为从行3开始取4行，就像<code>LIMIT 3,4</code>一样</p>
+</blockquote>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>​    SQL可以使用完全限定的表名，例如<code>SELECT products.prod_name FROM products</code>其功能和<code>SELECT prod_name FROM products</code>一样。后面可能会出现重名数据，所以需要区分两者。</p>
 
       
 
@@ -277,6 +306,14 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">摘抄</a>
         		</li>
       		
 		</ul>
@@ -483,11 +520,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
               </li>
              
               <li class="article-tag-list-item">
