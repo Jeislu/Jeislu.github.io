@@ -1,7 +1,10 @@
 ---
 title: MySQL学习
 date: 2020-12-05 23:05:12
-tags: MySQL
+tags: 
+ - MySQL
+ - 笔记
+ - 摘抄
 ---
 
 ## 数据库基本概念
@@ -63,16 +66,54 @@ MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器
 
 ### 命令
 
-- `USE xx数据库`：使用某数据库。
-- `SHOW DATABASES`：显示所有数据库。
-- `SHOW TABLES`：显示当前使用数据的所有表。
-- `SHOW COLUMNS FROM xx表`：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。
-- `DESCRIBE xx表`：和`SHOW COLUMNS FROM xx表`的功能一样。
-- `SHOW STATUS`：用于显示广泛的服务器状态信息。
-- `SHOW CREATE DATABASE`：显示创建特定数据库或表的MySQL语句。
-- `SHOW ERRORS`和`SHOW WARNINGS`：用来显示服务器错误或警告消息。
-- `HELP SHOW`：显示允许的SHOW语句
+`USE xx数据库`：使用某数据库。
+
+`SHOW DATABASES`：显示所有数据库。
+
+`SHOW TABLES`：显示当前使用数据的所有表。
+
+`SHOW COLUMNS FROM xx表`：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。
+
+`DESCRIBE xx表`：和`SHOW COLUMNS FROM xx表`的功能一样。
+
+`SHOW STATUS`：用于显示广泛的服务器状态信息。
+
+`SHOW CREATE DATABASE`：显示创建特定数据库或表的MySQL语句。
+
+`SHOW ERRORS`和`SHOW WARNINGS`：用来显示服务器错误或警告消息。
+
+`HELP SHOW`：显示允许的SHOW语句
 
 ## 检索数据
 
-​	
+### Select命令
+
+`SELECT xx列 FROM xx表`：从xx表中选出xx列，查询单列。
+
+> 未排序数据：查询结果的顺序是不保证的，因为mysql认为没有明确排序查询结果，则返回的数据的顺序没有特殊意义
+
+> 结束SQL语句：多条SQL语句必须以 ‘ ; ’ 分割。MySQL如图多数DBMS一样，不需要在单条SQL语句后加分号。如果你使用的是mysql命令行，则必须加上分号来结束SQL语句
+
+> SQL语句和大小写：SQL语句不区分大小写，但是许多SQL开发人员喜欢对所有SQL关键字使用大写，而对所有列和表名使用小写，这样做使代码更易于阅读和调试。在MySQL4.1及其之前版本中，某些标识符默认是区分大小写的，但是在之后版本是不区分的。最好的方式就是按照上面的规范来。
+
+`SELECT x1列,x2列...xn列 FROM xx表`：从xx表中选出n个列，查询多列，列与列之间用`,`分隔。
+
+`SELECT * FROM xx表`：从xx表中选出该表所有列，查询所有列。
+
+> 除非你要使用所有列，不然一般不要用 * 通配符来查询，会降低检索和应用程序的性能。
+
+`SELECT DISTINCT xx列 FROM xx表`：返回不带重复的单列数据，DISITINCT指示MySQL只返回不同的值。
+
+> 要注意，不能部分使用DISTINCT，DISITINCT关键字应用于所有列而不仅是前置它的列，如果给出`SELECT DISITINCT vend_id prod_price`，除非指定的两个列都不同，否则所有列都将被检索出来。
+
+`SELECT xx列 FROM xx表 LIMIT 5`：返回数据至多5行。LIMIT限制返回不多于5行，为了得出下一个5行，可指定要检索的开始行和行数，例如`SELECT xx列 FROM xx表 LIMIT 5,5`，这个语句将返回从行5开始的5行数据，第一个数为开始位置，第二个数为要检索的行数。
+
+> 带一个值的LIMIT总是从第一行开始，给出的数为检索的行数。
+
+> 检索出来的第一行为行0而不是行1，`LIMIT 1,1`将检索出第二行
+
+> MySQL 5的LIMIT语法：MySQL 5支持LIMIT的另一种替代语法，`LIMIT 4 OFFSET 3`意为从行3开始取4行，就像`LIMIT 3,4`一样
+
+### 其他
+
+​	SQL可以使用完全限定的表名，例如`SELECT products.prod_name FROM products`其功能和`SELECT prod_name FROM products`一样。后面可能会出现重名数据，所以需要区分两者。
