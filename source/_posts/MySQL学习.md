@@ -117,3 +117,7 @@ MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器
 ### 其他
 
 ​	SQL可以使用完全限定的表名，例如`SELECT products.prod_name FROM products`其功能和`SELECT prod_name FROM products`一样。后面可能会出现重名数据，所以需要区分两者。
+
+
+
+## 先学习，暂不整理！
