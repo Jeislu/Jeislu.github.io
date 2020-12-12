@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言之前每日一题的markdown文件不知道哪去了，只能重新开始写，以后记得备份文件！">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-11T12:24:58.000Z">
-<meta property="article:modified_time" content="2020-12-11T14:13:01.427Z">
+<meta property="article:modified_time" content="2020-12-12T05:32:11.021Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -210,6 +210,29 @@
 </ul>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>贪心算法解决，每一个有票的人，只需要干掉离自己最近的对方阵营的人即可，当一个阵营没人，留下来的就是胜利的！</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">predictPartyVictory</span><span class="params">(String senate)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len  = senate.length();</span><br><span class="line">    <span class="keyword">boolean</span>[] used = <span class="keyword">new</span> <span class="keyword">boolean</span>[len];</span><br><span class="line">    <span class="keyword">int</span> RLen=<span class="number">0</span>,DLen=<span class="number">0</span>,RNum=<span class="number">0</span>,DNum=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新人数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(senate.charAt(i) == <span class="string">&#x27;D&#x27;</span>)&#123;</span><br><span class="line">            DNum++;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            RNum++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(RNum &gt; <span class="number">0</span> &amp;&amp; DNum &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len &amp;&amp; RNum &gt; <span class="number">0</span> &amp;&amp; DNum &gt; <span class="number">0</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!used[i])&#123;</span><br><span class="line">                <span class="keyword">if</span>(senate.charAt(i) == <span class="string">&#x27;R&#x27;</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(DLen &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                        DLen--;</span><br><span class="line">                        used[i] = <span class="keyword">true</span>;</span><br><span class="line">                        RNum--;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        RLen++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(RLen &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                        RLen--;</span><br><span class="line">                        used[i] = <span class="keyword">true</span>;</span><br><span class="line">                        DNum--;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        DLen++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DNum &gt; <span class="number">0</span> ? <span class="string">&quot;Dire&quot;</span> : <span class="string">&quot;Radiant&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2020-12-12"><a href="#2020-12-12" class="headerlink" title="2020/12/12"></a>2020/12/12</h2><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. 摆动序列</a></p>
+<p>难度中等321收藏分享切换为英文接收动态反馈</p>
+<p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为<strong>摆动序列。</strong>第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。</p>
+<p>例如， <code>[1,7,4,9,2,5]</code> 是一个摆动序列，因为差值 <code>(6,-3,5,-7,3)</code> 是正负交替出现的。相反, <code>[1,4,7,2,5]</code> 和 <code>[1,7,4,5,5]</code> 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。</p>
+<p>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">输入: [1,7,4,9,2,5]</span></span><br><span class="line"><span class="section">输出: 6 </span></span><br><span class="line"><span class="section">解释: 整个序列均为摆动序列。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [<span class="number">1,17,5,10</span>,<span class="number">13,15,10,5</span>,<span class="number">16</span>,<span class="number">8</span>]</span><br><span class="line">输出: <span class="number">7</span></span><br><span class="line">解释: 这个序列包含几个长度为 <span class="number">7</span> 摆动序列，其中一个可为[<span class="number">1,17,10,13</span>,<span class="number">10</span>,<span class="number">16</span>,<span class="number">8</span>]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3:</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [<span class="number">1,2,3,4</span>,<span class="number">5,6,7,8</span>,<span class="number">9</span>]</span><br><span class="line">输出: <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>进阶:</strong><br>你能否用 O(<em>n</em>) 时间复杂度完成此题?</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>采用DP，从头到尾递推即可。</p>
+<p>使用两个变量，hLen表示升序序列长度，lLen表示降序序列长度，都初始化为1</p>
+<p>如果当前的数据比前一个数据大，则更新hLen，hLen = max(lLen + 1 , hLen)，如果比前一个数据小，则更新lLen，lLen = max(hLen + 1, lLen)。</p>
+<p>为什么可以用前一个数据代替摆动数列的尾部呢？因为如果这一次比较无法更新数据，则用当前数据顶替尾部数据，例如当前摆动数列的尾部为7（上升），升序长度为10，当前数据为9，更新降序长度后，因为升序的下一个只能找降序，所以用10顶替7没有问题。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = nums.length;</span><br><span class="line">    <span class="keyword">if</span>(len &lt; <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> hLen = <span class="number">1</span>;          <span class="comment">// 存储升序的长度</span></span><br><span class="line">    <span class="keyword">int</span> lLen = <span class="number">1</span>;          <span class="comment">// 存储降序的长度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt; nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">            hLen = Math.max(lLen+<span class="number">1</span>,hLen);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[i] &lt; nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">            lLen = Math.max(hLen+<span class="number">1</span>,lLen);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Math.max(hLen,lLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 
       
@@ -448,6 +471,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -457,10 +484,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
