@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>spring学习 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+  <meta name="description" content="前言目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring学习">
 <meta property="og:url" content="https://jeislu.github.io/2020/12/05/spring%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:21.000Z">
-<meta property="article:modified_time" content="2020-12-09T16:12:59.590Z">
+<meta property="article:modified_time" content="2020-12-13T09:55:46.945Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -174,7 +175,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理</p>
+<a id="more"></a>
+
+<h2 id="Spring工程的创建"><a href="#Spring工程的创建" class="headerlink" title="Spring工程的创建"></a>Spring工程的创建</h2><h3 id="IDEA创建"><a href="#IDEA创建" class="headerlink" title="IDEA创建"></a>IDEA创建</h3><ol>
+<li>新建项目，选择<code>Spring Initializr</code>，更换源为<code>https://start.aliyun.com/</code>，next</li>
+<li>根据自己需求修改配置，不知道有什么用就不要改，next</li>
+<li>添加四个，分别是<code>Spring web</code>，<code>Lombok</code>，<code>Thymeleaf</code>，<code>Spring Boot DevTools</code></li>
+<li>完成</li>
+</ol>
+<h3 id="vscode创建"><a href="#vscode创建" class="headerlink" title="vscode创建"></a>vscode创建</h3><ol>
+<li>安装插件<code>Java Extension Pack</code>和<code>Spring Boot Extension Pack</code></li>
+<li>在设置中搜索Maven，打开Maven的settings.json，根据自己更改（以下为我的配置）</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;workbench.iconTheme&quot;</span>: <span class="string">&quot;material-icon-theme&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.startupEditor&quot;</span>: <span class="string">&quot;newUntitledFile&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.errors.incompleteClasspath.severity&quot;</span>: <span class="string">&quot;ignore&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.colorTheme&quot;</span>: <span class="string">&quot;Atom One Dark&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.home&quot;</span>:<span class="string">&quot;C:/Program Files/Java/jdk-15&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.configuration.maven.userSettings&quot;</span>: <span class="string">&quot;D:\\Study\\Maven\\conf\\settings.xml&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.executable.path&quot;</span>: <span class="string">&quot;D:\\Study\\Maven\\bin\\mvn.cmd&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.terminal.useJavaHome&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;maven.terminal.customEnv&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;environmentVariable&quot;</span>: <span class="string">&quot;JAVA_HOME&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;C:/Program Files/Java/jdk-15&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;java.configuration.checkProjectSettingsExclusions&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.suggestSelection&quot;</span>: <span class="string">&quot;first&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vsintellicode.modify.editor.suggestSelection&quot;</span>: <span class="string">&quot;automaticallyOverrodeDefaultValue&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;spring.initializr.serviceUrl&quot;</span>: <span class="string">&quot;https://start.aliyun.com/&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.excludedFolders&quot;</span>: [</span><br><span class="line">    </span><br><span class="line">        <span class="string">&quot;**/.*&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/node_modules&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/target&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/bin&quot;</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>按<code>Ctrl + shift + p</code>搜索<code>Spring</code>，选择出现的<code>Spring Initializr: Create a Maven Project...</code>，接下来选择版本（选最新的就可以了），语言选择Java，然后是包名，项目名，最后添加四个包，和IDEA一样。</li>
+<li>完成</li>
+</ol>
+<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><ol>
+<li>官方源<code>https://start.spring.io</code>如果出现无法访问的情况，替换源为<code>https://start.aliyun.com/</code>，vscode创建Spring项目报错<code>Fail to create a project. Error: Failed to fetch metadata.</code>，一样是这个问题，更新Spring 初始化插件里面的源即可。</li>
+</ol>
+
       
 
       
@@ -203,6 +226,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -417,6 +455,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
