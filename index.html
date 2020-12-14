@@ -232,6 +232,101 @@
 
 
   
+    <article id="post-Java线程的基本方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">Java线程的基本方法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-12-13T13:29:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Java线程的基本方法"><a href="#Java线程的基本方法" class="headerlink" title="Java线程的基本方法"></a>Java线程的基本方法</h2><h3 id="Obeject类"><a href="#Obeject类" class="headerlink" title="Obeject类"></a>Obeject类</h3><ul>
+<li><code>void notify()</code>：唤醒在此对象监视器上等待的单个线程，就是唤醒同一个对象锁上面在等待的线程。<ul>
+<li>如果有多个线程，则唤醒的线程是随机的。</li>
+<li>唤醒的线程不一定会立即执行，它会和其他线程一起争夺CPU。</li>
+<li>如果没有持有该对象的锁，则会抛出异常：<code>IllegaMonitorSateException</code>；</li>
+</ul>
+</li>
+<li><code>void notifyAll()</code>：唤醒在此对象监视器上等待的<strong>所有</strong>线程</li>
+<li><code>void wait(long timeout)</code>：在其他线程调用此对象的<code>notify()</code> 、<code>notifyALL</code>或超过指定的时间(timeout)之前，线程将一直等待<ul>
+<li>如果timeout为0，则在被唤醒之前一直等待</li>
+<li>wait不会唤醒其他wait的线程</li>
+<li>wait会释放对象锁，所以应该放在同步代码块中或者同步方法中</li>
+<li>wait可能会造成虚假唤醒(文末有介绍)的现象，所以wait应该总是放在wait循环中</li>
+</ul>
+</li>
+<li><code>void wait(long timeout，int nanos)</code>：和一个参数的wait一样功能，不过提供更小的时间控制，nanos是毫微秒，所以该方法的实际等待时间为1000000*timeout+nanos(毫微秒)</li>
+<li><code>void wait()</code>：相当于wait(0)</li>
+</ul>
+<h3 id="Thread类"><a href="#Thread类" class="headerlink" title="Thread类"></a>Thread类</h3><h2 id="虚假唤醒"><a href="#虚假唤醒" class="headerlink" title="虚假唤醒"></a>虚假唤醒</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">零碎知识点</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-力扣每日一题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -761,6 +856,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -770,10 +877,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
