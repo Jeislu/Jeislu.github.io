@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:21.000Z">
-<meta property="article:modified_time" content="2020-12-15T04:44:43.998Z">
+<meta property="article:modified_time" content="2020-12-20T09:54:51.031Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="Spring">
@@ -197,6 +197,44 @@
 <h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><ol>
 <li>官方源<code>https://start.spring.io</code>如果出现无法访问的情况，替换源为<code>https://start.aliyun.com/</code>，vscode创建Spring项目报错<code>Fail to create a project. Error: Failed to fetch metadata.</code>，一样是这个问题，更新Spring 初始化插件里面的源即可。</li>
 </ol>
+<h2 id="Taco实践"><a href="#Taco实践" class="headerlink" title="Taco实践"></a>Taco实践</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>刚创建完design视图后，无法运行项目<ul>
+<li>原因：DesignTacoController里面的<code>model.addAttribute(&quot;design&quot;,new Taco())</code>语句报错，没有Taco类，创建空类也无法打开视图</li>
+<li>解决方法：按书本后面的内容新建Taco类即可</li>
+</ul>
+</li>
+</ul>
+<h2 id="Spring相关注解"><a href="#Spring相关注解" class="headerlink" title="Spring相关注解"></a>Spring相关注解</h2><ul>
+<li><code>@SpringBootApplication</code>：组合注解，包括<code>@SpringBootConfiguration</code>，<code>@EnableAntoConfigration</code> 和<code>@ComponentScan</code></li>
+<li><code>@SpringBootConfiguration</code>：将该类声明为配置类，这个注解实际上是<code>@Configuration</code>注解的特殊形式</li>
+<li><code>@EnableAntoConfigration</code>：启动Spring Boot的自动配置，告诉Spring Boot自动配置它认为我们会用到的组件</li>
+<li><code>@ComponentScan</code>：启用组件扫描，Spring会发现并将它组成为Spring应用上下文中的组件</li>
+<li><code>@RunWith(xxx.class)</code>：提供一个测试运行期(runner)来知道JUnit如何运行测试</li>
+<li><code>@SpringBootTest</code>：告诉JUnit在启动测试的时候要添加上Spring Boot的功能</li>
+<li><code>@Controller</code>：让组件扫描将这个这个类识别为一个组件，创建一个对应的实例作为Spring应用上下文中的bean</li>
+<li><code>@WebMvcTest</code>：是SpringBoot提供的一个特殊注解，它会让这个测试在Spring MVC应用的上下文中执行</li>
+<li><code>@Data</code>：lombok注解，告诉Lombok生成所有缺失的方法（Get，Set之类），同时还会生成所有已final属性作为参数的构造器</li>
+<li><code>@SLF4J</code>：自动生成一个SLF4J(Simple Logging Facade for Java) Logger</li>
+<li><code>@RequestMapping</code>：指定该处理器所处理的请求类型</li>
+<li><code>@GetMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Get请求时，调用此方法</li>
+<li><code>@PostMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Post请求时，调用此方法</li>
+<li><code>@DeleteMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Delete请求时，调用此方法</li>
+<li><code>@PutMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Put请求时，调用此方法</li>
+<li><code>@PatchMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Patch请求时，调用此方法</li>
+<li><code>@NotNull</code>：限定字段不能为空，message传递警告文字</li>
+<li><code>@Size</code>：限定字段长度</li>
+<li><code>@CreditCardNumber</code>：是否为合法的信用卡号</li>
+<li><code>@Pattern</code>：是否满足正则表达式</li>
+<li><code>@Digits</code>：限定数字位数</li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+<li><code>@</code></li>
+</ul>
 
       
 
@@ -446,18 +484,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -470,7 +496,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
               </li>
              
               <li class="article-tag-list-item">
