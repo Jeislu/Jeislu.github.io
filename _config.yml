@@ -137,6 +137,6 @@ backup:
     message: Back up blog
     repository:
        github: git@github.com:Jeislu/Jeislu.github.io.git,backup
-       coding: git@gitee.com:jeislu/jeislu.git,backup
+       gitee: git@gitee.com:jeislu/jeislu.git,backup
 
   
