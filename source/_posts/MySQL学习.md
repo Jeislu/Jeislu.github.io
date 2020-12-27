@@ -9,7 +9,7 @@ tags:
 
 ## 前言
 
-本文的知识大多摘录与《MySQL必知必会》，MySQL的版本为5
+本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5
 
 <!-- more -->
 
@@ -122,6 +122,9 @@ MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器
 
 ​	SQL可以使用完全限定的表名，例如`SELECT products.prod_name FROM products`其功能和`SELECT prod_name FROM products`一样。后面可能会出现重名数据，所以需要区分两者。
 
+## 排序数据
 
+`ORDER BY xx列`：根据xx列对查询数据进行排序，
 
 ## 未整理！
+
