@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>MySQL学习 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言本文的知识大多摘录与《MySQL必知必会》，MySQL的版本为5">
+  <meta name="description" content="前言本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL学习">
 <meta property="og:url" content="https://jeislu.github.io/2020/12/05/MySQL%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言本文的知识大多摘录与《MySQL必知必会》，MySQL的版本为5">
+<meta property="og:description" content="前言本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:12.000Z">
-<meta property="article:modified_time" content="2020-12-15T04:44:04.033Z">
+<meta property="article:modified_time" content="2020-12-27T12:23:14.860Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="笔记">
@@ -176,7 +176,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文的知识大多摘录与《MySQL必知必会》，MySQL的版本为5</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5</p>
 <a id="more"></a>
 
 <h2 id="数据库基本概念"><a href="#数据库基本概念" class="headerlink" title="数据库基本概念"></a>数据库基本概念</h2><ul>
@@ -272,6 +272,7 @@
 <p>MySQL 5的LIMIT语法：MySQL 5支持LIMIT的另一种替代语法，<code>LIMIT 4 OFFSET 3</code>意为从行3开始取4行，就像<code>LIMIT 3,4</code>一样</p>
 </blockquote>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>​    SQL可以使用完全限定的表名，例如<code>SELECT products.prod_name FROM products</code>其功能和<code>SELECT prod_name FROM products</code>一样。后面可能会出现重名数据，所以需要区分两者。</p>
+<h2 id="排序数据"><a href="#排序数据" class="headerlink" title="排序数据"></a>排序数据</h2><p><code>ORDER BY xx列</code>：根据xx列对查询数据进行排序，</p>
 <h2 id="未整理！"><a href="#未整理！" class="headerlink" title="未整理！"></a>未整理！</h2>
       
 
@@ -521,10 +522,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -534,6 +531,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,10 +554,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -566,6 +563,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">其他</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
