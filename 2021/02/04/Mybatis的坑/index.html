@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Archives | Jeislu</title>
+  <title>Mybatis的坑 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu">
-<meta property="og:url" content="https://jeislu.github.io/archives/page/2/index.html">
+  <meta name="description" content="前言我会把我在学习Mybatis中遇到的所有坑都写到这里面 1. Maven的资源过滤​    除了resource文件夹下的资源文件，Maven默认是不将其输出到target文件夹的，所以为了让 com.jeislu.dao 中mapper配置xml可以输入到target，需要设置Maven的pom.xml，具体设置和注意事项见代码 1234567891011121314151617181920">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis的坑">
+<meta property="og:url" content="https://jeislu.github.io/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言我会把我在学习Mybatis中遇到的所有坑都写到这里面 1. Maven的资源过滤​    除了resource文件夹下的资源文件，Maven默认是不将其输出到target文件夹的，所以为了让 com.jeislu.dao 中mapper配置xml可以输入到target，需要设置Maven的pom.xml，具体设置和注意事项见代码 1234567891011121314151617181920">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-04T08:07:52.000Z">
+<meta property="article:modified_time" content="2021-02-04T08:45:57.481Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="Mybatis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -152,230 +154,202 @@
           </div>
           <div id="js-content" class="content-ll">
             
+    <i class="fa fa-thumb-tack"></i>
+    <font color=7D26CD>置顶</font>
+    <span class="post-meta-divider">|</span>
   
+<article id="post-Mybatis的坑" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Mybatis的坑
+    </h1>
+  
+
+        
+        <a href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/" class="archive-article-date">
+  	<time datetime="2021-02-04T08:07:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-04</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我会把我在学习Mybatis中遇到的所有坑都写到这里面</p>
+<h2 id="1-Maven的资源过滤"><a href="#1-Maven的资源过滤" class="headerlink" title="1. Maven的资源过滤"></a>1. Maven的资源过滤</h2><p>​    除了resource文件夹下的资源文件，Maven默认是不将其输出到target文件夹的，所以为了让 com.jeislu.dao 中mapper配置xml可以输入到target，需要设置Maven的pom.xml，具体设置和注意事项见代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在bulid中的resources中添加一个新的resouce，如果没有父标签就创建 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 需要开启资源文件的目录 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 匹配规则 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 单一匹配规则 --&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- ** 表示任意目录 --&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- *.xml 表示任意以xml结尾的文件 --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-连接数据库问题"><a href="#2-连接数据库问题" class="headerlink" title="2. 连接数据库问题"></a>2. 连接数据库问题</h2><p>​    百度上说 mysql 8.0+版本需要配置时区，但是我这个是5啊，不知道是IDEA还是什么的原因，还是报错了，所以乖乖加上时区配置</p>
+<p>​    在 mybatis的配置XML中连接数据库那一行URL中设置Timezone</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    在粘贴的时候才发现我没有这个问题，不过IDEA连接 mysql 的时候需要这个，也先记起来了</p>
+<h2 id="3-SSL问题"><a href="#3-SSL问题" class="headerlink" title="3. SSL问题"></a>3. SSL问题</h2><p>​    如果在配置 mybatis 的时候，没有去设置SSL，那在使用的时候可能会出现</p>
+<blockquote>
+<p>Thu Feb 04 16:19:47 CST 2021 WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn’t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to ‘false’. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</p>
+</blockquote>
+<p>​    这一行鲜艳的红色报错(其实不是错误，只是提示)，如果觉得碍眼，和上面时区一样，在配置 mybatis 的时候设置useSSL=false，如果设置成true会出现一个报错，暂时还不了解，如果某天懂了再回来改</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis?useSSL=false&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Mapper没有配置问题"><a href="#4-Mapper没有配置问题" class="headerlink" title="4. Mapper没有配置问题"></a>4. Mapper没有配置问题</h2><p>​    每一个 mapper.xml 都需要在 mybatis 的配置文件中注册，如果没有注册，就会出现</p>
+<blockquote>
+<p>org.apache.ibatis.binding.BindingException: Type interface com.jeislu.dao.UserMapper is not known to the MapperRegistry.</p>
+</blockquote>
+<p>​    这个错误，在配置文件中注册就好了</p>
+<h2 id="5-Maven输出的中文乱码问题"><a href="#5-Maven输出的中文乱码问题" class="headerlink" title="5. Maven输出的中文乱码问题"></a>5. Maven输出的中文乱码问题</h2><p>​    这个是真的坑，浪费我好久，还以为是哪里出问题了，原来是不知道哪里的编码问题，导致 xml 文件中的字符集不是使用 UTF-8 ，然后在 target 下导致中文注释乱码</p>
+<blockquote>
+<p>Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 15; 1</p>
+</blockquote>
+<p>​    大致的错误如上，已经解决了，所以找不到之前完整的报错了。</p>
+<p>​    解决方法就是，把IDEA中所有有关 UTF 和 GBK 的设置全部设置成为 UTF-8 ，由于改了很多个，具体是哪个的设置我也不清楚，不过里面有一个是 xml 不使用 utf-8 的设置，我把√去掉了，可能是这个（也可能不是）反正把和字符集相关的都设置成为 UTF- 8 就可以了</p>
+<h2 id="6-增删改需要提交事务"><a href="#6-增删改需要提交事务" class="headerlink" title="6. 增删改需要提交事务"></a>6. 增删改需要提交事务</h2><p>​    如题，增删改需要提交事务，否则不生效</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/08/%E6%B5%85%E6%9E%90%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-12-08T11:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/08/%E6%B5%85%E6%9E%90%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">浅析排序算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/05/JVM%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-12-05T15:05:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/02/03/Maven%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Maven资源文件过滤问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/05/JVM%E5%AD%A6%E4%B9%A0/">JVM学习</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/05/spring%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-12-05T15:05:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/05/spring%E5%AD%A6%E4%B9%A0/">spring学习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/05/MySQL%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-12-05T15:05:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/05/MySQL%E5%AD%A6%E4%B9%A0/">MySQL学习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">摘抄</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/05/Jeislu%E7%9A%84%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-  	<time datetime="2020-12-05T14:53:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/05/Jeislu%E7%9A%84%E7%AE%80%E4%BB%8B/">Jeislu的简介</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人简介</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -399,8 +373,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
