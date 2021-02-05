@@ -312,55 +312,27 @@
 
 
   
-    <article id="post-Mybatis的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-log4j精简配置属性整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/">Mybatis的坑</a>
+      <a class="article-title" href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">log4j精简配置属性整理</a>
     </h1>
   
 
         
-        <a href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/" class="archive-article-date">
-  	<time datetime="2021-02-04T08:07:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-04</time>
+        <a href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-05T07:05:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我会把我在学习Mybatis中遇到的所有坑都写到这里面</p>
-<h2 id="1-Maven的资源过滤"><a href="#1-Maven的资源过滤" class="headerlink" title="1. Maven的资源过滤"></a>1. Maven的资源过滤</h2><p>​    除了resource文件夹下的资源文件，Maven默认是不将其输出到target文件夹的，所以为了让 com.jeislu.dao 中mapper配置xml可以输入到target，需要设置Maven的pom.xml，具体设置和注意事项见代码</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在bulid中的resources中添加一个新的resouce，如果没有父标签就创建 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 需要开启资源文件的目录 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 匹配规则 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 单一匹配规则 --&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- ** 表示任意目录 --&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- *.xml 表示任意以xml结尾的文件 --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-连接数据库问题"><a href="#2-连接数据库问题" class="headerlink" title="2. 连接数据库问题"></a>2. 连接数据库问题</h2><p>​    百度上说 mysql 8.0+版本需要配置时区，但是我这个是5啊，不知道是IDEA还是什么的原因，还是报错了，所以乖乖加上时区配置</p>
-<p>​    在 mybatis的配置XML中连接数据库那一行URL中设置Timezone</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>​    在粘贴的时候才发现我没有这个问题，不过IDEA连接 mysql 的时候需要这个，也先记起来了</p>
-<h2 id="3-SSL问题"><a href="#3-SSL问题" class="headerlink" title="3. SSL问题"></a>3. SSL问题</h2><p>​    如果在配置 mybatis 的时候，没有去设置SSL，那在使用的时候可能会出现</p>
-<blockquote>
-<p>Thu Feb 04 16:19:47 CST 2021 WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn’t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to ‘false’. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</p>
-</blockquote>
-<p>​    这一行鲜艳的红色报错(其实不是错误，只是提示)，如果觉得碍眼，和上面时区一样，在配置 mybatis 的时候设置useSSL=false，如果设置成true会出现一个报错，暂时还不了解，如果某天懂了再回来改</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis?useSSL=false&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-Mapper没有配置问题"><a href="#4-Mapper没有配置问题" class="headerlink" title="4. Mapper没有配置问题"></a>4. Mapper没有配置问题</h2><p>​    每一个 mapper.xml 都需要在 mybatis 的配置文件中注册，如果没有注册，就会出现</p>
-<blockquote>
-<p>org.apache.ibatis.binding.BindingException: Type interface com.jeislu.dao.UserMapper is not known to the MapperRegistry.</p>
-</blockquote>
-<p>​    这个错误，在配置文件中注册就好了</p>
-<h2 id="5-Maven输出的中文乱码问题"><a href="#5-Maven输出的中文乱码问题" class="headerlink" title="5. Maven输出的中文乱码问题"></a>5. Maven输出的中文乱码问题</h2><p>​    这个是真的坑，浪费我好久，还以为是哪里出问题了，原来是不知道哪里的编码问题，导致 xml 文件中的字符集不是使用 UTF-8 ，然后在 target 下导致中文注释乱码</p>
-<blockquote>
-<p>Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 15; 1</p>
-</blockquote>
-<p>​    大致的错误如上，已经解决了，所以找不到之前完整的报错了。</p>
-<p>​    解决方法就是，把IDEA中所有有关 UTF 和 GBK 的设置全部设置成为 UTF-8 ，由于改了很多个，具体是哪个的设置我也不清楚，不过里面有一个是 xml 不使用 utf-8 的设置，我把√去掉了，可能是这个（也可能不是）反正把和字符集相关的都设置成为 UTF- 8 就可以了</p>
-<h2 id="6-增删改需要提交事务"><a href="#6-增删改需要提交事务" class="headerlink" title="6. 增删改需要提交事务"></a>6. 增删改需要提交事务</h2><p>​    如题，增删改需要提交事务，否则不生效</p>
-
+        
       
 
       
@@ -373,22 +345,11 @@
         </div>
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">展开全文 >></a>
         </p>
       
 
@@ -418,26 +379,27 @@
 
 
   
-    <article id="post-Maven资源文件过滤问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Mybatis常用配置属性整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/03/Maven%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">Maven资源文件过滤问题</a>
+      <a class="article-title" href="/2021/02/05/Mybatis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">Mybatis常用配置属性整理</a>
     </h1>
   
 
         
-        <a href="/2021/02/03/Maven%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-02-03T10:10:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
+        <a href="/2021/02/05/Mybatis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-05T07:04:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    整理 Mybatis 常用配置属性，基本是从官方文档摘抄</p>
         
       
 
@@ -451,11 +413,101 @@
         </div>
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/03/Maven%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4%E9%97%AE%E9%A2%98/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/02/05/Mybatis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Mybatis的坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/">Mybatis的坑</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/" class="archive-article-date">
+  	<time datetime="2021-02-04T08:07:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我会把我在学习Mybatis中遇到的所有坑都写到这里面</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/04/Mybatis%E7%9A%84%E5%9D%91/">展开全文 >></a>
         </p>
       
 
@@ -877,84 +929,6 @@
 
 
   
-    <article id="post-Java线程的基本方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">Java线程的基本方法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-12-13T13:29:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单总结线程的一些方法。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">零碎知识点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/13/Java%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1060,7 +1034,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,7 +1050,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1088,11 +1062,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

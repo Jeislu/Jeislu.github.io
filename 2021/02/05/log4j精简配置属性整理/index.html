@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Java的引用等级 | Jeislu</title>
+  <title>log4j精简配置属性整理 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在牛客做题的时候，有时候会遇到强引用、弱引用之类的题目，没听过这一些的名词，但是我知道这应该是 GC 的内容，因为 GC 里面有一个引用计数，所以就想来整理一下这几个概念（初步学习，可能有出错的地方）">
+  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java的引用等级">
-<meta property="og:url" content="https://jeislu.github.io/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/index.html">
+<meta property="og:title" content="log4j精简配置属性整理">
+<meta property="og:url" content="https://jeislu.github.io/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言在牛客做题的时候，有时候会遇到强引用、弱引用之类的题目，没听过这一些的名词，但是我知道这应该是 GC 的内容，因为 GC 里面有一个引用计数，所以就想来整理一下这几个概念（初步学习，可能有出错的地方）">
+<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-01-04T06:41:10.000Z">
-<meta property="article:modified_time" content="2021-01-04T18:38:08.485Z">
+<meta property="article:published_time" content="2021-02-05T07:05:07.000Z">
+<meta property="article:modified_time" content="2021-02-05T07:05:07.126Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Java,编程,努力,学习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -154,31 +154,31 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-Java的引用等级" class="article article-type-post " itemscope itemprop="blogPost">
+    <i class="fa fa-thumb-tack"></i>
+    <font color=7D26CD>置顶</font>
+    <span class="post-meta-divider">|</span>
+  
+<article id="post-log4j精简配置属性整理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java的引用等级
+      log4j精简配置属性整理
     </h1>
   
 
         
-        <a href="/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/" class="archive-article-date">
-  	<time datetime="2021-01-04T06:41:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-04</time>
+        <a href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-05T07:05:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在牛客做题的时候，有时候会遇到强引用、弱引用之类的题目，没听过这一些的名词，但是我知道这应该是 GC 的内容，因为 GC 里面有一个引用计数，所以就想来整理一下这几个概念（初步学习，可能有出错的地方）</p>
-<a id="more"></a>
-
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Java的引用包括四种类型，由高到低分别是<strong>强引用</strong>、<strong>软引用</strong>、<strong>弱引用</strong>和<strong>虚引用</strong>，主要是为了更好的管理对象的生命周期而设置的。</p>
-
+        
       
 
       
@@ -206,18 +206,12 @@
     </div>
     <div class="article-info article-info-index">
       
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
+      
       
 
       
@@ -268,7 +262,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,18 +276,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/03/Mybatis%E6%B5%81%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mybatis流程
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/12/31/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">力扣周赛</div>
+    <a href="/2021/02/05/Mybatis%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mybatis常用配置属性整理</div>
       <i class="icon-circle-right"></i>
     </a>
   
