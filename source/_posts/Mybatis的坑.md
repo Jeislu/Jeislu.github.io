@@ -10,6 +10,8 @@ tags:
 
 我会把我在学习Mybatis中遇到的所有坑都写到这里面
 
+<!-- more -->
+
 ## 1. Maven的资源过滤
 
 ​	除了resource文件夹下的资源文件，Maven默认是不将其输出到target文件夹的，所以为了让 com.jeislu.dao 中mapper配置xml可以输入到target，需要设置Maven的pom.xml，具体设置和注意事项见代码
@@ -86,3 +88,7 @@ tags:
 ## 6. 增删改需要提交事务
 
 ​	如题，增删改需要提交事务，否则不生效
+
+## 7.Mybatis配置顺序问题
+
+​	properties标签需要放在配置XML的最上面，配置XML有顺序要求

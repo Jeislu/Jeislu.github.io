@@ -59,7 +59,7 @@ tags:
 
 ​	构建Mybatis使用的工具，主要是使用其工厂类SqlSessionFactory来生产SqlSession
 
-​	使用XML的形式构建工厂类
+​	使用XML的形式构建工厂类的生成器
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -101,6 +101,7 @@ public class MybatisUtils {
     private static SqlSessionFactory sqlSessionFactory;
     // 构建工厂类
     static {
+        // 配置文件的路径
         String resource = "org/mybatis/example/mybatis-config.xml";
         InputStream inputStream = null;
         try {
@@ -165,3 +166,59 @@ public class User {
 }
 ```
 
+### 数据库操作接口
+
+​	根据需求编写数据库操作接口，然后配置对应 xml 资源文件（接口和配置最好同名），使用< select >< update > 等标签来实现方法，标签的 id 对应方法名。
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace绑定一个Mapper接口 -->
+<mapper namespace="com.jeislu.dao.UserMapper">
+    <!-- 记得 resultType 写全名称 -->
+    <!-- 查询全部用户 -->
+    <select id="getUserList" resultType="user">
+        select * from mybatis.user
+    </select>
+
+    <!-- 查询特定用户 -->
+    <select id="getUser" parameterType="int" resultType="user">
+        select * from user where id = #{id}
+    </select>
+
+    <!-- 增加特定用户 -->
+    <insert id="addUser" parameterType="user">
+        insert into user(id,name,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+
+    <!-- 删除特定用户 -->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+
+    <!-- 修改特定用户 -->
+    <update id="updateUser" parameterType="user">
+        update user set name=#{name}, pwd=#{pwd} where id = #{id}
+    </update>
+
+    <!-- 使用map修改数据 -->
+    <update id="updateUser2" parameterType="map">
+        update user set pwd = #{password} where id = #{myid}
+    </update>
+
+</mapper>
+```
+
+​	在 mybatis 的配置XML中注册该Mapper
+
+```xml
+<mappers>
+        <mapper resource="com/jeislu/dao/UserMapper.xml"/>
+</mappers>
+```
+
+### 测试类
+
+​	在测试类中测试相应功能是否可以使用
