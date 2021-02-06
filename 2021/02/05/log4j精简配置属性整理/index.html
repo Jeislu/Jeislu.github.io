@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>log4j精简配置属性整理 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+  <meta name="description" content="前言​    保存 log4j 一些常用的配置 正文123456789101112131415161718192021222324# 将等级为 DEBUG 的日志信息输出到 console 和 file 这两个目的地， console 和 file 的定义在下面的代码log4j.rootLogger&#x3D;DEBUG,console,file# 控制台输出的相关设置log4j.appender.cons">
 <meta property="og:type" content="article">
 <meta property="og:title" content="log4j精简配置属性整理">
 <meta property="og:url" content="https://jeislu.github.io/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言​    保存 log4j 一些常用的配置 正文123456789101112131415161718192021222324# 将等级为 DEBUG 的日志信息输出到 console 和 file 这两个目的地， console 和 file 的定义在下面的代码log4j.rootLogger&#x3D;DEBUG,console,file# 控制台输出的相关设置log4j.appender.cons">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-05T07:05:07.000Z">
-<meta property="article:modified_time" content="2021-02-05T07:05:07.126Z">
+<meta property="article:modified_time" content="2021-02-06T00:52:31.590Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="日志">
+<meta property="article:tag" content="log4j">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -178,7 +179,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    保存 log4j 一些常用的配置</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将等级为 DEBUG 的日志信息输出到 console 和 file 这两个目的地， console 和 file 的定义在下面的代码</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span>=<span class="string">DEBUG,console,file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 控制台输出的相关设置</span></span><br><span class="line"><span class="meta">log4j.appender.console</span> = <span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="meta">log4j.appender.console.Target</span> = <span class="string">System.out</span></span><br><span class="line"><span class="meta">log4j.appender.console.Threshold</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout.ConversionPattern</span> = <span class="string">[%c]-%m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件输出的相关设置</span></span><br><span class="line"><span class="meta">log4j.appender.file</span> = <span class="string">org.apache.log4j.RollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.file.File</span> = <span class="string">./log/jeislu.log</span></span><br><span class="line"><span class="meta">log4j.appender.file.MaxFileSize</span> = <span class="string">10mb</span></span><br><span class="line"><span class="meta">log4j.appender.file.Threshold</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.appender.file.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.file.layout.ConversionPattern</span> = <span class="string">[%p][%d&#123;yy-MM-dd&#125;][%c]%m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志输出级别</span></span><br><span class="line"><span class="meta">log4j.logger.org.mybatis</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.Statement</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.ResultSet</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.PrepareStatement</span> = <span class="string">DEBUG</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -212,6 +214,21 @@
         </div>
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日志</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -404,15 +421,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -428,11 +449,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">日志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
               </li>
              
               <li class="article-tag-list-item">
