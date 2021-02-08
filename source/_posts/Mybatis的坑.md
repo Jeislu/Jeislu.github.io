@@ -92,3 +92,13 @@ tags:
 ## 7.Mybatis配置顺序问题
 
 ​	properties标签需要放在配置XML的最上面，配置XML有顺序要求
+
+## 8.Mapper 里面的 Class 和 Resource 的区别
+
+- Class：会绑定配置的接口和 XML 文件
+- Resource：只绑定配置的 XML 文件
+
+因此，class可能会导致一个问题，方法已经加了注释，又在 XML 中编写了对应的 SQL 语句标签，出现这种情况，会报以下错误
+
+> Error parsing SQL Mapper Configuration. Cause: java.lang.IllegalArgumentException: Mapped Statements collection already contains value for com.jeislu.dao.UserMapper.getUserList. please check com/jeislu/dao/UserMapper.xml and com/jeislu/dao/UserMapper.java (best guess)
+
