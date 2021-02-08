@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言我会把我在学习Mybatis中遇到的所有坑都写到这里面">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-04T08:07:52.000Z">
-<meta property="article:modified_time" content="2021-02-04T16:15:57.671Z">
+<meta property="article:modified_time" content="2021-02-07T15:47:57.939Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="Mybatis">
 <meta name="twitter:card" content="summary">
@@ -209,6 +209,14 @@
 <p>​    解决方法就是，把IDEA中所有有关 UTF 和 GBK 的设置全部设置成为 UTF-8 ，由于改了很多个，具体是哪个的设置我也不清楚，不过里面有一个是 xml 不使用 utf-8 的设置，我把√去掉了，可能是这个（也可能不是）反正把和字符集相关的都设置成为 UTF- 8 就可以了</p>
 <h2 id="6-增删改需要提交事务"><a href="#6-增删改需要提交事务" class="headerlink" title="6. 增删改需要提交事务"></a>6. 增删改需要提交事务</h2><p>​    如题，增删改需要提交事务，否则不生效</p>
 <h2 id="7-Mybatis配置顺序问题"><a href="#7-Mybatis配置顺序问题" class="headerlink" title="7.Mybatis配置顺序问题"></a>7.Mybatis配置顺序问题</h2><p>​    properties标签需要放在配置XML的最上面，配置XML有顺序要求</p>
+<h2 id="8-Mapper-里面的-Class-和-Resource-的区别"><a href="#8-Mapper-里面的-Class-和-Resource-的区别" class="headerlink" title="8.Mapper 里面的 Class 和 Resource 的区别"></a>8.Mapper 里面的 Class 和 Resource 的区别</h2><ul>
+<li>Class：会绑定配置的接口和 XML 文件</li>
+<li>Resource：只绑定配置的 XML 文件</li>
+</ul>
+<p>因此，class可能会导致一个问题，方法已经加了注释，又在 XML 中编写了对应的 SQL 语句标签，出现这种情况，会报以下错误</p>
+<blockquote>
+<p>Error parsing SQL Mapper Configuration. Cause: java.lang.IllegalArgumentException: Mapped Statements collection already contains value for com.jeislu.dao.UserMapper.getUserList. please check com/jeislu/dao/UserMapper.xml and com/jeislu/dao/UserMapper.java (best guess)</p>
+</blockquote>
 
       
 
@@ -467,10 +475,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -480,6 +484,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -499,11 +511,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
