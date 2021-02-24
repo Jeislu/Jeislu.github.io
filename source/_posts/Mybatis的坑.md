@@ -1,6 +1,5 @@
 ---
 title: Mybatis的坑
-top: 1
 date: 2021-02-04 16:07:52
 tags:
  - Mybatis

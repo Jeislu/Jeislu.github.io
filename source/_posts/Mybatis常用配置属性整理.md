@@ -1,6 +1,5 @@
 ---
 title: Mybatis常用配置属性整理
-top: 1
 date: 2021-02-05 15:04:40
 tags:
  - Mybatis

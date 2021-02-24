@@ -1,6 +1,5 @@
 ---
 title: Lombok的简单介绍和使用
-top: 1
 date: 2021-02-07 23:53:38
 tags:
  - Java
