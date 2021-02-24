@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Tag: Lombok | Jeislu</title>
+  <title>Http协议中的加密解密 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu">
-<meta property="og:url" content="https://jeislu.github.io/tags/Lombok/index.html">
+  <meta name="description" content="前言​    在学习 Http 协议的过程中，遇到一个我个人觉得很关键的问题，就是数据的加密解密，然后比较糊涂的先学了一点。懂了一些概念上的东西，先记录下来。 ​    （注：本文只涉及一些基础概念上的东西，不涉及详细的算法）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http协议中的加密解密">
+<meta property="og:url" content="https://jeislu.github.io/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言​    在学习 Http 协议的过程中，遇到一个我个人觉得很关键的问题，就是数据的加密解密，然后比较糊涂的先学了一点。懂了一些概念上的东西，先记录下来。 ​    （注：本文只涉及一些基础概念上的东西，不涉及详细的算法）">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-23T13:33:05.000Z">
+<meta property="article:modified_time" content="2021-02-23T14:52:02.479Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="Http">
+<meta property="article:tag" content="加密">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -152,63 +155,207 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Http协议中的加密解密" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/07/Lombok%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-02-07T15:53:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/07/Lombok%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">Lombok的简单介绍和使用</a>
+    <h1 class="article-title" itemprop="name">
+      Http协议中的加密解密
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" class="archive-article-date">
+  	<time datetime="2021-02-23T13:33:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在学习 Http 协议的过程中，遇到一个我个人觉得很关键的问题，就是数据的加密解密，然后比较糊涂的先学了一点。懂了一些概念上的东西，先记录下来。</p>
+<p>​    （注：本文只涉及一些基础概念上的东西，不涉及详细的算法）</p>
+<a id="more"></a>
+
+<h2 id="对称加密算法"><a href="#对称加密算法" class="headerlink" title="对称加密算法"></a>对称加密算法</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>​    一个密钥可以对数据进行加密，也可以对数据进行解密。例如将数据（二进制）的所有位数01颠倒，这样就得到了加密数据，然后接收到加密数据的一方，只需要再颠倒回来，即可以得到原始数据。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>​    对称加密算法通常比较简单，所以计算量小、加密速度快、加密效率高。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>​    缺点也很明显，数据传输前，双方必须先商定好加密算法，然后才能进行加密解密。</p>
+<p>​    而在互联网上，无法做到提前和对方商量好使用的加密算法，通过网络来“交流”是不行的，因为网络上的数据都是公开的，这不安全。别人可以抓取你和网站的交流来获取你们的加密算法以及密文，来获得数据，甚至可以拦截你的数据，然后修改你的数据，再发送给服务器，然后再把发送给你的数据修改后再发送给你（说远了，本文只说对称加密和非对称加密在Http协议中的使用）。</p>
+<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>​    非对称加密需要两个密钥（加密算法），一个是<strong>公有密钥</strong>，一个是<strong>私有密钥</strong>。公开密钥与私有密钥是<strong>一对</strong>，如果使用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果使用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密。因为加密和解密使用的是两个不同的密钥，所以这种算法叫作非对称加密算法</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>​    因为非加密算法在 http 协议（应该说 https ）中的使用较为复杂，所以这里大致介绍一下。</p>
+<p>​    首先，在 tcp 三次握手之后，再加上一步 SSL 四次握手。</p>
+<ul>
+<li>客户端首先向服务器发起加密通信的请求，其中会附带上支持非对称加密方式</li>
+<li>服务器会返回服务器支持的非对称加密方式并附带上公钥</li>
+<li>客户端将双方后面使用的对称加密算法使用该公钥进行加密，然后发送给服务器</li>
+<li>服务器告知客户端，之后的通信将使用双方协定好的对称加密进行通信</li>
+</ul>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>​    因为公钥只能用私钥解开，而私钥只有服务器自己有，因此使用什么加密算法别人是无法获知的。这样就解决了上面需要事先商定使用什么对称加密算法的问题。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>​    在第二步的时候，如果服务器下发的公钥被拦截然后替换了呢，然后这个拦截人作为你和服务器通信的中间人，你之后和服务器的通信就全部在中间人的掌控之中了。</p>
+<p>​    为了解决这个问题，引入了 CA 机构。</p>
+<h3 id="CA-机构"><a href="#CA-机构" class="headerlink" title="CA 机构"></a>CA 机构</h3><p>​    CA是证书的签发机构，它是公钥基础设施（Public Key Infrastructure，PKI）的核心。CA是负责签发证书、认证证书、管理已颁发证书的机关。</p>
+<p>​    CA 拥有一个证书（内含公钥和私钥）。网上的公众用户通过验证 CA 的签字从而信任 CA ，任何人都可以得到 CA 的证书（含公钥），用以验证它所签发的证书。</p>
+<p>​    如果用户想得到一份属于自己的证书，他应先向 CA 提出申请。在 CA 判明申请者的身份后，便为他分配一个公钥，并且 CA 将该公钥与申请者的身份信息绑在一起，并为之签字后，便形成证书发给申请者。</p>
+<p>​    如果一个用户想鉴别另一个证书的真伪，他就用 CA 的公钥对那个证书上的签字进行验证，一旦验证通过，该证书就被认为是有效的。证书实际是由证书签证机关（CA）签发的对用户的公钥的认证。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>​    只讲 CA 机构如何解决 SSL 第二次握手中的拦截问题，通俗易懂的来说，就是再给数据套上一层壳，防止有中间人拦截然后替换公钥。</p>
+<p>​    网站向 CA 机构提交必要消息后，CA 机构会给网站颁发一个证书，这个证书就可以替代第二步里面的公钥传递。中间人可以使用使用CA的公钥（浏览器内置）来获取内容，但是这个内容是第二步的服务器公钥，获取了也没有，而他没有CA的私钥，无法替换内容（替换了无法加密）</p>
+<p>​    这样就解决了第二步的问题</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    以上只是一点点知识，不敢写太多，只写一些我觉得没多大问题的，因为了解还不是特别深，如果学更深了，会再写更深层次，继续努力吧。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Http</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lombok</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/02/23/Linux%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Linux的常用命令
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2021/02/08/Mybatis%E7%9A%84%E6%98%A0%E5%B0%84%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mybatis的映射问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -231,9 +378,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
