@@ -6,20 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Spring学习 | Jeislu</title>
+  <title>Archives: 2021 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spring学习">
-<meta property="og:url" content="https://jeislu.github.io/2020/12/05/spring%E5%AD%A6%E4%B9%A0/index.html">
+  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jeislu">
+<meta property="og:url" content="https://jeislu.github.io/archives/2021/page/2/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理">
+<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-05T15:05:21.000Z">
-<meta property="article:modified_time" content="2021-02-24T06:45:21.795Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="笔记">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Java,编程,努力,学习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -155,238 +152,62 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-spring学习" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 class="article-title" itemprop="name">
-      Spring学习
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/" class="archive-article-date">
+  	<time datetime="2021-01-04T06:41:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/">Java的引用等级</a>
     </h1>
   
 
-        
-        <a href="/2020/12/05/spring%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-12-05T15:05:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前是未整理的版本，我会将我遇到的需要注意的地方写入这个文档，待全面学习完一个部分以后再整理</p>
-<a id="more"></a>
-
-<h2 id="Spring工程的创建"><a href="#Spring工程的创建" class="headerlink" title="Spring工程的创建"></a>Spring工程的创建</h2><h3 id="IDEA创建"><a href="#IDEA创建" class="headerlink" title="IDEA创建"></a>IDEA创建</h3><ol>
-<li>新建项目，选择<code>Spring Initializr</code>，更换源为<code>https://start.aliyun.com/</code>，next</li>
-<li>根据自己需求修改配置，不知道有什么用就不要改，next</li>
-<li>添加四个，分别是<code>Spring web</code>，<code>Lombok</code>，<code>Thymeleaf</code>，<code>Spring Boot DevTools</code></li>
-<li>完成</li>
-</ol>
-<h3 id="vscode创建"><a href="#vscode创建" class="headerlink" title="vscode创建"></a>vscode创建</h3><ol>
-<li>安装插件<code>Java Extension Pack</code>和<code>Spring Boot Extension Pack</code></li>
-<li>在设置中搜索Maven，打开Maven的settings.json，根据自己更改（以下为我的配置）</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;workbench.iconTheme&quot;</span>: <span class="string">&quot;material-icon-theme&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.startupEditor&quot;</span>: <span class="string">&quot;newUntitledFile&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.errors.incompleteClasspath.severity&quot;</span>: <span class="string">&quot;ignore&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.colorTheme&quot;</span>: <span class="string">&quot;Atom One Dark&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.home&quot;</span>:<span class="string">&quot;C:/Program Files/Java/jdk-15&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;java.configuration.maven.userSettings&quot;</span>: <span class="string">&quot;D:\\Study\\Maven\\conf\\settings.xml&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.executable.path&quot;</span>: <span class="string">&quot;D:\\Study\\Maven\\bin\\mvn.cmd&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.terminal.useJavaHome&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;maven.terminal.customEnv&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;environmentVariable&quot;</span>: <span class="string">&quot;JAVA_HOME&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;C:/Program Files/Java/jdk-15&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;java.configuration.checkProjectSettingsExclusions&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.suggestSelection&quot;</span>: <span class="string">&quot;first&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vsintellicode.modify.editor.suggestSelection&quot;</span>: <span class="string">&quot;automaticallyOverrodeDefaultValue&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;spring.initializr.serviceUrl&quot;</span>: <span class="string">&quot;https://start.aliyun.com/&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;maven.excludedFolders&quot;</span>: [</span><br><span class="line">    </span><br><span class="line">        <span class="string">&quot;**/.*&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/node_modules&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/target&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/bin&quot;</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>按<code>Ctrl + shift + p</code>搜索<code>Spring</code>，选择出现的<code>Spring Initializr: Create a Maven Project...</code>，接下来选择版本（选最新的就可以了），语言选择Java，然后是包名，项目名，最后添加四个包，和IDEA一样。</li>
-<li>完成</li>
-</ol>
-<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><ol>
-<li>官方源<code>https://start.spring.io</code>如果出现无法访问的情况，替换源为<code>https://start.aliyun.com/</code>，vscode创建Spring项目报错<code>Fail to create a project. Error: Failed to fetch metadata.</code>，一样是这个问题，更新Spring 初始化插件里面的源即可。</li>
-</ol>
-<h2 id="Taco实践"><a href="#Taco实践" class="headerlink" title="Taco实践"></a>Taco实践</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li>刚创建完design视图后，无法运行项目<ul>
-<li>原因：DesignTacoController里面的<code>model.addAttribute(&quot;design&quot;,new Taco())</code>语句报错，没有Taco类，创建空类也无法打开视图</li>
-<li>解决方法：按书本后面的内容新建Taco类即可</li>
-</ul>
-</li>
-</ul>
-<h2 id="Spring相关注解"><a href="#Spring相关注解" class="headerlink" title="Spring相关注解"></a>Spring相关注解</h2><ul>
-<li><code>@SpringBootApplication</code>：组合注解，包括<code>@SpringBootConfiguration</code>，<code>@EnableAntoConfigration</code> 和<code>@ComponentScan</code></li>
-<li><code>@SpringBootConfiguration</code>：将该类声明为配置类，这个注解实际上是<code>@Configuration</code>注解的特殊形式</li>
-<li><code>@EnableAntoConfigration</code>：启动Spring Boot的自动配置，告诉Spring Boot自动配置它认为我们会用到的组件</li>
-<li><code>@ComponentScan</code>：启用组件扫描，Spring会发现并将它组成为Spring应用上下文中的组件</li>
-<li><code>@RunWith(xxx.class)</code>：提供一个测试运行期(runner)来知道JUnit如何运行测试</li>
-<li><code>@SpringBootTest</code>：告诉JUnit在启动测试的时候要添加上Spring Boot的功能</li>
-<li><code>@Controller</code>：让组件扫描将这个这个类识别为一个组件，创建一个对应的实例作为Spring应用上下文中的bean</li>
-<li><code>@WebMvcTest</code>：是SpringBoot提供的一个特殊注解，它会让这个测试在Spring MVC应用的上下文中执行</li>
-<li><code>@Data</code>：lombok注解，告诉Lombok生成所有缺失的方法（Get，Set之类），同时还会生成所有已final属性作为参数的构造器</li>
-<li><code>@SLF4J</code>：自动生成一个SLF4J(Simple Logging Facade for Java) Logger</li>
-<li><code>@RequestMapping</code>：指定该处理器所处理的请求类型</li>
-<li><code>@GetMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Get请求时，调用此方法</li>
-<li><code>@PostMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Post请求时，调用此方法</li>
-<li><code>@DeleteMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Delete请求时，调用此方法</li>
-<li><code>@PutMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Put请求时，调用此方法</li>
-<li><code>@PatchMapping</code>：结合类级别的@RequestMapping，指明当接收到类 + 自身路径级别的Patch请求时，调用此方法</li>
-<li><code>@NotNull</code>：限定字段不能为空，message传递警告文字</li>
-<li><code>@Size</code>：限定字段长度</li>
-<li><code>@CreditCardNumber</code>：是否为合法的信用卡号</li>
-<li><code>@Pattern</code>：是否满足正则表达式</li>
-<li><code>@Digits</code>：限定数字位数</li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-<li><code>@</code></li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2020/12/05/spring%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/12/05/JVM%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JVM学习
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/12/05/MySQL%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MySQL学习</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2021/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -410,8 +231,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
@@ -488,11 +309,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,15 +321,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +341,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
@@ -532,15 +353,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
