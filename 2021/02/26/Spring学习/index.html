@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>Spring学习 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言​    Spring 的学习总记录。 ​    文章中可能会出现错误的内容，在一边写一边实践的时候，有些东西和我想的不太一样，因此我不能肯定前面的一定是对的，不过大体上是对的应该没问题。 1 Spring​    Spring框架是针对 bean 的生命周期进行管理的轻量级容器，是一个轻量级的控制反转（IOC）和 面向切面编程（AOP）的框架。 2 控制反转（IOC）​    控制反转，其实">
+  <meta name="description" content="前言​    Spring 的学习总记录。 ​    文章中可能会出现错误的内容，在一边写一边实践的时候，有些东西和我想的不太一样，因此我不能肯定前面的一定是对的，不过大体上是对的应该没问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring学习">
 <meta property="og:url" content="https://jeislu.github.io/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言​    Spring 的学习总记录。 ​    文章中可能会出现错误的内容，在一边写一边实践的时候，有些东西和我想的不太一样，因此我不能肯定前面的一定是对的，不过大体上是对的应该没问题。 1 Spring​    Spring框架是针对 bean 的生命周期进行管理的轻量级容器，是一个轻量级的控制反转（IOC）和 面向切面编程（AOP）的框架。 2 控制反转（IOC）​    控制反转，其实">
+<meta property="og:description" content="前言​    Spring 的学习总记录。 ​    文章中可能会出现错误的内容，在一边写一边实践的时候，有些东西和我想的不太一样，因此我不能肯定前面的一定是对的，不过大体上是对的应该没问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jeislu.github.io/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/1.png">
 <meta property="og:image" content="https://jeislu.github.io/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/2.png">
 <meta property="og:image" content="https://jeislu.github.io/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/3.png">
 <meta property="og:image" content="https://jeislu.github.io/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/4.png">
 <meta property="article:published_time" content="2021-02-26T07:07:29.000Z">
-<meta property="article:modified_time" content="2021-02-27T07:37:17.907Z">
+<meta property="article:modified_time" content="2021-02-27T07:42:36.736Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -181,6 +181,8 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Spring 的学习总记录。</p>
 <p>​    文章中可能会出现错误的内容，在一边写一边实践的时候，有些东西和我想的不太一样，因此我不能肯定前面的一定是对的，不过大体上是对的应该没问题。</p>
+<a id="more"></a>
+
 <h2 id="1-Spring"><a href="#1-Spring" class="headerlink" title="1 Spring"></a>1 Spring</h2><p>​    Spring框架是针对 <strong>bean 的生命周期</strong>进行管理的轻量级容器，是一个轻量级的<strong>控制反转（IOC）</strong>和 <strong>面向切面编程（AOP）</strong>的框架。</p>
 <h2 id="2-控制反转（IOC）"><a href="#2-控制反转（IOC）" class="headerlink" title="2 控制反转（IOC）"></a>2 控制反转（IOC）</h2><p>​    控制反转，其实主要理解什么被反转就可以了。</p>
 <p>​    正常的设计中，各个对象之间相互协调，相互合作来实现业务逻辑，如下图所示</p>
@@ -409,7 +411,8 @@
 
 
 
-<h2 id="Spring注意事项以及问题"><a href="#Spring注意事项以及问题" class="headerlink" title="Spring注意事项以及问题"></a>Spring注意事项以及问题</h2><h3 id="1-Spring-的大致流程"><a href="#1-Spring-的大致流程" class="headerlink" title=".1 Spring 的大致流程"></a>.1 Spring 的大致流程</h3><h3 id="2-配置文件头的-https-的问题"><a href="#2-配置文件头的-https-的问题" class="headerlink" title=".2 配置文件头的 https 的问题"></a>.2 配置文件头的 https 的问题</h3><p>​    在使用注解开发的时候，程序的运行效率大大降低，每一次运行都要好久，我一开始以为是注解开发的效率较低，而且程序时不时还运行出问题，报错如下：</p>
+<h2 id="Spring注意事项以及问题"><a href="#Spring注意事项以及问题" class="headerlink" title="Spring注意事项以及问题"></a>Spring注意事项以及问题</h2><h3 id="1-Spring-的大致流程"><a href="#1-Spring-的大致流程" class="headerlink" title=".1 Spring 的大致流程"></a>.1 Spring 的大致流程</h3><p><a href="https://jeislu.gitee.io/2021/02/26/Spring%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/" target="_blank">点这里</a></p>
+<h3 id="2-配置文件头的-https-的问题"><a href="#2-配置文件头的-https-的问题" class="headerlink" title=".2 配置文件头的 https 的问题"></a>.2 配置文件头的 https 的问题</h3><p>​    在使用注解开发的时候，程序的运行效率大大降低，每一次运行都要好久，我一开始以为是注解开发的效率较低，而且程序时不时还运行出问题，报错如下：</p>
 <blockquote>
 <p>org.xml.sax.SAXParseException; lineNumber: 11; columnNumber: 61; schema_reference.4: 无法读取方案文档 ‘<a target="_blank" rel="noopener" href="https://www.springframework.org/schema/context/spring-context.xsd&#39;">https://www.springframework.org/schema/context/spring-context.xsd&#39;</a>, 原因为 1) 无法找到文档; 2) 无法读取文档; 3) 文档的根元素不是 <a href="xsd:schema">xsd:schema</a>。</p>
 </blockquote>
