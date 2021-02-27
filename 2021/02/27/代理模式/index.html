@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Tag: 设置 | Jeislu</title>
+  <title>代理模式 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu">
-<meta property="og:url" content="https://jeislu.github.io/tags/%E8%AE%BE%E7%BD%AE/index.html">
+  <meta name="description" content="前言​    代理模式是设计模式中的一种，在学习 Spring 的时候，进一步了解了这个模式，所以记录一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代理模式">
+<meta property="og:url" content="https://jeislu.github.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言​    代理模式是设计模式中的一种，在学习 Spring 的时候，进一步了解了这个模式，所以记录一下">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jeislu.github.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/1.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/2.png">
+<meta property="article:published_time" content="2021-02-27T07:46:50.000Z">
+<meta property="article:modified_time" content="2021-02-27T09:18:10.755Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jeislu.github.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -152,67 +157,233 @@
           </div>
           <div id="js-content" class="content-ll">
             
+    <i class="fa fa-thumb-tack"></i>
+    <font color=7D26CD>置顶</font>
+    <span class="post-meta-divider">|</span>
   
+<article id="post-代理模式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/27/%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E8%BF%9B%E9%98%B6%E5%A4%84%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-12-27T09:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/27/%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E8%BF%9B%E9%98%B6%E5%A4%84%E7%90%86/">博客的一些小进阶处理</a>
+    <h1 class="article-title" itemprop="name">
+      代理模式
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2021-02-27T07:46:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    代理模式是设计模式中的一种，在学习 Spring 的时候，进一步了解了这个模式，所以记录一下</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    代理模式，言简意赅的说，就是保持原有东西不变的情况下，“ 委托 ” 其他人来做一些事，举个简单的例子</p>
+<p>​    一般来说，房东有房子，住房的人需要租房子，那么房东把房子租给租房的人就可以了。</p>
+<p>​    但是，房东很懒，他只想提供房子，不想和住房的人打交道，很麻烦，这时候他就把他的房子都交给中介去打理，中介再把钱给他就行了。</p>
+<p>​    这时候房东就只负责提供房子，看房子，签合同的工作就交给了中介去完成，这就是一种代理模式。</p>
+<p><img src="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/1.png" alt="代理例子"></p>
+<p>​    使用代理模式的优点就是，在不改变原有代码的情况下，增加了功能，而且起到了隔离作用。</p>
+<p>​    代理模式有很多实现方式，根据<strong>代理创建的时期</strong>来区分的话，有两种，分别是<strong>静态代理</strong>和<strong>动态代理</strong>。</p>
+<h2 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h2><p>​    所谓静态代理，就是在运行之前，代理类就已经存在。</p>
+<h3 id="静态代理的流程"><a href="#静态代理的流程" class="headerlink" title="静态代理的流程"></a>静态代理的流程</h3><p>​    以上面的例子为模板，</p>
+<p>​    首先创建一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FangDong</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rentHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    接着，创建一个接口实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongImpl</span> <span class="keyword">implements</span> <span class="title">FangDong</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rentHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;出租房子！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    接着创建一个代理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongDaiLi</span>  <span class="keyword">implements</span> <span class="title">FangDong</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FangDong fd;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FangDongDaiLi</span><span class="params">(FangDong fd)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fd = fd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rentHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;参观房子&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;签署合同&quot;</span>);</span><br><span class="line">        fd.rentHouse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    以后租房子的人直接和代理打交道即可，看测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongtest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FangDong wang = <span class="keyword">new</span> FangDongImpl();</span><br><span class="line">        FangDongDaiLi zhang = <span class="keyword">new</span> FangDongDaiLi(wang);</span><br><span class="line"></span><br><span class="line">        zhang.rentHouse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">参观房子</span><br><span class="line">签署合同</span><br><span class="line">出租房子！</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态代理的缺点"><a href="#静态代理的缺点" class="headerlink" title="静态代理的缺点"></a>静态代理的缺点</h3><p>​    静态代理的缺点也很明显，要为每一个被代理的对象创建一个代理类，这样子引起了代码量增加，而且很多时候代理类的功能都是类似的（这个后面说），也就是存在很多重复代码。因此，引入了动态代理。</p>
+<h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p>​    动态代理是利用 Java  的反射机制来实现的，在程序运行的时候，动态的进行代理。</p>
+<p>​    动态代理有很多种实现方式，这里使用的是基于接口的JDK动态代理（我目前也只会这一种）</p>
+<h3 id="动态代理的流程"><a href="#动态代理的流程" class="headerlink" title="动态代理的流程"></a>动态代理的流程</h3><p>​    动态代理主要就是代理类的不同，让我们用动态代理的方法重新编写一下代理类。</p>
+<p>​    在编写动态代理类之前，需要先知道两个东西，分别是<code>Proxy</code> 和 <code>InvocationHandler</code>。</p>
+<p>​    Proxy 常用其静态方法 <code>newProxyInstance()</code>来生成一个代理对象，方法的原型如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>​    第一个是类加载器，可以通过 <code>this.getClass().getClassLoader()</code>来获得。</p>
+<p>​    第二个是被代理对象实现的接口，可以通过<code>代理类.getClass().getInterfaces()</code>来获取</p>
+<p>​    第三个是实现了 InvocationHandler 接口的对象，一般是 this。</p>
+<p>​    InvocationHandler 则主要是 invoke 方法，用于代理对象调用方法的时候，将其转发给 invoke 执行。</p>
+<p>​    好了，我们来编写一个动态代理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongHandle</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 被代理的接口（后续会改进）</span></span><br><span class="line">    FangDong fd;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FangDongHandle</span><span class="params">(FangDong fd)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fd = fd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 得到代理类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(<span class="keyword">this</span>.getClass().getClassLoader(),fd.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;参观房子&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;签署合同&quot;</span>);</span><br><span class="line">        Object result = method.invoke(fd, args);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    然后我们尝试在测试类中使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongtest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FangDongImpl wang = <span class="keyword">new</span> FangDongImpl();</span><br><span class="line">        <span class="comment">// 将 wang 设置为代理对象</span></span><br><span class="line">        FangDongHandle fangDongHandle = <span class="keyword">new</span> FangDongHandle(wang);</span><br><span class="line">        <span class="comment">// 获取代理对象</span></span><br><span class="line">        FangDong proxy = (FangDong) fangDongHandle.getProxy();</span><br><span class="line">        proxy.rentHouse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">参观房子</span><br><span class="line">签署合同</span><br><span class="line">出租房子！</span><br></pre></td></tr></table></figure>
+
+<h3 id="梳理一下动态代理"><a href="#梳理一下动态代理" class="headerlink" title="梳理一下动态代理"></a>梳理一下动态代理</h3><p>​    我们来梳理一下在执行动态代理的时候，究竟是怎么样的流程，也就如何获得通过代理对象来执行方法。</p>
+<p>​    在构建代理对象 Proxy 的时候，会传入三个值，类加载器，代理类实现的接口以及一个实现了 InvocationHandler 的类，其中第三个较为关键，也就是使用代理类执行方法的时候，会将方法转发给这个实现了 InvocationHandler 的 invoke（）方法进行执行。</p>
+<p>​    这个 invoke 方法的三个参数是 <code>Object proxy</code>, <code>Method method</code>, <code>Object[] args</code>，代理对象，执行的方法，执行方法的参数。只需要通过 <code>method.invoke()</code>来执行原方法，在这之前或者之后我们可以添加一个其他的操作。</p>
+<p><img src="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/2.png" alt="动态代理执行流程"></p>
+<h3 id="动态代理的进一步改进"><a href="#动态代理的进一步改进" class="headerlink" title="动态代理的进一步改进"></a>动态代理的进一步改进</h3><p>​    不需要规定是什么样的接口，因为动态代理可以在运行的时候确定，所以完全可以将其改进为一个工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FangDongHandle</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 被代理的接口（后续会改进）</span></span><br><span class="line">    Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FangDongHandle</span><span class="params">(Object target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 得到代理类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(<span class="keyword">this</span>.getClass().getClassLoader(),target.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行方法前的操作</span></span><br><span class="line">        Object result = method.invoke(target, args);</span><br><span class="line">        <span class="comment">// 执行方法后的操作</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    根据情况修改 invoke 即可</p>
+<h2 id="代理模式究竟在做什么（个人）"><a href="#代理模式究竟在做什么（个人）" class="headerlink" title="代理模式究竟在做什么（个人）"></a>代理模式究竟在做什么（个人）</h2><p>​    可以看出代理模式做的应该是一些针对大群体的共同增强操作。</p>
+<p>​    我个人觉得，代理模式应该是来做打印日志这一类的功能，实在是想不到还能干吗了，单独为某类方法执行某种增强？没有在实际项目中接触到，还是不怎么能理解。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">设置</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">其他</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/02/26/Spring%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -235,9 +406,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
