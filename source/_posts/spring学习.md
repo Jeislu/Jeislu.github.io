@@ -1,5 +1,9 @@
 ---
-title: Spring学习
+<dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.6</version>
+        </dependency>title: Spring学习
 date: 2021-02-26 15:07:29
 tags:
  - Spring
@@ -862,9 +866,322 @@ Student(name=赵奇)
 
 ​	在说这部分的内容之前，需要有代理模式相关的知识，如果没有代理模式的知识或者忘了，可以<a href = "https://jeislu.gitee.io/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">点这里</a>去看一下本人一些浅薄的见解。
 
+​	为什么需要代理模式的知识呢？因为 AOP 底层就是使用动态代理实现的，也就是说，其实它做的事情和动态代理是一样的，只不过 Spring 简化了它的使用步骤。
+
+### 8.1 AOP 的一些概念
+
+​	在介绍 AOP 的使用之前，先介绍一下 AOP 的一些概念，虽然我觉得太绕了，明明原来的东西很好理解的，硬要加一些奇奇怪怪的进去。
+
+- 横切关注点：需要添加到原有方法上的功能，如日志、安全、缓存、事务等等
+- 切面（Aspect）：横切关注点被模块化的特殊对象，即是一个类，例如在日志中就是 Log 类
+- 通知（Advice）：切面中被拿来使用的方法，例如 Log 类的输出方法
+- 目标（Target）：被增强（添加功能）的对象，例如向什么对象中添加日志功能
+- 代理（Proxy）：目标对象被增强（添加功能）后的对象
+- 切入点（PointCut）：添加功能的位置，例如在 loggin() 这个方法之前添加一个日志保存功能，loggin()这个方法就是切入点。
+
+### 8.2 AOP 的通知类型
+
+​	也就是添加的功能是在切入点的前还是后。
+
+|   通知类型   |        连接点        |
+| :----------: | :------------------: |
+|   前置通知   |        方法前        |
+|   后置通知   |        方法后        |
+|   环绕通知   |       方法前后       |
+| 异常抛出通知 |     方法抛出异常     |
+|   引介通知   | 类中增加新的方法属性 |
+
+### 8.3 AOP 的使用
+
+​	假设我们现在的业务要求是在执行方法前再打印一句话，某某方法被执行了。
+
+​	在使用 AOP 之前，还需要先导入一个依赖包，Maven 中的配置如下：
+
+```xml
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.6</version>
+</dependency>
+```
+
+​	然后在 Spring 配置文件头上开启支持（AOP 那几行就是）
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+</beans>
+```
+
+​	先准备要被增强的类，创建一个接口
+
+```java
+public interface StudentInterface {
+    public void study();
+
+    public void sleep();
+
+    public void eat();
+}
+```
+
+​	创建一个类实现接口
+
+```java
+@Data
+public class Student implements StudentInterface{
+    @Value("老王")
+    private String name;
+
+    public void study(){
+        System.out.println(name + "正在学习");
+    }
+
+    public void sleep(){
+        System.out.println(name + "正在睡觉");
+    }
+
+    public void eat(){
+        System.out.println(name + "正在吃饭");
+    }
+}
+```
+
+​	实现 AOP 有几种方式，这里先使用 Spring 的 API 来实现。
+
+​	首先创建要增强功能的类，如果添加的功能是在方法执行前执行的，就实现`MethodBeforeAdvice`这个接口，如果是在方法执行后执行的，就实现`AfterReturningAdvice`这个接口。
+
+​	**注意，别实现错了，有很多个名字类似的**
+
+​	实现该接口后，需要重写一个方法，和动态代理一样，会有三个参数，被执行的方法 method, 传递的参数 args, 执行的对象 target，after 的会多一个执行返回结果 returnValue 。
+
+```java
+public class BeforeMethod implements MethodBeforeAdvice {
+    public void before(Method method, Object[] args, Object target) throws Throwable {
+        System.out.println(method.getName() + "执行前");
+    }
+}
+```
+
+```java
+public class AfterMethod implements AfterReturningAdvice {
+    public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
+        System.out.println(method.getName() + "执行后");
+    }
+}
+```
+
+​	编写完增强方法（通知）以后，在配置文件中配置
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 开启 bean 扫描，会将对应包下面带类似 @Component 注解的类都注册为 bean -->
+    <context:component-scan base-package="com.jeislu.pojo"/>
+    <!--开启注解支持-->
+    <context:annotation-config/>
+
+    <bean id="student" class="com.jeislu.pojo.Student"/>
+    <bean id="beforeMethod" class="com.jeislu.log.BeforeMethod"/>
+    <bean id="afterMethod" class="com.jeislu.log.AfterMethod"/>
+	
+    <aop:config>
+        <!--定义切入点-->
+        <aop:pointcut id="allMethod" expression="execution(* com.jeislu.pojo.Student.*(..))"/>
+        <!-- 定义在切入点上应用的方法 -->
+        <aop:advisor advice-ref="afterMethod" pointcut-ref="allMethod"/>
+        <aop:advisor advice-ref="beforeMethod" pointcut-ref="allMethod"/>
+    </aop:config>
+</beans>
+```
+
+​	单独把 AOP 的注释拿出来说
+
+```xml
+<aop:config>
+    <!--定义切入点-->
+    <aop:pointcut id="allMethod" expression="execution(* com.jeislu.pojo.Student.*(..))"/>
+    <!-- 定义在切入点上应用的方法 -->
+    <aop:advisor advice-ref="afterMethod" pointcut-ref="allMethod"/>
+    <aop:advisor advice-ref="beforeMethod" pointcut-ref="allMethod"/>
+</aop:config>
+```
+
+​	在 `<aop : config>` 里面定义，`<aop:pointcut>` 定义切入点，在`<aop:advisor>` 定义应用到切入点的方法即可。
+
+​	在`<aop:pointcut>`里面定义切入点的时候，有个 expression 属性，后面跟了一个execution( 访问修饰符 全类名.xx方法 ( 某某参数 ) ）。
+
+​	也就是限定什么样的方法是可以被切入的，第一个限定什么样的访问修饰符，`*` 表示全部，第二个限定什么类的什么方法，方法的形参是什么样的，`com.jeislu.pojo.Student.*(..))`表示 Student 类下的 `*`（所有）方法，带`..`（任意）参数。
+
+​	然后我们在测试类中进行测试
+
+```java
+@Test
+public void studentTest(){
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    StudentInterface student = (StudentInterface) context.getBean("student");
+    student.study();
+}
+```
+
+​	输入如下
+
+```xml
+study执行前
+老王正在学习
+study执行后
+```
+
+​	这里有一个注意点，`StudentInterface student = (StudentInterface) context.getBean("student")`这一行不能写具体的实现类，要写接口，因为代理是的接口，是一群实现了该接口的类，不能用实体类。
+
+​	接下来演示一下自定义类来实现。
+
+​	自定义类的话，就不用继承什么了，随便写写
+
+```java
+public class MyLog {
+    public void before(){
+        System.out.println("方法执行前");
+    }
+
+    public void after(){
+        System.out.println("方法执行后");
+    }
+}
+```
+
+​	在配置文件中配置
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 开启 bean 扫描，会将对应包下面带类似 @Component 注解的类都注册为 bean -->
+    <context:component-scan base-package="com.jeislu.pojo"/>
+    <!--开启注解支持-->
+    <context:annotation-config/>
+
+    <bean id="student" class="com.jeislu.pojo.Student"/>
+    <bean id="beforeMethod" class="com.jeislu.log.BeforeMethod"/>
+    <bean id="afterMethod" class="com.jeislu.log.AfterMethod"/>
+    <bean id="myLog" class="com.jeislu.log.MyLog"/>
+
+    <aop:config>
+        <aop:aspect ref="myLog">
+            <aop:pointcut id="allMethod" expression="execution(* com.jeislu.pojo.Student.*(..))"/>
+            <aop:before method="before" pointcut-ref="allMethod"/>
+            <aop:after method="after" pointcut-ref="allMethod"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
+
+```
+
+​	`<aop:aspect ref="myLog">`配置切面（拥有增强方法的类），然后在该标签内配置嵌入点，使用`<aop:before>`配置哪个方法在切入点执行前执行，使用`<aop:after>`配置哪个方法在执行后执行，还有其他几个就不一一述说了，不过**环绕**的执行顺序需要注意一下。
+
+​	最后一种是使用注解进行开发，使用注解之前，需要开启另外的注解支持，这个标签有一个值 proxy-target-class，当这个值为 false 的时候（默认值），动态代理是使用 JDK 的，设置为 true 的话，动态代理是使用 cglib（动态代理实现的另一种方法）。
+
+```xml
+<!-- 开启注解支持 -->
+<aop:aspectj-autoproxy/>
+```
+
+​	然后在需要设置成切面的类加一个 @Aspect 即可，对需要设置成在切入点前执行的就添加一个 @Before 标签，不过标签里面需要传入一个值，来确定切入点，也就是 expression 表达式，在切入点后面执行的就添加一个 @After  标签
+
+```java
+@Aspect
+public class MyLog {
+    @Before("execution(* com.jeislu.pojo.Student.*(..))")
+    public void before(){
+        System.out.println("方法执行前");
+    }
+
+    @After("execution(* com.jeislu.pojo.Student.*(..))")
+    public void after(){
+        System.out.println("方法执行后");
+    }
+}
+```
+
+​	执行结果（测试类不变）
+
+```xml
+方法执行前
+老王正在睡觉
+方法执行后
+```
+
+​	到这里基本就把 Spring 入门知识说完了，不过后面还会再记录一个 Spring 和 Mybatis 整合的知识
+
+## 9 Spring 和 MyBatis 的整合
+
+​	整合 Spring 和 MyBatis 需要导入两个依赖包 `mybatis-spring`  和 `spring-jdbc`（记得先导入Mybatis 的包）
+
+```xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>2.0.5</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>5.2.12.RELEASE</version>
+</dependency>
+```
+
+​	首先需要创建一个数据源，不再通过 Mybatis 的配置文件 + Java 代码的实现，而是在 Spring 里面配置
+
+```xml
+
+```
+
 ​	
 
+​	然后使用 Spring 来构建一个 SqlSessionFactory 的 bean
+
+```xml
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  <property name="dataSource" ref="dataSource" />
+</bean>
+```
+
+
+
 ## Spring注意事项以及问题
+
+### Spring 最最最重要的东西
+
+​	记得配置 bean，不管是采用配置文件，Java，还是注解，都记得配置，有时候某些功能没有实现先看看是否配置了 bean
 
 ### .1 Spring 的大致流程
 
