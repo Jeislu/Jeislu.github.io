@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/10/25/ex3.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/10/hint_transpose.png">
 <meta property="article:published_time" content="2020-12-11T12:24:58.000Z">
-<meta property="article:modified_time" content="2021-02-25T12:31:08.534Z">
+<meta property="article:modified_time" content="2021-02-27T15:59:21.698Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -1561,6 +1561,72 @@
 <h3 id="思路-54"><a href="#思路-54" class="headerlink" title="思路"></a>思路</h3><p>​    模拟就可以了，竖着从数组拿值，横着放进新数组里面</p>
 <p>​    害我想了很久有没有更好的方法，想不出来，题解也是这种</p>
 <h3 id="代码-54"><a href="#代码-54" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[][] transpose(<span class="keyword">int</span>[][] matrix) &#123;</span><br><span class="line">    <span class="keyword">int</span> y = matrix.length;</span><br><span class="line">    <span class="keyword">int</span> x = matrix[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[][] ans = <span class="keyword">new</span> <span class="keyword">int</span>[x][y];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; y; j++)&#123;</span><br><span class="line">            ans[i][j] = matrix[j][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2021-2-26"><a href="#2021-2-26" class="headerlink" title="2021/2/26"></a>2021/2/26</h2><h3 id="题目-55"><a href="#题目-55" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-valid-words-for-each-puzzle/">1178. 猜字谜</a></p>
+<p>外国友人仿照中国字谜设计了一个英文版猜字谜小游戏，请你来猜猜看吧。</p>
+<p>字谜的迷面 <code>puzzle</code> 按字符串形式给出，如果一个单词 <code>word</code> 符合下面两个条件，那么它就可以算作谜底：</p>
+<ul>
+<li>单词 <code>word</code> 中包含谜面 <code>puzzle</code> 的第一个字母。</li>
+<li>单词 <code>word</code> 中的每一个字母都可以在谜面 <code>puzzle</code> 中找到。<br>例如，如果字谜的谜面是 “abcdefg”，那么可以作为谜底的单词有 “faced”, “cabbage”, 和 “baggage”；而 “beefed”（不含字母 “a”）以及 “based”（其中的 “s” 没有出现在谜面中）都不能作为谜底。</li>
+</ul>
+<p>返回一个答案数组 <code>answer</code>，数组中的每个元素 <code>answer[i]</code> 是在给出的单词列表 <code>words</code> 中可以作为字谜迷面 <code>puzzles[i]</code> 所对应的谜底的单词数目。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">words = [<span class="string">&quot;aaaa&quot;</span>,<span class="string">&quot;asas&quot;</span>,<span class="string">&quot;able&quot;</span>,<span class="string">&quot;ability&quot;</span>,<span class="string">&quot;actt&quot;</span>,<span class="string">&quot;actor&quot;</span>,<span class="string">&quot;access&quot;</span>], </span><br><span class="line">puzzles = [<span class="string">&quot;aboveyz&quot;</span>,<span class="string">&quot;abrodyz&quot;</span>,<span class="string">&quot;abslute&quot;</span>,<span class="string">&quot;absoryz&quot;</span>,<span class="string">&quot;actresz&quot;</span>,<span class="string">&quot;gaswxyz&quot;</span>]</span><br><span class="line">输出：[<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">0</span>]</span><br><span class="line">解释：</span><br><span class="line"><span class="number">1</span> 个单词可以作为 <span class="string">&quot;aboveyz&quot;</span> 的谜底 : <span class="string">&quot;aaaa&quot;</span> </span><br><span class="line"><span class="number">1</span> 个单词可以作为 <span class="string">&quot;abrodyz&quot;</span> 的谜底 : <span class="string">&quot;aaaa&quot;</span></span><br><span class="line"><span class="number">3</span> 个单词可以作为 <span class="string">&quot;abslute&quot;</span> 的谜底 : <span class="string">&quot;aaaa&quot;</span>, <span class="string">&quot;asas&quot;</span>, <span class="string">&quot;able&quot;</span></span><br><span class="line"><span class="number">2</span> 个单词可以作为 <span class="string">&quot;absoryz&quot;</span> 的谜底 : <span class="string">&quot;aaaa&quot;</span>, <span class="string">&quot;asas&quot;</span></span><br><span class="line"><span class="number">4</span> 个单词可以作为 <span class="string">&quot;actresz&quot;</span> 的谜底 : <span class="string">&quot;aaaa&quot;</span>, <span class="string">&quot;asas&quot;</span>, <span class="string">&quot;actt&quot;</span>, <span class="string">&quot;access&quot;</span></span><br><span class="line">没有单词可以作为 <span class="string">&quot;gaswxyz&quot;</span> 的谜底，因为列表中的单词都不含字母 <span class="string">&#x27;g&#x27;</span>。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= words.length &lt;= 10^5</code></li>
+<li><code>4 &lt;= words[i].length &lt;= 50</code></li>
+<li><code>1 &lt;= puzzles.length &lt;= 10^4</code></li>
+<li><code>puzzles[i].length == 7</code></li>
+<li><code>words[i][j]</code>, <code>puzzles[i][j]</code> 都是小写英文字母。</li>
+<li>每个 <code>puzzles[i]</code> 所包含的字符都不重复。</li>
+</ul>
+<h3 id="思路-55"><a href="#思路-55" class="headerlink" title="思路"></a>思路</h3><p>​    再等我看看</p>
+<h3 id="代码-55"><a href="#代码-55" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">findNumOfValidWords</span><span class="params">(String[] words, String[] puzzles)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; frequency = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            <span class="keyword">int</span> mask = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">                <span class="keyword">char</span> ch = word.charAt(i);</span><br><span class="line">                mask |= (<span class="number">1</span> &lt;&lt; (ch - <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (Integer.bitCount(mask) &lt;= <span class="number">7</span>) &#123;</span><br><span class="line">                frequency.put(mask, frequency.getOrDefault(mask, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String puzzle : puzzles) &#123;</span><br><span class="line">            <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> mask = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">7</span>; ++i) &#123;</span><br><span class="line">                mask |= (<span class="number">1</span> &lt;&lt; (puzzle.charAt(i) - <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> subset = mask;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> s = subset | (<span class="number">1</span> &lt;&lt; (puzzle.charAt(<span class="number">0</span>) - <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">                <span class="keyword">if</span> (frequency.containsKey(s)) &#123;</span><br><span class="line">                    total += frequency.get(s);</span><br><span class="line">                &#125;</span><br><span class="line">                subset = (subset - <span class="number">1</span>) &amp; mask;</span><br><span class="line">            &#125; <span class="keyword">while</span> (subset != mask);</span><br><span class="line">            </span><br><span class="line">            ans.add(total);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2021-2-27"><a href="#2021-2-27" class="headerlink" title="2021/2/27"></a>2021/2/27</h2><h3 id="题目-56"><a href="#题目-56" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/">395. 至少有 K 个重复字符的最长子串</a></p>
+<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> ，请你找出 <code>s</code> 中的最长子串， 要求该子串中的每一字符出现次数都不少于 <code>k</code> 。返回这一子串的长度。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="attr">s</span> = <span class="string">&quot;aaabb&quot;</span>, <span class="attr">k</span> = <span class="number">3</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：最长子串为 <span class="string">&quot;aaa&quot;</span> ，其中 &#x27;a&#x27; 重复了 <span class="number">3</span> 次。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;ababbc&quot;</span>, k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：最长子串为 <span class="string">&quot;ababb&quot;</span> ，其中 &#x27;a&#x27; 重复了 <span class="number">2</span> 次， &#x27;b&#x27; 重复了 <span class="number">3</span> 次。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 104</code></li>
+<li><code>s</code> 仅由小写英文字母组成</li>
+<li><code>1 &lt;= k &lt;= 105</code></li>
+</ul>
+<h3 id="思路-56"><a href="#思路-56" class="headerlink" title="思路"></a>思路</h3><p>​    第一种是使用分治 + 递归， 流程如下</p>
+<ul>
+<li>先计算当前字段每个字符的数量</li>
+<li>如果所有字符数量都大于 k ，则返回自身长度</li>
+<li>否则使用字符数量不大于等于 k 的字符进行分割，将分割出来的字段进行自调，返回不同字段中的最大值</li>
+</ul>
+<p>​    这样就可以求出答案了</p>
+<p>​    第二种是使用滑动窗口的方法，在窗口里面维护两个值，分别是，窗口里面字符小于 k 的字符数、窗口里面字符种类的数目，流程如下</p>
+<ul>
+<li>限定字符的种类 i ，i 从 1 递增至 26<ul>
+<li>向右滑动一个位置</li>
+<li>如果当前窗口内的字符种类小于 i，则继续滑动右窗口，直到等于 i</li>
+<li>如果当前窗口内的字符种类大于 i ，则滑动左窗口，直到等于 i</li>
+<li>如果当前窗口内不存在小于 k 的字符，则将当前长度和已经记录的长度进行比较，取最大值</li>
+</ul>
+</li>
+</ul>
+<h3 id="代码-56"><a href="#代码-56" class="headerlink" title="代码"></a>代码</h3><p>​    分治 + 递归</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSubstring</span><span class="params">(String s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">return</span> dfs(s, <span class="number">0</span>, n - <span class="number">1</span>, k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(String s, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] cnt = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="comment">// 遍历字符串，计算每个字符的个数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= r; i++) &#123;</span><br><span class="line">        cnt[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> split = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="comment">// 找到第一个小于 k 的字符</span></span><br><span class="line">        <span class="keyword">if</span> (cnt[i] &gt; <span class="number">0</span> &amp;&amp; cnt[i] &lt; k) &#123;</span><br><span class="line">            split = (<span class="keyword">char</span>) (i + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果字符的数量都大于 k，则返回字符串长度</span></span><br><span class="line">    <span class="keyword">if</span> (split == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> r - l + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = l;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 根据小于 k 的字符进行分割，将每一段进行计算</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= r) &#123;</span><br><span class="line">        <span class="comment">// 找到从当前位置开始，第一个不等于该字符的位置</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt;= r &amp;&amp; s.charAt(i) == split) &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后一段，防止越界</span></span><br><span class="line">        <span class="keyword">if</span> (i &gt; r) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> start = i;</span><br><span class="line">        <span class="comment">// 找到从当前位置开始，第一个等于该字符的额位置</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt;= r &amp;&amp; s.charAt(i) != split) &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 调用的时候，有边界记得 - 1，因为要么是和该字符相等，要么越界</span></span><br><span class="line">        <span class="keyword">int</span> length = dfs(s, start, i - <span class="number">1</span>, k);</span><br><span class="line">        <span class="comment">// 从每一段求得的值中拿最大的</span></span><br><span class="line">        ret = Math.max(ret, length);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    滑动窗口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSubstring</span><span class="params">(String s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">1</span>; t &lt;= <span class="number">26</span>; t++) &#123;</span><br><span class="line">            <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span>[] cnt = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">            <span class="comment">// 字符种类</span></span><br><span class="line">            <span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 小于 k 的字符数</span></span><br><span class="line">            <span class="keyword">int</span> less = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (r &lt; n) &#123;</span><br><span class="line">                <span class="comment">// 滑动右窗口</span></span><br><span class="line">                cnt[s.charAt(r) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                <span class="comment">// 新增一种字符</span></span><br><span class="line">                <span class="keyword">if</span> (cnt[s.charAt(r) - <span class="string">&#x27;a&#x27;</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">                    tot++;</span><br><span class="line">                    less++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 新增字符数刚好等于 k</span></span><br><span class="line">                <span class="keyword">if</span> (cnt[s.charAt(r) - <span class="string">&#x27;a&#x27;</span>] == k) &#123;</span><br><span class="line">                    less--;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span> (tot &gt; t) &#123;</span><br><span class="line">                    <span class="comment">// 滑动左窗口</span></span><br><span class="line">                    cnt[s.charAt(l) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                    <span class="comment">// 减少的字符刚好小于 k</span></span><br><span class="line">                    <span class="keyword">if</span> (cnt[s.charAt(l) - <span class="string">&#x27;a&#x27;</span>] == k - <span class="number">1</span>) &#123;</span><br><span class="line">                        less++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 减少一种字符</span></span><br><span class="line">                    <span class="keyword">if</span> (cnt[s.charAt(l) - <span class="string">&#x27;a&#x27;</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">                        tot--;</span><br><span class="line">                        less--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    l++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 不存在小于 k 的字符</span></span><br><span class="line">                <span class="keyword">if</span> (less == <span class="number">0</span>) &#123;</span><br><span class="line">                    ret = Math.max(ret, r - l + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                r++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
       
 
       
@@ -1806,26 +1872,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Http</a>
               </li>
              
@@ -1834,7 +1880,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1847,10 +1921,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1874,7 +1944,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美化</a>
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">设置</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1882,11 +1956,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">设置</a>
+                <a href="javascript:void(0)" class="js-tag color3">美化</a>
               </li>
              
               <li class="article-tag-list-item">
