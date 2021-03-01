@@ -17,29 +17,29 @@ tags:
 
 ```xml
 <!-- 在bulid中的resources中添加一个新的resouce，如果没有父标签就创建 -->
-    <build>
-        <resources>
-            <resource>
-                <!-- 需要开启资源文件的目录 -->
-                <directory>src/main/resources</directory>
-                <!-- 匹配规则 -->
-                <includes>
-                    <!-- 单一匹配规则 -->
-                    <!-- ** 表示任意目录 -->
-                    <!-- *.xml 表示任意以xml结尾的文件 -->
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+<build>
+    <resources>
+        <resource>
+            <!-- 需要开启资源文件的目录 -->
+            <directory>src/main/resources</directory>
+            <!-- 匹配规则 -->
+            <includes>
+                <!-- 单一匹配规则 -->
+                <!-- ** 表示任意目录 -->
+                <!-- *.xml 表示任意以xml结尾的文件 -->
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+</build>
 ```
 
 ## 2. 连接数据库问题

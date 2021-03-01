@@ -1143,6 +1143,8 @@ public class MyLog {
 
 ## 9 Spring 和 MyBatis 的整合
 
+### 9.1 基本整合
+
 ​	整合 Spring 和 MyBatis 需要导入两个依赖包 `mybatis-spring`  和 `spring-jdbc`（记得先导入Mybatis 的包）
 
 ```xml
@@ -1159,13 +1161,16 @@ public class MyLog {
 </dependency>
 ```
 
-​	首先需要创建一个数据源，不再通过 Mybatis 的配置文件 + Java 代码的实现，而是在 Spring 里面配置
+​	首先需要创建一个数据源，不再通过 Mybatis 的配置文件 + Java 代码的实现，而是在 Spring 里面配置，下面是我个人的数据源，根据自身情况来配置即可
 
 ```xml
-
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
+    <property name="username" value="root"/>
+    <property name="password" value="root"/>
+</bean>
 ```
-
-​	
 
 ​	然后使用 Spring 来构建一个 SqlSessionFactory 的 bean
 
@@ -1175,19 +1180,243 @@ public class MyLog {
 </bean>
 ```
 
+​	可以在这个 bean 里面配置本来在 Mybatis 文件中配置的所有东西，别名啊、Mapper 注册之类的，也可以连接 Mybatis 的配置文件，如下
 
+```xml
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 配置数据源 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 连接 MyBatis 配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- 配置 Mapper -->
+        <property name="mapperLocations" value="classpath:com/jeislu/mapper/*.xml"/>
 
-## Spring注意事项以及问题
+    </bean>
+```
 
-### Spring 最最最重要的东西
+​	通过 `sqlSessionFactory` 我们来创建 SqlSession，不过在这里面，要换个名字，叫做 `sqlSessionTemplate`，不过实现的功能和 SqlSession 差不多
+
+```xml
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <!-- 没有 set 方法，只能使用构造器注入 -->
+    <!-- 需要配置一个 sqlSessionFactory -->
+    <constructor-arg index="0" ref="sqlSessionFactory"/>
+</bean>
+```
+
+​	上面这些基本是固定步骤，下面来正式使用。
+
+​	先创建实体类，编写对应 Mapper 接口，然后编写 Mapper 接口的 XML 文件，到这一步，和 MyBatis 基本是一样的。
+
+```java
+// 实体类
+@Data
+public class User {
+    private int id;
+    private String name;
+    private String pwd;
+}
+```
+
+```java
+// Mapper 接口
+public interface UserMapper {
+    // 查询用户
+    public List<User> getUserList();
+    // 增加用户
+    public void addUser(User user);
+}
+```
+
+```xml
+<!-- Mapper 配置文件 -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeislu.mapper.UserMapper">
+    <select id="getUserList" resultType="com.jeislu.pojo.User">
+        select * from mybatis.user
+    </select>
+</mapper>
+```
+
+​	然后需要多加一步，再创建一个 Mapper 接口实现类，通过该实现类来执行方法。
+
+```java
+public class UserMapperImpl implements UserMapper{
+
+    private SqlSessionTemplate sqlSession;
+
+    public UserMapperImpl(SqlSessionTemplate sst){
+        this.sqlSession = sst;
+    }
+
+    public List<User> getUserList() {
+        return sqlSession.getMapper(UserMapper.class).getUserList();
+    }
+
+    public void addUser(User user) {
+
+    }
+}
+```
+
+​	然后就可以在测试类中，测试使用了
+
+```java
+@Test
+public void selectTest() throws IOException {
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    UserMapper userMapper = context.getBean("userMapper", UserMapper.class);
+    List<User> userList = userMapper.getUserList();
+    for(User user : userList){
+        System.out.println(user);
+    }
+}
+```
+
+​	输出如下
+
+```
+User(id=1, name=张三, pwd=123456)
+User(id=2, name=李四, pwd=oooo)
+User(id=3, name=袜子, pwd=uuu)
+User(id=4, name=赵六, pwd=123)
+```
+
+​	接下来介绍一个精简一点的，不再配置 SqlSessionTemplate ，而是通过继承 SqlSessionDaoSupport 来实现，通过继承该类，可以直接通过该类的 getSqlSession() 获得一个 SqlSessionTemplate。
+
+```java
+public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper{
+
+    public List<User> getUserList() {
+        return getSqlSession().getMapper(UserMapper.class).getUserList();
+    }
+
+    public void addUser(User user) {
+
+    }
+}
+```
+
+​	然后在 Spring 配置文件中配置该 bean ，注意需要给这个类的 sqlSessionFactory 属性注入值
+
+```xml
+<bean id="userMapper" class="com.jeislu.mapper.UserMapperImpl2">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
+```
+
+​	接下来的使用是一样的。
+
+### 9.2 整合 MyBatis 的事务
+
+​	一个使用 MyBatis-Spring 的其中一个主要原因是它允许 MyBatis 参与到 Spring 的事务管理中。而不是给 MyBatis 创建一个新的专用事务管理器，MyBatis-Spring 借助了 Spring 中的 `DataSourceTransactionManager` 来实现事务管理。
+
+​	要开启 Spring 的事务处理功能，在 Spring 的配置文件中创建一个 `DataSourceTransactionManager` 对象
+
+```xml
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  <constructor-arg ref="dataSource" />
+</bean>
+```
+
+​	然后有两种使用事务的方法，分别是**声明式事务**和**编程式事务**。
+
+​	声明式事务是通过 AOP 来实现的，而编程式事务是通过在代码中直接编写入事务代码来实现的。因此我们这里直说声明式事务，因为编程式事务不太推荐。
+
+​	按照惯例，首先在 配置文件头导入支持（注意别导错了，如果让 IDEA 自动帮你导入会出问题的）
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=
+       "http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+```
+
+​	接着，我们来配置事务
+
+```xml
+<!-- 创建事务管理器 -->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <constructor-arg ref="dataSource" />
+</bean>
+
+<!-- 配置事务 -->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <tx:method name="getUserList"/>
+        <tx:method name="addUser"/>
+    </tx:attributes>
+</tx:advice>
+```
+
+​	然后配置事务要切入的地方，通过 AOP 来实现
+
+```xml
+<!-- 配置事务切入点 -->
+<aop:config>
+    <aop:pointcut id="pointCut" expression="execution(* com.jeislu.mapper.*.*(..))"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
+</aop:config>
+```
+
+​	我们来改造一下方法，使得多个操作当成一个操作，然后在里面故意制造问题（先不开启事务）
+
+```java
+public List<User> getUserList() {
+    User user = new User(5,"网","aaa");
+    addUser(user);
+    int a = 1/0;
+    return sqlSession.getMapper(UserMapper.class).getUserList();
+}
+
+public void addUser(User user) {
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    mapper.addUser(new User(user.getId(), user.getName(), user.getPwd()));
+}
+```
+
+​	这个 getUserList  方法首先添加了一个对象，然后再查询对象，这个方法应该是要满足事务的 ACID 特性的，然后我们在中间人为创建一个错误，执行该方法
+
+```java
+@Test
+public void selectTest() throws IOException {
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    UserMapper userMapper = context.getBean("userMapper", UserMapper.class);
+    List<User> userList = userMapper.getUserList();
+    for(User user : userList){
+        System.out.println(user);
+    }
+}
+```
+
+​	执行肯定是出错的，关键是看对象有没有被插入
+
+![查询结果](Spring学习/5.png)
+
+​	可以看到，数据被不正确的写入了，我们删掉该数据，然后开启事务，再尝试一下
+
+​	依旧是抛出异常，但是这一次，数据没有被写入
+
+![查询结果-2](Spring学习/6.png)
+
+​	事务其实就是保证数据的原子性和一致性，避免出现执行到一半，抛出异常，前面的方法执行了，后面的方法不执行的情况，例如，钱给你了（前面），你却说没说到（后面）。
+
+## 10 Spring注意事项以及问题
+
+### 10.1Spring 最最最重要的东西
 
 ​	记得配置 bean，不管是采用配置文件，Java，还是注解，都记得配置，有时候某些功能没有实现先看看是否配置了 bean
 
-### .1 Spring 的大致流程
+### 10.2 Spring 的大致流程
 
 ​	<a href="https://jeislu.gitee.io/2021/02/26/Spring%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/" target="_blank">点这里</a>
 
-### .2 配置文件头的 https 的问题
+### 10.3 配置文件头的 https 的问题
 
 ​	在使用注解开发的时候，程序的运行效率大大降低，每一次运行都要好久，我一开始以为是注解开发的效率较低，而且程序时不时还运行出问题，报错如下：
 
@@ -1221,6 +1450,6 @@ public class MyLog {
 
 ​	在对比我的内容和他以后，我发现我多了一个 s ，就是因为这个 s ，所以出现了上面那些问题，把 s 删掉，不会报错，运行速度也正常了。
 
-### .3 如何合并多个配置文件
+### 10.4 如何合并多个配置文件
 
 ​	很简单，在配置文件中使用 < import > 标签即可将其他配置文件整合进来

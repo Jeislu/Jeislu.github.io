@@ -101,7 +101,7 @@ public class MybatisUtils {
     // 构建工厂类
     static {
         // 配置文件的路径
-        String resource = "org/mybatis/example/mybatis-config.xml";
+        String resource = "mybatis.xml";
         InputStream inputStream = null;
         try {
             inputStream = Resources.getResourceAsStream(resource);
@@ -162,6 +162,28 @@ public class User {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+}
+```
+
+​	然后根据需求编写 UserMapper ，这里就随便写几个
+
+```java
+public interface UserMapper {
+    // 查询所有用户
+    public List<User> getUserList();
+    // 查询特定用户
+    public User getUser(int id);
+    // 增加一个用户
+    public int addUser(User user);
+    // 删除一个用户
+    public int deleteUser(int id);
+    // 修改一个用户
+    public int updateUser(User user);
+    // 使用Map修改数据
+    public int updateUser2(Map<String,Object> user);
+    // 分页查询
+    public List<User> selectLimit(Map<String,Integer> data);
+
 }
 ```
 
