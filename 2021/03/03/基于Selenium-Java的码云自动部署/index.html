@@ -6,21 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>美化Git Bash界面 | Jeislu</title>
+  <title>基于Selenium+Java的码云自动部署 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在写上一个博客的时候，不小心瞄到别人的Git，为什么他的那么好看，我也要！所以就有了这篇博客。首先本文的内容基本是搬运别人的，这边先贴上原作者地址">
+  <meta name="description" content="前言​    搭建博客的时候，由于 GitHub 有时候会出现上不去的情况，就又搭建了一个码云平台的。但是这个码云就没有 GitHub 那么良心了，他的自动部署功能是要付费才可以的，不付费就得手动。当时我就想，我肯定要弄个自动部署的。 ​    上学期在上课的时候，听到了老师提到 Selenium 这个工具，用来模拟人操作电脑的，我一听，妙啊，找个时间拿它来做个自动部署。 ​    现在做完了，记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="美化Git Bash界面">
-<meta property="og:url" content="https://jeislu.github.io/2020/12/27/%E7%BE%8E%E5%8C%96Git-Bash%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:title" content="基于Selenium+Java的码云自动部署">
+<meta property="og:url" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言在写上一个博客的时候，不小心瞄到别人的Git，为什么他的那么好看，我也要！所以就有了这篇博客。首先本文的内容基本是搬运别人的，这边先贴上原作者地址">
+<meta property="og:description" content="前言​    搭建博客的时候，由于 GitHub 有时候会出现上不去的情况，就又搭建了一个码云平台的。但是这个码云就没有 GitHub 那么良心了，他的自动部署功能是要付费才可以的，不付费就得手动。当时我就想，我肯定要弄个自动部署的。 ​    上学期在上课的时候，听到了老师提到 Selenium 这个工具，用来模拟人操作电脑的，我一听，妙啊，找个时间拿它来做个自动部署。 ​    现在做完了，记">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-27T10:36:45.000Z">
-<meta property="article:modified_time" content="2020-12-27T10:51:28.163Z">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/1.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/2.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/3.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/4.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/5.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/6.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/7.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/8.png">
+<meta property="article:published_time" content="2021-03-03T08:16:55.000Z">
+<meta property="article:modified_time" content="2021-03-03T09:16:43.499Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="其他">
-<meta property="article:tag" content="美化">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Selenium">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -155,38 +164,71 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-美化Git-Bash界面" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-基于Selenium-Java的码云自动部署" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      美化Git Bash界面
+      基于Selenium+Java的码云自动部署
     </h1>
   
 
         
-        <a href="/2020/12/27/%E7%BE%8E%E5%8C%96Git-Bash%E7%95%8C%E9%9D%A2/" class="archive-article-date">
-  	<time datetime="2020-12-27T10:36:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
+        <a href="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+  	<time datetime="2021-03-03T08:16:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在写上一个博客的时候，不小心瞄到别人的Git，为什么他的那么好看，我也要！所以就有了这篇博客。首先本文的内容基本是搬运别人的，这边先贴上原作者<a target="_blank" rel="noopener" href="https://www.rumosky.com/archives/388.html">地址</a></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    搭建博客的时候，由于 GitHub 有时候会出现上不去的情况，就又搭建了一个码云平台的。但是这个码云就没有 GitHub 那么良心了，他的自动部署功能是要付费才可以的，不付费就得手动。当时我就想，我肯定要弄个自动部署的。</p>
+<p>​    上学期在上课的时候，听到了老师提到 Selenium 这个工具，用来模拟人操作电脑的，我一听，妙啊，找个时间拿它来做个自动部署。</p>
+<p>​    现在做完了，记录一下全过程吧。</p>
 <a id="more"></a>
 
-<h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p>打开<code>Git Bash</code>，切换路径</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~      <span class="comment"># 即切换到C盘中的用户目录下</span></span><br></pre></td></tr></table></figure>
+<h2 id="Selenium-简介"><a href="#Selenium-简介" class="headerlink" title="Selenium 简介"></a>Selenium 简介</h2><p>​    Selenium [1] 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>（1）Java + Maven：虽然 Selenium 一般是和 python 一起搭配使用，但是我个人主要是使用 Java，还是偏向使用 Java。然后使用 Maven 导入 Selenium 依赖包，导入代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>selenium-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.141.59<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>修改配置文件，可以通过下面的指令修改，也可以直接使用记事本打开文件修改，修改配置内容如下，然后重启即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi .minttyrc    <span class="comment"># 编辑配置文件</span></span><br></pre></td></tr></table></figure>
+<p>（2）浏览器驱动：Selenium 的使用需要对应浏览器驱动的支持，下面附上各浏览器驱动的下载地址，根据自身来下载，我自己是使用 Edge</p>
+<ul>
+<li>Firefox浏览器驱动：<a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">geckodriver</a></li>
+<li>Chrome浏览器驱动：<a target="_blank" rel="noopener" href="https://sites.google.com/a/chromium.org/chromedriver/home">chromedriver</a><a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/chromedriver">taobao备用地址</a></li>
+<li>Edge浏览器驱动：<a target="_blank" rel="noopener" href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/">MicrosoftWebDriver</a></li>
+<li>Opera浏览器驱动：<a target="_blank" rel="noopener" href="https://github.com/operasoftware/operachromiumdriver/releases">operadriver</a></li>
+</ul>
+<h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><p>​    编写代码没什么好说的，根据情况来编写就好了，基本是模拟点击</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.openqa.selenium.Alert;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.By;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebElement;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.edge.EdgeDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.interactions.Actions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoCommit</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 设置驱动位置</span></span><br><span class="line">        System.setProperty(<span class="string">&quot;webdriver.edge.driver&quot;</span>, <span class="string">&quot;D:/Other/Utils/Edgedriver/msedgedriver.exe&quot;</span>);</span><br><span class="line">        WebDriver driver = <span class="keyword">new</span> EdgeDriver();</span><br><span class="line">        driver.get(<span class="string">&quot;https://gitee.com/login&quot;</span>);</span><br><span class="line">        <span class="comment">// 保证元素加载完毕</span></span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="comment">// 输入账号密码</span></span><br><span class="line">        driver.findElement(By.cssSelector(<span class="string">&quot;input[class=&#x27;login-password__account-input&#x27;]&quot;</span>)).sendKeys(<span class="string">&quot;用户名&quot;</span>);</span><br><span class="line">        driver.findElement(By.name(<span class="string">&quot;user[password]&quot;</span>)).sendKeys(<span class="string">&quot;密码&quot;</span>);</span><br><span class="line">        <span class="comment">// 点击登陆</span></span><br><span class="line">        driver.findElement(By.cssSelector(<span class="string">&quot;input[class=&#x27;ui fluid orange submit button large&#x27;]&quot;</span>)).click();</span><br><span class="line">        <span class="comment">// 等待加载</span></span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="comment">// 点击仓库按钮</span></span><br><span class="line">        driver.findElement(By.cssSelector(<span class="string">&quot;div[class=&#x27;content pb-1 pt-1&#x27;]&quot;</span>)).click();</span><br><span class="line">        <span class="comment">// 进入个人仓库</span></span><br><span class="line">        driver.findElements(By.cssSelector(<span class="string">&quot;span[class=&#x27;pro-name&#x27;]&quot;</span>)).get(<span class="number">1</span>).click();</span><br><span class="line">        <span class="comment">// 等待加载</span></span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="comment">// 切换页面</span></span><br><span class="line">        Set&lt;String&gt; windowHandles = driver.getWindowHandles();</span><br><span class="line">        String newWindows = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(String data : windowHandles)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!data.equals(driver.getWindowHandle()))&#123;</span><br><span class="line">                newWindows = data;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        driver.switchTo().window(newWindows);</span><br><span class="line">        <span class="comment">// 停一下</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="comment">// 进入服务</span></span><br><span class="line">        driver.findElement(By.cssSelector(<span class="string">&quot;div[class=&#x27;ui pointing top right dropdown git-project-service&#x27;]&quot;</span>)).click();</span><br><span class="line">        <span class="comment">// 进入Gitee Page,通过测试得知，Page的下标是18</span></span><br><span class="line">        driver.findElements(By.cssSelector(<span class="string">&quot;a[class=&#x27;item&#x27;]&quot;</span>)).get(<span class="number">18</span>).click();</span><br><span class="line">        <span class="comment">// 点击更新</span></span><br><span class="line">        driver.findElement(By.cssSelector(<span class="string">&quot;div[class=&#x27;button orange redeploy-button ui update_deploy&#x27;]&quot;</span>)).click();</span><br><span class="line">        <span class="comment">// 点击 Alert 确定更新</span></span><br><span class="line">        Alert alert = driver.switchTo().alert();</span><br><span class="line">        alert.accept();</span><br><span class="line">        <span class="comment">// 等待更新, 20秒差不多是我更新一次的时间</span></span><br><span class="line">        Thread.sleep(<span class="number">20000</span>);</span><br><span class="line">        <span class="comment">// 关闭浏览器</span></span><br><span class="line">        driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Font</span>=<span class="string">Consolas</span></span><br><span class="line"><span class="attr">FontHeight</span>=<span class="string">10</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ForegroundColour</span>=<span class="string">131,148,150</span></span><br><span class="line"><span class="attr">BackgroundColour</span>=<span class="string">40,44,52</span></span><br><span class="line"><span class="attr">CursorColour</span>=<span class="string">82,139,255</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Black</span>=<span class="string">40,44,52</span></span><br><span class="line"><span class="attr">BoldBlack</span>=<span class="string">90,44,52</span></span><br><span class="line"><span class="attr">Red</span>=<span class="string">224,108,117</span></span><br><span class="line"><span class="attr">BoldRed</span>=<span class="string">255,108,117</span></span><br><span class="line"><span class="attr">Green</span>=<span class="string">152,195,121</span></span><br><span class="line"><span class="attr">BoldGreen</span>=<span class="string">152,245,121</span></span><br><span class="line"><span class="attr">Yellow</span>=<span class="string">229,192,123</span></span><br><span class="line"><span class="attr">BoldYellow</span>=<span class="string">229,192,173</span></span><br><span class="line"><span class="attr">Blue</span>=<span class="string">97,175,239</span></span><br><span class="line"><span class="attr">BoldBlue</span>=<span class="string">97,175,255</span></span><br><span class="line"><span class="attr">Magenta</span>=<span class="string">198,120,221</span></span><br><span class="line"><span class="attr">BoldMagenta</span>=<span class="string">248,120,221</span></span><br><span class="line"><span class="attr">Cyan</span>=<span class="string">86,182,194</span></span><br><span class="line"><span class="attr">BoldCyan</span>=<span class="string">86,232,194</span></span><br><span class="line"><span class="attr">White</span>=<span class="string">171,178,191</span></span><br><span class="line"><span class="attr">BoldWhite</span>=<span class="string">231,178,191</span></span><br><span class="line"><span class="attr">BoldAsFont</span>=<span class="string">-1</span></span><br><span class="line"><span class="attr">FontSmoothing</span>=<span class="string">full</span></span><br><span class="line"><span class="attr">FontWeight</span>=<span class="string">700</span></span><br><span class="line"><span class="attr">Locale</span>=<span class="string">C</span></span><br><span class="line"><span class="attr">Charset</span>=<span class="string">UTF-8</span></span><br><span class="line"><span class="attr">Columns</span>=<span class="string">80</span></span><br><span class="line"><span class="attr">Rows</span>=<span class="string">28</span></span><br></pre></td></tr></table></figure>
+<p>​    注意，代码中出现多次 <code>Thread.sleep()</code> 这个主要是用来等待浏览器加载页面的，根据个人情况调节</p>
+<h2 id="导出可执行-jar"><a href="#导出可执行-jar" class="headerlink" title="导出可执行 jar"></a>导出可执行 jar</h2><p>​    编写完后，需要将 Maven 工程导成 jar 文件，这样可以放在 windows 计划任务中，每天自动更新。</p>
+<p>​    先给项目创建一个 Artifact ，点击 File -&gt; Project Structure</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/1.png"></p>
+<p>​    点击 Project Settings 下面的 Artifact</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/2.png"></p>
+<p>​    点击 + 号，添加一个 Artifact </p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/3.png"></p>
+<p>​    设置 Main Class，点击 OK 就设置完成了</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/4.png"></p>
+<p>​    然后点击 Build -&gt; Build Artifact -&gt; Build，就可以导出一个 jar ，导出的 Java 一般在工程项目的 out\artifacts 文件下</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/5.png"></p>
+<h2 id="修改-jar"><a href="#修改-jar" class="headerlink" title="修改 jar"></a>修改 jar</h2><p>​    直接导出的 jar 不能运行（可能是我这里面缺乏哪个步骤），如果运行会出现找不到主类的异常。需要使用解压打开 jar ，将 META-INF 下的MAINFEST.MF 文件添加一点东西，可以直接拉出来，修改完再放回去。</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/6.png"></p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/7.png"></p>
+<p>往文件中添加一行 <code>Main-Class: AutoCommit</code>，Main-Class 后面接要运行的类名</p>
+<p><img src="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/8.png"></p>
+<h2 id="执行-jar"><a href="#执行-jar" class="headerlink" title="执行 jar"></a>执行 jar</h2><p>​    jar 直接双击就可以打开，但是一般我们不会这么做（为了全自动），使用 Bash 打开运行，代码为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换路径</span></span><br><span class="line"><span class="built_in">cd</span> D:/Other/Utils</span><br><span class="line"><span class="comment"># 运行 jar</span></span><br><span class="line">java -jar AutoCommit.jar</span><br></pre></td></tr></table></figure>
 
-<p>可以根据自己的需求更改配置，我个人觉得它这个配色已经很好看了就没有去改。</p>
+<p>​    然后在之前自动更新博客的代码中加入这两行就可以了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    流程看起来很简单，但是我还是遇到不少麻烦。</p>
+<p>​    例如 Selenium 里面的 getElement 方法中 ByClassName 的 class 是不能带空格了，后面就换了一种定位方法。</p>
+<p>​    不知道为什么我电脑里面的 javac 指令无法执行，虽然好像和这个没有关系，但是我还是弄了一会，主要是找问题比较麻烦，jdk 里面的 javac.exe 好像有问题，然后我就重新配置了一下 JDK。</p>
+<p>​    以及上面的 jar 无法运行。</p>
+<p>​    看起来简单，实际做起来，坑还是不少，继续加油吧少年。</p>
 
       
 
@@ -221,11 +263,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">其他</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">美化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Selenium</a>
         		</li>
       		
 		</ul>
@@ -281,7 +323,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2020/12/27/%E7%BE%8E%E5%8C%96Git-Bash%E7%95%8C%E9%9D%A2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +337,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/01/04/Java%E7%9A%84%E5%BC%95%E7%94%A8%E7%AD%89%E7%BA%A7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java的引用等级
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/12/27/%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E8%BF%9B%E9%98%B6%E5%A4%84%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">博客的一些小进阶处理</div>
+    <a href="/2021/03/03/%E5%89%91%E6%8C%87Offer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">剑指Offer</div>
       <i class="icon-circle-right"></i>
     </a>
   
