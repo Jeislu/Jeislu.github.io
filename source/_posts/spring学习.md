@@ -1172,6 +1172,31 @@ public class MyLog {
 </bean>
 ```
 
+​	（补充）直接将数据库的配置写在这个文件里面，改动的时候不是那么方便，我们可以将数据库的配置存储在一个 properties 文件里面，然后通过它来取值。在编写完 properties 文件后，需要在 Spring 配置文件中导入。
+
+```properties
+driverClass=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/mybatis?useSSL=false
+user=root
+password=root
+```
+
+```xml
+<!-- 配置文件加载 -->
+<context:property-placeholder location="classpath:mysql.properties"/> 
+```
+
+​	然后就可以使用${}来取值了
+
+```xml
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${driverClass}"/>
+    <property name="url" value="${url}"/>
+    <property name="username" value="${user}"/>
+    <property name="password" value="${password}"/>
+</bean>
+```
+
 ​	然后使用 Spring 来构建一个 SqlSessionFactory 的 bean
 
 ```xml
