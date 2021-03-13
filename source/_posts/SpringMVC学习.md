@@ -275,13 +275,40 @@ public class HelloController implements Controller {
 
 ​	接下来介绍一下，Controller 的改造。
 
-​	首先，不需要再继承 Controller 类然后重写方法了，可以通过在类上标识一个 @Controller 来声明，然后通过返回值来返回视图名，可以在方法参数里面添加 Model 对象来传递数据，也可以出入 req，resp 这两个对象
+​	首先，不需要再继承 Controller 类然后重写方法了，可以通过在类上标识一个 @Controller 来声明，然后通过返回值来返回视图名，可以在方法参数里面添加 Model 对象来传递数据，也可以出入 req，resp 这两个对象。然后使用 @RequestMapping 来标识映射的路径。
 
 ```java
+@Controller
+public class Hello{
 
+    @RequestMapping("/hello")
+    public String hello(Model model){
+        // 往 Model 中添加数据，使用键值对的形式存储
+        model.addAttribute("msg","Hello SpringMVC");
+        // 添加视图名称
+
+        return "Hello";
+    }
+}
 ```
 
+​	@Controller 类下面的所有方法返回的字符串都会被视图解析器拦截解析，如果指向返回普通的字符串，可以在方法上面加上一个 @ResponseBody，这样就不会被视图解析器拦截解析了。也可以使用 @RestController 这样，该类下面所有的方法都不会被视图解析器拦截解析。
 
+​	@RequestMapping 有一些变体形式，例如 @GetMapping 表示只接受 Get 请求，@PostMapping 表示只接受 Post请求。这些标签也可以用在类上面，表示父级目录。
+
+​	使用注解开发不仅可以减少配置，而且你可以在一个类里面配置很多个 Controller，只要映射到不同的路径即可，如果使用继承的方法，就得用很多个类在分别实现。
+
+​	这里再介绍一个注解 @RequestParam() 可以给变量取个别名，我们可以通过在方法的参数列表里面加入和前端数据相同名字的变量来获取前端的数据，但是如果和前端不一致怎么办？可以通过这个 @RequestParam() 来起别名（和 Mybatis 里面的 @Param 一样），也可以间接表示，这个变量用于接收前端的数据。
+
+## SpringMVC 的一些其他操作
+
+### 视图
+
+​	我们一般通过 Controller 返回的视图名称是通过转发的，这是默认方法，我们也可以声明为重定向
+
+```java
+return "redirect:www.baidu.com";
+```
 
 ## SpringMVC 的坑
 
@@ -301,4 +328,24 @@ public class HelloController implements Controller {
 
 ![项目结构设置](SpringMVC学习/8.png)
 
-如果主页都打不开，直接 404，那可能是在配置 DispatcherServlet 的时候，映射目录写成了 /*，改成 / 就好了。
+如果主页都打不开，直接 404，那可能是在配置 DispatcherServlet 的时候，映射目录写成了 /*，改成 / 就好了。i
+
+### 2. 乱码
+
+​	输入不乱码，后面拿到乱码，配置过滤器解决
+
+```xml
+<filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>utf-8</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
