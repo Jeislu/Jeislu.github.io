@@ -15,11 +15,14 @@
 <meta property="og:site_name" content="Jeislu">
 <meta property="og:description" content="前言​    记录本人的 Redis 学习过程，是大致的，以后如果有更深层次的理解再另外写新文章。 Redis 介绍​    Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、属于NoSQL中的Key-Value数据库。 ​    NoSQL ≠ Not SQL ，而是 Not Only">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/1.png">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/2.png">
 <meta property="article:published_time" content="2021-03-13T13:12:31.000Z">
-<meta property="article:modified_time" content="2021-03-13T13:19:22.115Z">
+<meta property="article:modified_time" content="2021-03-14T07:56:30.488Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jeislu.github.io/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -184,7 +187,95 @@
 <li>支持事务，持久化</li>
 <li>功能丰富</li>
 </ul>
-<h2 id="Redis-安装"><a href="#Redis-安装" class="headerlink" title="Redis 安装"></a>Redis 安装</h2><p>​    </p>
+<h2 id="Redis-安装"><a href="#Redis-安装" class="headerlink" title="Redis 安装"></a>Redis 安装</h2><p>​    Redis 不推荐在 Windows 下使用，而且以后工作上的开发，也基本是在 Linux 上，所以在学习 Redis 中都在 Linux 中进行学习，也算是为以后做准备。</p>
+<p>​    Redis 的安装，我一开始是使用 yum 进行安装的（比较方便），但是安装完版本太低，而且安装完东西有点乱，就卸载了，换了一种方法安装。</p>
+<p>​    首先在官网上下载 Redis 最新版本，然后通过 Xftp 上传到服务器上。我是放在 <code>/opt</code> 这个文件夹下，然后进入所在文件夹，使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-6.2.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>​    进入解压的文件夹，使用 yum 下载 C++</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++</span><br></pre></td></tr></table></figure>
+
+<p>​    在编译之前，先安装 tcl（否则编译会出现问题）</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> tcl</span><br></pre></td></tr></table></figure>
+
+<p>​    进入 Redis 解压后的文件夹，使用指令进行编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>​    编译结束后可以使用 <code>make install</code> 检测一下，然后开启 redis 服务，使用 <code>ping</code> 测试一下是否开启</p>
+<p><img src="/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/1.png" alt="make_install"></p>
+<p><img src="/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/2.png" alt="make_install"></p>
+<p>​    在 redis 文件夹下创建一个 etc 文件夹，用于保存 redis 配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir etc</span><br><span class="line">cp redis.conf etc</span><br></pre></td></tr></table></figure>
+
+<p>​    然后修改配置文件，使得 redis 可以在后台运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用这行命令，然后将文件中的 daemonize no 改为 yes</span></span><br><span class="line">vim redis.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>​    切换数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> n 表示切换的数据库标号，默认有16个，从0开始</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> select n</span></span><br></pre></td></tr></table></figure>
+
+<p>​    查看数据库已使用容量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; dbsize</span><br></pre></td></tr></table></figure>
+
+<p>​    查看所有的 key</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> keys *</span></span><br></pre></td></tr></table></figure>
+
+<p>​    清空当前库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> flushdb</span></span><br></pre></td></tr></table></figure>
+
+<p>​    清空全部</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; flushall</span><br></pre></td></tr></table></figure>
+
+<p>​    查询是否存在对应的key</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> EXISTS key</span></span><br></pre></td></tr></table></figure>
+
+<p>​    移出对应的key（从n号数据库）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> MOVE key n</span></span><br></pre></td></tr></table></figure>
+
+<p>​    设置过期时间（单位秒）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> EXPIRE key time</span></span><br></pre></td></tr></table></figure>
+
+<p>​    查看剩余存活时间（单位秒） </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> -2 表示过期， -1 表示一直存在</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> TTL key</span></span><br></pre></td></tr></table></figure>
+
+<p>​    存放和获取键值对</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">set</span> key value</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> get key</span></span><br></pre></td></tr></table></figure>
+
+<p>​    查询 key 的类型</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">type</span> key</span><br></pre></td></tr></table></figure>
+
+<p>​    往某个键值对的值追加值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> appen key <span class="string">&quot;追加值&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>​    值加一减一操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> incr key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> decr key</span></span><br></pre></td></tr></table></figure>
+
+<p>​    值加 n 减 n 操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> incrby key n</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> decrbt key n</span></span><br></pre></td></tr></table></figure>
+
+<p>​    截取值的某一部分</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> st 起始位置 ed 结束位置</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以使用负数，表示倒数第几个</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> getrange key st ed</span></span><br></pre></td></tr></table></figure>
+
+<p>​    替换某一部分</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 替换的值，不是插入，是一一替换</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> setrange key st values</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 例子</span></span><br><span class="line">127.0.0.1:6379&gt; set me jeislu</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; setrange me 2 yeyu</span><br><span class="line">(integer) 6</span><br><span class="line">127.0.0.1:6379&gt; get me</span><br><span class="line">&quot;jeyeyu&quot;</span><br></pre></td></tr></table></figure>
+
+<p>​    存储的时候带上存活时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> setex key time value</span></span><br></pre></td></tr></table></figure>
+
+<p>​    如果不存在对应的key才存储</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> setnx key value</span></span><br></pre></td></tr></table></figure>
+
+<p>​    批量设置或者获取值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> mset key1 value1 key2 value2 ...</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> mget key1 key2 ...</span></span><br></pre></td></tr></table></figure>
+
+<p>​    批量设置配合上面两个一起使用，在末尾带上 ex 或者 nx（原子性操作，如果一个失败则全部失败）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> msetnx key1 value1 key2 value2</span></span><br></pre></td></tr></table></figure>
+
+<p>​    先获取再设置（返回旧值并用新值覆盖旧值）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> getset key value</span></span><br></pre></td></tr></table></figure>
+
+<p>​    指令太多了，一个一个记也麻烦，如果想知道某个指令的内容，可以直接去官网查询，后面的记一下注意点</p>
+<p>​    <a target="_blank" rel="noopener" href="http://www.redis.cn/commands.html">传送门</a></p>
+<h3 id="五大类型的注意点"><a href="#五大类型的注意点" class="headerlink" title="五大类型的注意点"></a>五大类型的注意点</h3><p>1 List 是栈，push 操作是往头部加（配合栈，挺好理解的）</p>
 
       
 
