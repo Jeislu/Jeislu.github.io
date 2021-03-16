@@ -8,19 +8,17 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>MySQL学习 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="请注意，本文已弃用后面回来看自己这篇，感觉总结的不好，所以打算抛弃它，不删掉放在这里，等我有时间再重新总结一下。 前言本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5">
+  <meta name="description" content="前言​    本文重用，用来记录 MySQL 中我可能会忘的知识点以及常用函数（有些可能是8.0才有的，会标注)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL学习">
 <meta property="og:url" content="https://jeislu.github.io/2020/12/05/MySQL%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="请注意，本文已弃用后面回来看自己这篇，感觉总结的不好，所以打算抛弃它，不删掉放在这里，等我有时间再重新总结一下。 前言本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5">
+<meta property="og:description" content="前言​    本文重用，用来记录 MySQL 中我可能会忘的知识点以及常用函数（有些可能是8.0才有的，会标注)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:12.000Z">
-<meta property="article:modified_time" content="2020-12-28T07:29:24.655Z">
+<meta property="article:modified_time" content="2021-03-16T02:46:23.562Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="MySQL">
-<meta property="article:tag" content="笔记">
-<meta property="article:tag" content="摘抄">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
@@ -176,105 +174,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="请注意，本文已弃用"><a href="#请注意，本文已弃用" class="headerlink" title="请注意，本文已弃用"></a>请注意，本文已弃用</h1><p><strong>后面回来看自己这篇，感觉总结的不好，所以打算抛弃它，不删掉放在这里，等我有时间再重新总结一下。</strong></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文的知识大多摘录与《MySQL必知必会》，内容大多为mysql入门知识，MySQL的版本为5</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    本文重用，用来记录 MySQL 中我可能会忘的知识点以及常用函数（有些可能是8.0才有的，会标注)</p>
 <a id="more"></a>
 
-<h2 id="数据库基本概念"><a href="#数据库基本概念" class="headerlink" title="数据库基本概念"></a>数据库基本概念</h2><ul>
-<li>数据库(database)：保存有组织的数据的容器(通常是一个文件或一组文件)。<ul>
-<li>数据库不代表人们常使用的数据库软件，数据库软件是DBMS(数据库管理系统)。通过DBMS来访问数据库</li>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ul>
+<li>RANK并列跳跃排名，并列即相同的值，相同的值保留重复名次，遇到下一个不同值时，跳跃到总共的排名。</li>
+<li>DENSE_RANK并列连续排序，并列即相同的值，相同的值保留重复名次，遇到下一个不同值时，依然按照连续数字排名。</li>
+<li>ROW_NUMBER连续排名，即使相同的值，依旧按照连续数字进行排名。</li>
 </ul>
-</li>
-<li>表(table)：某种特定类型数据的结构化清单。</li>
-<li>模式(schema)：关系数据库和表的布局及特性的信息。<ul>
-<li>有时候模式用作数据库的同义词，本文中指的是上面给出的含义。</li>
-</ul>
-</li>
-<li>列(column)：表中的一个字段。所有表都是一个或多个列组成的。<ul>
-<li>每个列可以看做数据的某个特定消息，假如数据是城市，则列可以是面积。</li>
-</ul>
-</li>
-<li>数据类型(datatype)：所容许的数据的类型。每个表列都有相应的数据类型，它限制该列中存储的数据。</li>
-<li>行(row)：表中的一个记录。<ul>
-<li>很大程度上，行和数据库记录(record)是可以互相替代的，但从技术上说，行才是正确的术语。</li>
-</ul>
-</li>
-<li>主键(primary key)：一列(或一组列)，其值能够唯一区分表中每个行，唯一识别表中的每行的这个列(或这组列)称为主键。主键用来表示一个(组)特定的行。没有主键，更新或删除表中特定行很困难，因为没有安全的方法保证只涉及相关的行。<ul>
-<li>表中的任意列都可以作为主键，只要它满足以下条件(MySQL本身强制实施的)：<ul>
-<li>任意两行都不具有相同的主键值</li>
-<li>每个行都必须具有一个主键值(主键列不允许NULL值)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="MySQL简介"><a href="#MySQL简介" class="headerlink" title="MySQL简介"></a>MySQL简介</h2><h3 id="什么是MySQL"><a href="#什么是MySQL" class="headerlink" title="什么是MySQL"></a>什么是MySQL</h3><p>MySQL被广泛使用的理由：</p>
-<ul>
-<li>成本——MySQL是开放源代码的，一般可以免费使用(甚至可以免费修改)。</li>
-<li>性能——MySQL执行很快，非常快。</li>
-<li>可信赖——MySQL不会收集使用者的数据。</li>
-<li>简单——MySQL容易安装和使用。</li>
-</ul>
-<p>MySQL唯一受到真正的批评是它并不总是支持其他DBMS提供的功能和特性。然而，这一点也在逐步得到改善。</p>
-<h3 id="客户机-服务器软件"><a href="#客户机-服务器软件" class="headerlink" title="客户机-服务器软件"></a>客户机-服务器软件</h3><p>DBMS可分为两类：</p>
-<ul>
-<li>基于共享文件系统的DBMS</li>
-<li>基于客户机-服务器的DBMS</li>
-</ul>
-<p>前者(包括Microsoft Access 和 FileMaker)用于桌面用途，通常不用于高端或更关键的应用。</p>
-<p>MySQL、Oracle以及Microsoft SQL Server等数据库是基于客户机-服务器的数据库。</p>
-<ul>
-<li>服务器：负责所有数据访问和处理的一个软件。</li>
-<li>客户机：用于间接获取数据的软件。</li>
-</ul>
-<h2 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h2><h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>为了连接到MySQL，需要以下信息</p>
-<ul>
-<li>主机名——如果连接的是本地MySQL服务器，则为localhost；</li>
-<li>端口；</li>
-<li>用户名；</li>
-<li>密码；</li>
-</ul>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><code>USE xx数据库</code>：使用某数据库。</p>
-<p><code>SHOW DATABASES</code>：显示所有数据库。</p>
-<p><code>SHOW TABLES</code>：显示当前使用数据的所有表。</p>
-<p><code>SHOW COLUMNS FROM xx表</code>：显示xx表所有列的基本信息，例如列名、数据类型、是否允许为NULL、键信息、默认值以及其他信息。</p>
-<p><code>DESCRIBE xx表</code>：和<code>SHOW COLUMNS FROM xx表</code>的功能一样。</p>
-<p><code>SHOW STATUS</code>：用于显示广泛的服务器状态信息。</p>
-<p><code>SHOW CREATE DATABASE</code>：显示创建特定数据库或表的MySQL语句。</p>
-<p><code>SHOW ERRORS</code>和<code>SHOW WARNINGS</code>：用来显示服务器错误或警告消息。</p>
-<p><code>HELP SHOW</code>：显示允许的SHOW语句</p>
-<h2 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h2><h3 id="Select命令"><a href="#Select命令" class="headerlink" title="Select命令"></a>Select命令</h3><p><code>SELECT xx列 FROM xx表</code>：从xx表中选出xx列，查询单列。</p>
-<blockquote>
-<p>未排序数据：查询结果的顺序是不保证的，因为mysql认为没有明确排序查询结果，则返回的数据的顺序没有特殊意义</p>
-</blockquote>
-<blockquote>
-<p>结束SQL语句：多条SQL语句必须以 ‘ ; ’ 分割。MySQL如图多数DBMS一样，不需要在单条SQL语句后加分号。如果你使用的是mysql命令行，则必须加上分号来结束SQL语句</p>
-</blockquote>
-<blockquote>
-<p>SQL语句和大小写：SQL语句不区分大小写，但是许多SQL开发人员喜欢对所有SQL关键字使用大写，而对所有列和表名使用小写，这样做使代码更易于阅读和调试。在MySQL4.1及其之前版本中，某些标识符默认是区分大小写的，但是在之后版本是不区分的。最好的方式就是按照上面的规范来。</p>
-</blockquote>
-<p><code>SELECT x1列,x2列...xn列 FROM xx表</code>：从xx表中选出n个列，查询多列，列与列之间用<code>,</code>分隔。</p>
-<p><code>SELECT * FROM xx表</code>：从xx表中选出该表所有列，查询所有列。</p>
-<blockquote>
-<p>除非你要使用所有列，不然一般不要用 * 通配符来查询，会降低检索和应用程序的性能。</p>
-</blockquote>
-<p><code>SELECT DISTINCT xx列 FROM xx表</code>：返回不带重复的单列数据，DISITINCT指示MySQL只返回不同的值。</p>
-<blockquote>
-<p>要注意，不能部分使用DISTINCT，DISITINCT关键字应用于所有列而不仅是前置它的列，如果给出<code>SELECT DISITINCT vend_id prod_price</code>，除非指定的两个列都不同，否则所有列都将被检索出来。</p>
-</blockquote>
-<p><code>SELECT xx列 FROM xx表 LIMIT 5</code>：返回数据至多5行。LIMIT限制返回不多于5行，为了得出下一个5行，可指定要检索的开始行和行数，例如<code>SELECT xx列 FROM xx表 LIMIT 5,5</code>，这个语句将返回从行5开始的5行数据，第一个数为开始位置，第二个数为要检索的行数。</p>
-<blockquote>
-<p>带一个值的LIMIT总是从第一行开始，给出的数为检索的行数。</p>
-</blockquote>
-<blockquote>
-<p>检索出来的第一行为行0而不是行1，<code>LIMIT 1,1</code>将检索出第二行</p>
-</blockquote>
-<blockquote>
-<p>MySQL 5的LIMIT语法：MySQL 5支持LIMIT的另一种替代语法，<code>LIMIT 4 OFFSET 3</code>意为从行3开始取4行，就像<code>LIMIT 3,4</code>一样</p>
-</blockquote>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>​    SQL可以使用完全限定的表名，例如<code>SELECT products.prod_name FROM products</code>其功能和<code>SELECT prod_name FROM products</code>一样。后面可能会出现重名数据，所以需要区分两者。</p>
-<h2 id="排序数据"><a href="#排序数据" class="headerlink" title="排序数据"></a>排序数据</h2><p><code>ORDER BY xx列</code>：根据xx列对查询数据进行排序，</p>
-<h2 id="未整理！"><a href="#未整理！" class="headerlink" title="未整理！"></a>未整理！</h2>
+<p>例如排序 {300，200，100，300，400}：</p>
+<p>RANK 会得到{1，2，3，3，5}，因为300有两个，所以到400的时候，排名会 + 2</p>
+<p>DENSE_RANK 会得到{1，2，3，3，4}，就算 300 有两个，还是排一个位置</p>
+<p>ROW_NUMBER 会得到{1，2，3，4，5}，就算有两个相同的 300，他们之间也必须排序。</p>
+<p>这三个函数都需要搭配 OVER 使用，在 OVER 里面表明排序规则，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT score, DENSE_RANK() OVER (ORDER BY Score DESC) AS &#39;Rank&#39;</span><br><span class="line">FROM Scores;</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -309,14 +224,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">摘抄</a>
         		</li>
       		
 		</ul>
@@ -523,6 +430,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Http</a>
               </li>
              
@@ -535,23 +450,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,23 +458,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">摘抄</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,11 +490,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日志</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,18 +499,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">事务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,7 +514,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
