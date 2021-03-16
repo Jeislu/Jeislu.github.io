@@ -11,6 +11,8 @@ tags:
 
 ​	学习完 Spring + SpringMVC + Mybatis 三个架构，弄个基本项目来把这三个东西整合在一起。
 
+<!-- more -->
+
 ## 准备工作
 
 ### 导入依赖

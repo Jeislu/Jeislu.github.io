@@ -9,6 +9,8 @@ tags:
 
 ​	记录本人的 Redis 学习过程，是大致的，以后如果有更深层次的理解再另外写新文章。
 
+<!-- more -->
+
 ## Redis 介绍
 
 ​	Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、属于NoSQL中的Key-Value数据库。
@@ -74,6 +76,8 @@ vim redis.conf
 ```
 
 ## 基础命令
+
+​	先不说其他的，String 类型的命令是必须要熟悉掌握的！
 
 ​	切换数据库
 

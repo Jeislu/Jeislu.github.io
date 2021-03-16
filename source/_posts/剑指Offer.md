@@ -187,3 +187,75 @@ public static boolean findNumberIn2DArray(int[][] matrix, int target) {
 }
 ```
 
+## [剑指 Offer 12. 矩阵中的路径](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/)
+
+### 思路
+
+​	常规深搜 + 回溯。
+
+​	走过的路不能再走，所以使用一个 boolean 数组保存是否走过，接下来就没什么好说的了，只要懂深搜，这就是很常规的题。
+
+​	有一个注意点，第一次进去的地方，也要加判断，一开始忘记加了，加错了。
+
+### 代码
+
+```java
+import org.junit.Test;
+
+public class JZOF12 {
+    boolean flag = false;
+    String word;
+    char[][] board;
+    boolean[][] used;
+    int cLen;
+    int rLen;
+    int[][] direction = {{0,1},{1,0},{0,-1},{-1,0}};
+    public boolean exist(char[][] board, String word) {
+        if(word.length() == 0){
+            return false;
+        }
+        this.word = word;
+        this.board = board;
+        rLen = board.length;
+        cLen = board[0].length;
+        used = new boolean[rLen][cLen];
+
+        for(int i = 0; i < rLen && !flag; i++){
+            for(int j = 0; j < cLen && !flag; j++){
+                if(board[i][j] == word.charAt(0)){
+                    // 记得标记已经走过
+                    used[i][j] = true;
+                    find(j,i,1);
+                    used[i][j] = false;
+                }
+            }
+        }
+
+        return flag;
+    }
+
+    public void find(int col, int row,int count){
+        if(count == word.length()){
+            flag = true;
+            return;
+        }
+
+        for(int i = 0; i < 4 && !flag; i++){
+            int tempCol = col + direction[i][0];
+            int tempRow = row + direction[i][1];
+
+            if(tempCol >= 0 && tempRow >= 0 && tempCol < cLen && tempRow < rLen
+                    && !used[tempRow][tempCol] && board[tempRow][tempCol] == word.charAt(count)){
+                used[tempRow][tempCol] = true;
+                find(tempCol,tempRow,count+1);
+                used[tempRow][tempCol] = false;
+            }
+        }
+    }
+}
+
+```
+
+
+
+​	

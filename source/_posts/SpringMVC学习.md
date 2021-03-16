@@ -11,6 +11,8 @@ tags:
 
 ​	记录我学习 SpringMVC 中的知识点，问题，流程等，不能一定保证正确。
 
+<!-- more -->
+
 ## SpringMVC介绍
 
 ​	SpringMVC 就是使用 Spring 实现的 MVC（废话），哪什么是 MVC 呢？
