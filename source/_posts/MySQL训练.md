@@ -11,6 +11,8 @@ tags:
 
 ​	最近发现力扣上面居然还有 sql 的题目，所以打算全部认真做一遍。由于是 sql 语句，所以一般只有答案。
 
+<!-- more -->
+
 ## [175. 组合两个表](https://leetcode-cn.com/problems/combine-two-tables/)
 
 难度简单776收藏分享切换为英文接收动态反馈
