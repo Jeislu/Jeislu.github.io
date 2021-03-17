@@ -177,7 +177,7 @@
 <p>​    用尽量简洁的话语来记录学习，通俗易通就是最高境界！</p>
 <p>​    所有文章如果存在问题，可以通过 QQ 或者邮箱联系</p>
 <p>​    QQ：1172914346</p>
-<p>​    邮箱：<a href="mailto:&#x31;&#x31;&#55;&#x32;&#x39;&#x31;&#x34;&#x33;&#x34;&#x36;&#x40;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#x31;&#x31;&#55;&#x32;&#x39;&#x31;&#x34;&#x33;&#x34;&#x36;&#x40;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>​    邮箱：<a href="mailto:&#x31;&#x31;&#x37;&#50;&#57;&#49;&#52;&#x33;&#x34;&#54;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;">&#x31;&#x31;&#x37;&#50;&#57;&#49;&#52;&#x33;&#x34;&#54;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
 
       
 
@@ -579,78 +579,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    身为一个后端开发员，sql 语句的编写应该是很熟练的，但是由于缺少实际项目，也没有地方训练，本人的 sql 语句能力一直处于很一般的情况。</p>
 <p>​    最近发现力扣上面居然还有 sql 的题目，所以打算全部认真做一遍。由于是 sql 语句，所以一般只有答案。</p>
-<h2 id="175-组合两个表"><a href="#175-组合两个表" class="headerlink" title="175. 组合两个表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combine-two-tables/">175. 组合两个表</a></h2><p>难度简单776收藏分享切换为英文接收动态反馈</p>
-<p>SQL架构</p>
-<p>表1: <code>Person</code></p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| 列名         | 类型     |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| FirstName   | varchar |</span><br><span class="line">| LastName    | varchar |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">PersonId 是上表主键</span><br></pre></td></tr></table></figure>
-
-<p>表2: <code>Address</code></p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| 列名         | 类型    |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| AddressId   | int     |</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| City        | varchar |</span><br><span class="line">| State       | varchar |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">AddressId 是上表主键</span><br></pre></td></tr></table></figure>
-
-<p>编写一个 SQL 查询，满足条件：无论 person 是否有地址信息，都需要基于上述两表提供 person 的以下信息：</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FirstName,</span> LastName, City, State</span><br></pre></td></tr></table></figure>
-
-<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT FirstName, LastName, City, State</span><br><span class="line">FROM Person LEFT OUTER JOIN Address</span><br><span class="line">ON Person.PersonId &#x3D; Address.PersonId</span><br></pre></td></tr></table></figure>
-
-<p>由于题目要求 person 无论是否有地址都要输出，所以应该使用外连接，这里使用左外连接（保存左边所有数据）</p>
-<h2 id="176-第二高的薪水"><a href="#176-第二高的薪水" class="headerlink" title="176. 第二高的薪水"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/second-highest-salary/">176. 第二高的薪水</a></h2><p>难度简单742收藏分享切换为英文接收动态反馈</p>
-<p>SQL架构</p>
-<p>编写一个 SQL 查询，获取 <code>Employee</code> 表中第二高的薪水（Salary） 。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+----+</span>--------+</span><br><span class="line">| Id | Salary |</span><br><span class="line"><span class="code">+----+</span>--------+</span><br><span class="line">| 1  | 100    |</span><br><span class="line">| 2  | 200    |</span><br><span class="line">| 3  | 300    |</span><br><span class="line"><span class="code">+----+</span>--------+</span><br></pre></td></tr></table></figure>
-
-<p>例如上述 <code>Employee</code> 表，SQL查询应该返回 <code>200</code> 作为第二高的薪水。如果不存在第二高的薪水，那么查询应返回 <code>null</code>。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+---------------------+</span></span><br><span class="line">| SecondHighestSalary |</span><br><span class="line"><span class="code">+---------------------+</span></span><br><span class="line">| 200                 |</span><br><span class="line"><span class="code">+---------------------+</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="答案-1"><a href="#答案-1" class="headerlink" title="答案"></a>答案</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (</span><br><span class="line">	<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Salary </span><br><span class="line">	<span class="keyword">FROM</span> Employee</span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span></span><br><span class="line">	<span class="keyword">LIMIT</span> <span class="number">1</span>,<span class="number">1</span></span><br><span class="line">	) <span class="keyword">AS</span> SecondHighestSalary;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT IFNULL((</span><br><span class="line">	SELECT DISTINCT Salary </span><br><span class="line">	FROM Employee</span><br><span class="line">	ORDER BY Salary DESC</span><br><span class="line">	LIMIT 1,1</span><br><span class="line">),null) AS SecondHighestSalary;</span><br></pre></td></tr></table></figure>
-
-<p>由于题目要求不存在第二高的薪水需要返回 null，所以在外面再套一个 SELECT，也可以使用 IFNULL(a , b)这个函数，如果 a 为空，则返回 b，第二种更形象一点。</p>
-<h2 id="177-第N高的薪水"><a href="#177-第N高的薪水" class="headerlink" title="177. 第N高的薪水"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/nth-highest-salary/">177. 第N高的薪水</a></h2><p>编写一个 SQL 查询，获取 <code>Employee</code> 表中第 <em>n</em> 高的薪水（Salary）。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+----+</span>--------+</span><br><span class="line">| Id | Salary |</span><br><span class="line"><span class="code">+----+</span>--------+</span><br><span class="line">| 1  | 100    |</span><br><span class="line">| 2  | 200    |</span><br><span class="line">| 3  | 300    |</span><br><span class="line"><span class="code">+----+</span>--------+</span><br></pre></td></tr></table></figure>
-
-<p>例如上述 <code>Employee</code> 表，<em>n = 2</em> 时，应返回第二高的薪水 <code>200</code>。如果不存在第 <em>n</em> 高的薪水，那么查询应返回 <code>null</code>。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+------------------------+</span></span><br><span class="line">| getNthHighestSalary(2) |</span><br><span class="line"><span class="code">+------------------------+</span></span><br><span class="line">| 200                    |</span><br><span class="line"><span class="code">+------------------------+</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="答案-2"><a href="#答案-2" class="headerlink" title="答案"></a>答案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT</span><br><span class="line">BEGIN</span><br><span class="line">  # 将 N 的值减 1，因为 LIMIT后面无法接表达式</span><br><span class="line">  SET N :&#x3D; N - 1;</span><br><span class="line">  RETURN (</span><br><span class="line">      # Write your MySQL query statement below.</span><br><span class="line">      SELECT IFNULL((</span><br><span class="line">            SELECT DISTINCT Salary </span><br><span class="line">            FROM Employee</span><br><span class="line">            ORDER BY Salary DESC</span><br><span class="line">            LIMIT N,1</span><br><span class="line">        ),null) AS SecondHighestSalary</span><br><span class="line">  );</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
-
-<p>​        和上面一题一样的方法，就是将2换成了变量 n，记得先处理一下 N ，LIMIT 后面不能接表达式。</p>
-<h2 id="178-分数排名"><a href="#178-分数排名" class="headerlink" title="178. 分数排名"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rank-scores/">178. 分数排名</a></h2><p>难度中等704收藏分享切换为英文接收动态反馈</p>
-<p>SQL架构</p>
-<p>编写一个 SQL 查询来实现分数排名。</p>
-<p>如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+----+-------+</span><br><span class="line">|<span class="string"> Id </span>|<span class="string"> Score </span>|</span><br><span class="line">+----+-------+</span><br><span class="line">|<span class="string"> 1  </span>|<span class="string"> 3.50  </span>|</span><br><span class="line">|<span class="string"> 2  </span>|<span class="string"> 3.65  </span>|</span><br><span class="line">|<span class="string"> 3  </span>|<span class="string"> 4.00  </span>|</span><br><span class="line">|<span class="string"> 4  </span>|<span class="string"> 3.85  </span>|</span><br><span class="line">|<span class="string"> 5  </span>|<span class="string"> 4.00  </span>|</span><br><span class="line">|<span class="string"> 6  </span>|<span class="string"> 3.65  </span>|</span><br><span class="line">+----+-------+</span><br></pre></td></tr></table></figure>
-
-<p>例如，根据上述给定的 <code>Scores</code> 表，你的查询应该返回（按分数从高到低排列）：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+-------+------+</span><br><span class="line">|<span class="string"> Score </span>|<span class="string"> Rank </span>|</span><br><span class="line">+-------+------+</span><br><span class="line">|<span class="string"> 4.00  </span>|<span class="string"> 1    </span>|</span><br><span class="line">|<span class="string"> 4.00  </span>|<span class="string"> 1    </span>|</span><br><span class="line">|<span class="string"> 3.85  </span>|<span class="string"> 2    </span>|</span><br><span class="line">|<span class="string"> 3.65  </span>|<span class="string"> 3    </span>|</span><br><span class="line">|<span class="string"> 3.65  </span>|<span class="string"> 3    </span>|</span><br><span class="line">|<span class="string"> 3.50  </span>|<span class="string"> 4    </span>|</span><br><span class="line">+-------+------+</span><br></pre></td></tr></table></figure>
-
-<p><strong>重要提示：</strong>对于 MySQL 解决方案，如果要转义用作列名的保留字，可以在关键字之前和之后使用撇号。例如 <strong><code>Rank</code></strong></p>
-<h3 id="答案-3"><a href="#答案-3" class="headerlink" title="答案"></a>答案</h3><p>​    自己的话，将分数按分数递降排序，然后计算每一次分数大于他的人，不过执行效率比较低。</p>
-<p>​    看题解看到一个比较快的，使用 mysql 的内置函数 <code>DENSE_RANK()</code>，这个函数需要搭配 OVER 使用，OVER里面表明排序规则。<code>DENSE_RANK()</code> 是并列连续排名。</p>
-<p>​    个人答案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line">SELECT a.Score AS Score,(</span><br><span class="line">	SELECT count(DISTINCT b.Score)</span><br><span class="line">	FROM Scores AS b</span><br><span class="line">	WHERE b.Score &gt;&#x3D; a.Score</span><br><span class="line">) AS &#96;Rank&#96;</span><br><span class="line">FROM Scores AS a</span><br><span class="line">ORDER BY Score DESC</span><br></pre></td></tr></table></figure>
-
-<p>​    其他答案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select score, DENSE_RANK() OVER (ORDER BY Score DESC) as &#39;Rank&#39;</span><br><span class="line">from Scores;</span><br></pre></td></tr></table></figure>
-
-<h2 id="180-连续出现的数字"><a href="#180-连续出现的数字" class="headerlink" title="180. 连续出现的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/consecutive-numbers/">180. 连续出现的数字</a></h2><p>难度中等382收藏分享切换为英文接收动态反馈</p>
-<p>SQL架构</p>
-<p>表：<code>Logs</code></p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| Column Name | Type    |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">| id          | int     |</span><br><span class="line">| num         | varchar |</span><br><span class="line"><span class="code">+-------------+</span>---------+</span><br><span class="line">id 是这个表的主键。</span><br></pre></td></tr></table></figure>
-
-<p>编写一个 SQL 查询，查找所有至少连续出现三次的数字。</p>
-<p>返回的结果表中的数据可以按 <strong>任意顺序</strong> 排列。</p>
-<p>查询结果格式如下面的例子所示：</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Logs 表：</span><br><span class="line"><span class="code">+----+</span>-----+</span><br><span class="line">| Id | Num |</span><br><span class="line"><span class="code">+----+</span>-----+</span><br><span class="line">| 1  | 1   |</span><br><span class="line">| 2  | 1   |</span><br><span class="line">| 3  | 1   |</span><br><span class="line">| 4  | 2   |</span><br><span class="line">| 5  | 1   |</span><br><span class="line">| 6  | 2   |</span><br><span class="line">| 7  | 2   |</span><br><span class="line"><span class="code">+----+</span>-----+</span><br><span class="line"></span><br><span class="line">Result 表：</span><br><span class="line"><span class="code">+-----------------+</span></span><br><span class="line">| ConsecutiveNums |</span><br><span class="line"><span class="code">+-----------------+</span></span><br><span class="line">| 1               |</span><br><span class="line"><span class="code">+-----------------+</span></span><br><span class="line">1 是唯一连续出现至少三次的数字。</span><br></pre></td></tr></table></figure>
-
-<h3 id="答案-4"><a href="#答案-4" class="headerlink" title="答案"></a>答案</h3><p>​    如果主键是连续的情况下，可以使用三个自身表进行查询，id 相差 1，并且值相同，出现两次，也就是下面这个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT</span><br><span class="line">    l1.Num AS ConsecutiveNums</span><br><span class="line">FROM</span><br><span class="line">    Logs l1,</span><br><span class="line">    Logs l2,</span><br><span class="line">    Logs l3</span><br><span class="line">WHERE</span><br><span class="line">    l1.Id &#x3D; l2.Id - 1</span><br><span class="line">    AND l2.Id &#x3D; l3.Id - 1</span><br><span class="line">    AND l1.Num &#x3D; l2.Num</span><br><span class="line">    AND l2.Num &#x3D; l3.Num</span><br><span class="line">;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>​    但是这是建立在主键相同的情况下，否则你就得自己建一个额外的列，然后再来查询。</p>
-<p>​    还有一种就是使用 Lead 函数，将数据下拉一行，两行，然后再来比较</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT num AS ConsecutiveNums</span><br><span class="line">FROM (SELECT num,lead(num,1) over() AS num1,lead(num,2) over() AS num2</span><br><span class="line">	  FROM Logs) AS data</span><br><span class="line">WHERE data.num &#x3D; data.num1 AND data.num &#x3D; data.num2;</span><br></pre></td></tr></table></figure>
-
-
+        
       
 
       
@@ -1110,10 +1039,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -1126,15 +1051,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1142,7 +1067,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1150,15 +1083,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1170,7 +1099,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">日志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1179,6 +1112,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">事务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1198,23 +1139,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日志</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
