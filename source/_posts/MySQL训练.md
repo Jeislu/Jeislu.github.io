@@ -301,3 +301,280 @@ FROM (SELECT num,lead(num,1) over() AS num1,lead(num,2) over() AS num2
 WHERE data.num = data.num1 AND data.num = data.num2;
 ```
 
+## [181. 超过经理收入的员工](https://leetcode-cn.com/problems/employees-earning-more-than-their-managers/)
+
+难度简单356收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+`Employee` 表包含所有员工，他们的经理也属于员工。每个员工都有一个 Id，此外还有一列对应员工的经理的 Id。
+
+```
++----+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
++----+-------+--------+-----------+
+```
+
+给定 `Employee` 表，编写一个 SQL 查询，该查询可以获取收入超过他们经理的员工的姓名。在上面的表格中，Joe 是唯一一个收入超过他的经理的员工。
+
+```
++----------+
+| Employee |
++----------+
+| Joe      |
++----------+
+```
+
+### 答案
+
+​	使用自己两次来查询结果
+
+```mysql
+SELECT NAME AS Employee
+FROM Employee e1, Employee e2
+WHERE e1.Id = e2.ManagerId AND e1.Salary > e2.Salary;
+```
+
+## [182. 查找重复的电子邮箱](https://leetcode-cn.com/problems/duplicate-emails/)
+
+难度简单258收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+编写一个 SQL 查询，查找 `Person` 表中所有重复的电子邮箱。
+
+**示例：**
+
+```
++----+---------+
+| Id | Email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+```
+
+根据以上输入，你的查询应返回以下结果：
+
+```
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+```
+
+**说明：**所有电子邮箱都是小写字母。
+
+### 答案
+
+​	可以使用自连接，查询出现 Id 不同，但是 Email 重复的情况，这种查法记得去重
+
+```mysql
+SELECT DISTINCT p1.Email
+FROM Person p1,Person p2
+WHERE p1.Id != p2.Id AND p1.Email = p2.Email;
+```
+
+​	或者直接用 Email 分组，然后查询组内的数量
+
+```mysql
+SELECT Email
+FROM Person
+GROUP BY Email
+HAVING count(Email) > 1;
+```
+
+## [183. 从不订购的客户](https://leetcode-cn.com/problems/customers-who-never-order/)
+
+难度简单201收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+某网站包含两个表，`Customers` 表和 `Orders` 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。
+
+`Customers` 表：
+
+```
++----+-------+
+| Id | Name  |
++----+-------+
+| 1  | Joe   |
+| 2  | Henry |
+| 3  | Sam   |
+| 4  | Max   |
++----+-------+
+```
+
+`Orders` 表：
+
+```
++----+------------+
+| Id | CustomerId |
++----+------------+
+| 1  | 3          |
+| 2  | 1          |
++----+------------+
+```
+
+例如给定上述表格，你的查询应返回：
+
+```
++-----------+
+| Customers |
++-----------+
+| Henry     |
+| Max       |
++-----------+
+```
+
+### 答案
+
+​	第一种使用 NOT IN，查询 Orders 表里面所有的 Id，找出 Customers 有哪些列的 Id 不在这里面
+
+```mysql
+# Write your MySQL query statement below
+SELECT Name AS Customers
+FROM Customers c1
+WHERE Id NOT IN (SELECT CustomerId FROM Orders);
+```
+
+​	但是有人说这种不走索引，效率低下，我就去网上查了一下，大部分人在说不走索引，但是又有人说走，有人说新版本走，我自己没有自己测试过，所以也不好说。但是尽量少用 NOT IN吧
+
+​	第二种就是使用左外连接，将 Customers 与 Orders 连接，然后查询其中哪些的 Orders.Id 为null 即可
+
+```mysql
+SELECT c1.Name AS Customers
+FROM Customers AS c1 left join Orders AS o1
+ON o1.CustomerId = c1.Id
+WHERE o1.Id IS NULL; 
+```
+
+​	从运行情况来说，这种确实比外连接高效率。
+
+## [184. 部门工资最高的员工](https://leetcode-cn.com/problems/department-highest-salary/)
+
+难度中等351收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+`Employee` 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。
+
+```
++----+-------+--------+--------------+
+| Id | Name  | Salary | DepartmentId |
++----+-------+--------+--------------+
+| 1  | Joe   | 70000  | 1            |
+| 2  | Jim   | 90000  | 1            |
+| 3  | Henry | 80000  | 2            |
+| 4  | Sam   | 60000  | 2            |
+| 5  | Max   | 90000  | 1            |
++----+-------+--------+--------------+
+```
+
+`Department` 表包含公司所有部门的信息。
+
+```
++----+----------+
+| Id | Name     |
++----+----------+
+| 1  | IT       |
+| 2  | Sales    |
++----+----------+
+```
+
+编写一个 SQL 查询，找出每个部门工资最高的员工。对于上述表，您的 SQL 查询应返回以下行（行的顺序无关紧要）。
+
+```
++------------+----------+--------+
+| Department | Employee | Salary |
++------------+----------+--------+
+| IT         | Max      | 90000  |
+| IT         | Jim      | 90000  |
+| Sales      | Henry    | 80000  |
++------------+----------+--------+
+```
+
+**解释：**
+
+Max 和 Jim 在 IT 部门的工资都是最高的，Henry 在销售部的工资最高。
+
+### 答案
+
+​	这道题学的最多的就是，IN 可以多匹配，不一定只能用一个列来匹配，这题还有一个坑，那就是部门可以为空，一开始用左连接错了
+
+```mysql
+SELECT d1.Name AS Department,e1.Name AS Employee, e1.Salary
+FROM Employee e1 JOIN Department d1
+ON e1.DepartmentID = d1.Id
+WHERE (e1.DepartmentId,e1.Salary) IN(SELECT DepartmentId,Max(Salary) FROM Employee GROUP BY DepartmentId);
+```
+
+## [185. 部门工资前三高的所有员工](https://leetcode-cn.com/problems/department-top-three-salaries/)
+
+难度困难437收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+`Employee` 表包含所有员工信息，每个员工有其对应的工号 `Id`，姓名 `Name`，工资 `Salary` 和部门编号 `DepartmentId` 。
+
+```
++----+-------+--------+--------------+
+| Id | Name  | Salary | DepartmentId |
++----+-------+--------+--------------+
+| 1  | Joe   | 85000  | 1            |
+| 2  | Henry | 80000  | 2            |
+| 3  | Sam   | 60000  | 2            |
+| 4  | Max   | 90000  | 1            |
+| 5  | Janet | 69000  | 1            |
+| 6  | Randy | 85000  | 1            |
+| 7  | Will  | 70000  | 1            |
++----+-------+--------+--------------+
+```
+
+`Department` 表包含公司所有部门的信息。
+
+```
++----+----------+
+| Id | Name     |
++----+----------+
+| 1  | IT       |
+| 2  | Sales    |
++----+----------+
+```
+
+编写一个 SQL 查询，找出每个部门获得前三高工资的所有员工。例如，根据上述给定的表，查询结果应返回：
+
+```
++------------+----------+--------+
+| Department | Employee | Salary |
++------------+----------+--------+
+| IT         | Max      | 90000  |
+| IT         | Randy    | 85000  |
+| IT         | Joe      | 85000  |
+| IT         | Will     | 70000  |
+| Sales      | Henry    | 80000  |
+| Sales      | Sam      | 60000  |
++------------+----------+--------+
+```
+
+**解释：**
+
+IT 部门中，Max 获得了最高的工资，Randy 和 Joe 都拿到了第二高的工资，Will 的工资排第三。销售部门（Sales）只有两名员工，Henry 的工资最高，Sam 的工资排第二。
+
+### 答案
+
+​	dense_rank 函数的使用，在 over 里面定义编号规则，先通过 DepartmentId 分组，然后使用 Salary 倒序排序编号。
+
+```mysql
+SELECT d.Name AS Department, temp.Name AS Employee, Salary 
+FROM (SELECT * ,DENSE_RANK() OVER(partition by DepartmentId order by Salary DESC) AS count FROM Employee) AS temp,Department AS d
+WHERE WhERE d.Id = temp.Id AND count <= 3;
+```
+
