@@ -11,7 +11,7 @@ tags:
 
 <!-- more -->
 
-## 剑指 Offer
+
 
 ## [剑指 Offer 03.数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
 
@@ -256,6 +256,272 @@ public class JZOF12 {
 
 ```
 
+## [剑指 Offer 13. 机器人的运动范围](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/)
 
+难度中等248收藏分享切换为英文接收动态反馈
 
-​	
+地上有一个m行n列的方格，从坐标 `[0,0]` 到坐标 `[m-1,n-1]` 。一个机器人从坐标 `[0, 0] `的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
+
+ 
+
+**示例 1：**
+
+```
+输入：m = 2, n = 3, k = 1
+输出：3
+```
+
+**示例 2：**
+
+```
+输入：m = 3, n = 1, k = 0
+输出：1
+```
+
+**提示：**
+
+- `1 <= n,m <= 100`
+- `0 <= k <= 20`
+
+### 思路
+
+解法一，递归。
+
+​	当前状态只能从上一列或者上一行转化过来，因为不能斜着走，也不存在从下一行或者下一列转化，因为是从小到大 DP。
+
+​	也就是说保存当前状态，然后查询是否前一个状态可以走，如果不可以，直接设置为 false，否则计算是否可以走。每一个可以走的位置，就计数。
+
+​	但是递归有个问题就是，假如 m = 100, n = 100, k = 0，那么只能走原点，还是要全部遍历一遍，有点没有必要，可以通过加一个判断上一行和上一列同时走不了，那么后面就没必要走了，不过加这个判断，就每一个位置都得判断一次，也消耗时间。
+
+解法二，深搜
+
+​	从起点开始搜，判断四个方向是否可以走（两个方向也是可以的，写习惯四个方向了），经典判断，下一步是否越界，是否已经走过，是否可以走。然后搜就行了。
+
+​	为什么不用广搜呢？因为我个人比较习惯用深搜，这道题也没有必须要用广搜，题解用了广搜，跑了一下，发现时间消耗比较多，可能是每一次队列保存一个坐标都要创建一个数组，消耗的时间比较多把。
+
+### 代码
+
+DP：
+
+```java
+class Solution {
+    public int movingCount(int m, int n, int k) {
+        // dp 计算
+        boolean[][] dp = new boolean[m][n];
+        // dp 起点
+        dp[0][0] = true;
+        // 记录可以走的位置个数
+        int num = 1;
+        // 先计算最左列和最下列能不能到达
+        for(int i = 1; i < m; i++){
+            dp[i][0] = dp[i-1][0] && arrival(i, 0, k);
+            if(dp[i][0]){
+                num++;
+            }
+        }
+        for(int i = 1; i < n; i++){
+            dp[0][i] = dp[0][i-1] && arrival(i, 0, k);
+            if(dp[0][i]){
+                num++;
+            }
+        }
+
+        // 遍历，判断当前状态能否走到
+        for(int i = 1; i < m; i++){
+            for(int j = 1; j < n; j++){
+                dp[i][j] =(dp[i-1][j] || dp[i][j-1]) && arrival(i,j,k);
+                if(dp[i][j]){
+                    num++;
+                }
+            }
+        }
+
+        return num;
+    }
+
+    public boolean arrival(int num1 ,int num2 , int power){
+        int sum = 0;
+        // 得到 num1 的各位数
+        while(num1 != 0){
+            sum += num1 % 10;
+            num1 /= 10;
+        }
+        // 得到 num2 的各位数
+        while(num2 != 0){
+            sum += num2 % 10;
+            num2 /= 10;
+        }
+
+        return power >= sum;
+    }
+}
+```
+
+深搜：
+
+```java
+class Solution {
+    // 方向
+    int[][] addre = new int[][]{{0,1},{1,0},{-1,0},{0,-1}};
+    // (0,0) 点肯定可以到达，所以直接赋值1
+    int ans = 1;
+    // 判断是否走过
+    boolean[][] used;
+    int row;
+    int col;
+    public int movingCount(int m, int n, int k) {
+        row = m;
+        col = n;
+        used = new boolean[m][n];
+        // 起点已经走过
+        used[0][0] = true;
+        find(0,0,k);
+        return ans;
+    }
+
+    public void find(int r,int c, int k){
+        for(int i = 0; i < 4; i++){
+            int tempRow = r + addre[i][0];
+            int tempCol = c + addre[i][1];
+
+            if(tempCol >= 0 && tempRow >= 0 && tempCol < col && tempRow < row && !used[tempRow][tempCol] && arrival(tempCol,tempRow,k)){
+                ans++;
+                used[tempRow][tempCol] = true;
+                find(tempRow,tempCol,k);
+            }
+        }
+    }
+
+    public boolean arrival(int num1 ,int num2 , int power){
+        int sum = 0;
+        // 得到 num1 的各位数
+        while(num1 != 0){
+            sum += num1 % 10;
+            num1 /= 10;
+        }
+        // 得到 num2 的各位数
+        while(num2 != 0){
+            sum += num2 % 10;
+            num2 /= 10;
+        }
+
+        return power >= sum;
+    }
+}
+```
+
+## [剑指 Offer 14- I. 剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/)
+
+难度中等192收藏分享切换为英文接收动态反馈
+
+给你一根长度为 `n` 的绳子，请把绳子剪成整数长度的 `m` 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 `k[0],k[1]...k[m-1]` 。请问 `k[0]*k[1]*...*k[m-1]` 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+
+**示例 1：**
+
+```
+输入: 2
+输出: 1
+解释: 2 = 1 + 1, 1 × 1 = 1
+```
+
+**示例 2:**
+
+```
+输入: 10
+输出: 36
+解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+```
+
+**提示：**
+
+- `2 <= n <= 58`
+
+### 思路
+
+​	使用 DP 求解，大于等于 4 的数，最后都会分解成 2 和 3 的乘积，那么从 3 开始递归上去，每一个数都看看是分解出 2 还是 3得到的值更高。
+
+​	注意，最少剪一次，所以需要对 2 3 进行特判
+
+### 代码
+
+```java
+public int cuttingRope(int n) {
+    // 因为必须剪一刀，所以，处理2,3这两个特殊情况
+    if(n < 4){
+        return n-1;
+    }
+
+    // 设置初值
+    int[] dp = new int[n+1];
+    dp[0] = 1;
+    dp[1] = 1;
+    dp[2] = 2;
+    for(int i = 3; i <= n; i++){
+        dp[i] = Math.max(dp[i-2] * 2,dp[i-3] * 3);
+    }
+
+    return dp[n];
+}
+```
+
+## [剑指 Offer 14- II. 剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/)
+
+难度中等83收藏分享切换为英文接收动态反馈
+
+给你一根长度为 `n` 的绳子，请把绳子剪成整数长度的 `m` 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 `k[0],k[1]...k[m - 1]` 。请问 `k[0]*k[1]*...*k[m - 1]` 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+ 
+
+**示例 1：**
+
+```
+输入: 2
+输出: 1
+解释: 2 = 1 + 1, 1 × 1 = 1
+```
+
+**示例 2:**
+
+```
+输入: 10
+输出: 36
+解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+```
+
+ 
+
+**提示：**
+
+- `2 <= n <= 1000`
+
+### 思路
+
+​	这一题就不能用上一题的思路了，因为中间的值会出现取余后错误的情况。只能一次求完。
+
+​	用贪心的思维，优先切出 3 来，切到不能再切（小于等于4）才用剩下的来乘目标，2,3,4都是不需要再切的值。其实上一题的 DP 也用到了这种贪心的思想。
+
+​	有一个注意点，那就是保存的变量记得声明为 long，int * 2 或者 3 会溢出，导致数据错误。
+
+### 代码
+
+```java
+public int cuttingRope(int n) {
+    // 因为必须剪一刀，所以，处理2,3这两个特殊情况
+    if(n < 4){
+        return n-1;
+    }
+    // 4 也需要特殊处理
+    long ans = 1;
+    // 先把3全切了
+    while(n > 4){
+        ans = (ans * 3) % 1000000007;
+        n -= 3;
+    }
+
+    return (int)(ans * n) % 1000000007;
+
+}
+```
+

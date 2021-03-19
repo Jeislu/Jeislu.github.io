@@ -34,3 +34,40 @@ SELECT score, DENSE_RANK() OVER (ORDER BY Score DESC) AS 'Rank'
 FROM Scores;
 ```
 
+### 日期处理方法
+
+​	DATE_ADD(date,INTERVAL expr type) 函数向日期添加指定的时间间隔。
+
+​	DATE_SUB(date,INTERVAL expr type) 函数向日期减少指定的时间间隔。（也可以通过日期增加函数来增加负数实现改功能）
+
+	date 参数是合法的日期表达式。
+
+​	expr参数是您希望添加的时间间隔。
+
+​	type 参数可以是下列值：
+
+```java
+MICROSECOND            // 微秒
+SECOND                 // 秒  
+MINUTE                 // 分
+HOUR                   // 小时
+DAY                    // 日期
+WEEK                   // 周
+MONTH                  // 月
+QUARTER                // 季
+YEAR                   // 年
+// 后面这几个就是联合使用而已，联合使用需要把值用双引号括起来
+// 例如: ELECT DATE_ADD('2100-12-31 23:59:59', INTERVAL '1:1' MINUTE_SECOND);
+SECOND_MICROSECOND     
+MINUTE_MICROSECOND
+MINUTE_SECOND
+HOUR_MICROSECOND
+HOUR_SECOND
+HOUR_MINUTE
+DAY_MICROSECOND
+DAY_SECOND
+DAY_MINUTE
+DAY_HOUR
+YEAR_MONTH
+```
+

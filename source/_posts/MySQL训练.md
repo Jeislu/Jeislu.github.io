@@ -578,3 +578,117 @@ FROM (SELECT * ,DENSE_RANK() OVER(partition by DepartmentId order by Salary DESC
 WHERE WhERE d.Id = temp.Id AND count <= 3;
 ```
 
+## [196. 删除重复的电子邮箱](https://leetcode-cn.com/problems/delete-duplicate-emails/)
+
+难度简单349收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+编写一个 SQL 查询，来删除 `Person` 表中所有重复的电子邮箱，重复的邮箱里只保留 **Id** *最小* 的那个。
+
+```
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
+| 3  | john@example.com |
++----+------------------+
+Id 是这个表的主键。
+```
+
+例如，在运行你的查询语句之后，上面的 `Person` 表应返回以下几行:
+
+```
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
++----+------------------+
+```
+
+ 
+
+**提示：**
+
+- 执行 SQL 之后，输出是整个 `Person` 表。
+- 使用 `delete` 语句。
+
+### 答案
+
+​	连接表删除，将 Id 比较大的删除了即可
+
+```mysql
+DELETE p1 
+FROM Person p1,Person p2
+WHERE p1.Id > p2.Id AND p1.Email = p2.Email
+```
+
+## [197. 上升的温度](https://leetcode-cn.com/problems/rising-temperature/)
+
+难度简单190收藏分享切换为英文接收动态反馈
+
+SQL架构
+
+表 `Weather`
+
+```
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| recordDate    | date    |
+| temperature   | int     |
++---------------+---------+
+id 是这个表的主键
+该表包含特定日期的温度信息
+```
+
+ 
+
+编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 `id` 。
+
+返回结果 **不要求顺序** 。
+
+查询结果格式如下例：
+
+```
+Weather
++----+------------+-------------+
+| id | recordDate | Temperature |
++----+------------+-------------+
+| 1  | 2015-01-01 | 10          |
+| 2  | 2015-01-02 | 25          |
+| 3  | 2015-01-03 | 20          |
+| 4  | 2015-01-04 | 30          |
++----+------------+-------------+
+
+Result table:
++----+
+| id |
++----+
+| 2  |
+| 4  |
++----+
+2015-01-02 的温度比前一天高（10 -> 25）
+2015-01-04 的温度比前一天高（20 -> 30）
+```
+
+### 答案
+
+​	注意日期的处理，不能直接加减，要用函数，可以直接用 DATE_ADD 来加一个负数，或者使用 DATE_SUB 来处理。
+
+```mysql
+SELECT w2.id
+FROM Weather w1,Weather w2
+WHERE w1.recordDate = DATE_ADD(w2.recordDate,interval -1 day) AND w1.Temperature < w2.Temperature;
+```
+
+```mysql
+# Write your MySQL query statement below
+SELECT w2.id
+FROM Weather w1,Weather w2
+WHERE w1.recordDate = DATE_SUB(w2.recordDate,interval 1 day) AND w1.Temperature < w2.Temperature;
+```
+
