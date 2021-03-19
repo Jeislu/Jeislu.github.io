@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言​    身为一个后端开发员，sql 语句的编写应该是很熟练的，但是由于缺少实际项目，也没有地方训练，本人的 sql 语句能力一直处于很一般的情况。 ​    最近发现力扣上面居然还有 sql 的题目，所以打算全部认真做一遍。由于是 sql 语句，所以一般只有答案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-16T01:03:46.000Z">
-<meta property="article:modified_time" content="2021-03-18T07:54:43.672Z">
+<meta property="article:modified_time" content="2021-03-19T07:04:03.374Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -328,6 +328,41 @@
 <h3 id="答案-9"><a href="#答案-9" class="headerlink" title="答案"></a>答案</h3><p>​    dense_rank 函数的使用，在 over 里面定义编号规则，先通过 DepartmentId 分组，然后使用 Salary 倒序排序编号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT d.Name AS Department, temp.Name AS Employee, Salary </span><br><span class="line">FROM (SELECT * ,DENSE_RANK() OVER(partition by DepartmentId order by Salary DESC) AS count FROM Employee) AS temp,Department AS d</span><br><span class="line">WHERE WhERE d.Id &#x3D; temp.Id AND count &lt;&#x3D; 3;</span><br></pre></td></tr></table></figure>
 
+<h2 id="196-删除重复的电子邮箱"><a href="#196-删除重复的电子邮箱" class="headerlink" title="196. 删除重复的电子邮箱"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-duplicate-emails/">196. 删除重复的电子邮箱</a></h2><p>难度简单349收藏分享切换为英文接收动态反馈</p>
+<p>SQL架构</p>
+<p>编写一个 SQL 查询，来删除 <code>Person</code> 表中所有重复的电子邮箱，重复的邮箱里只保留 <strong>Id</strong> <em>最小</em> 的那个。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+----+</span>------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line"><span class="code">+----+</span>------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line">| 3  | john@example.com |</span><br><span class="line"><span class="code">+----+</span>------------------+</span><br><span class="line">Id 是这个表的主键。</span><br></pre></td></tr></table></figure>
+
+<p>例如，在运行你的查询语句之后，上面的 <code>Person</code> 表应返回以下几行:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+----+</span>------------------+</span><br><span class="line">| Id | Email            |</span><br><span class="line"><span class="code">+----+</span>------------------+</span><br><span class="line">| 1  | john@example.com |</span><br><span class="line">| 2  | bob@example.com  |</span><br><span class="line"><span class="code">+----+</span>------------------+</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>执行 SQL 之后，输出是整个 <code>Person</code> 表。</li>
+<li>使用 <code>delete</code> 语句。</li>
+</ul>
+<h3 id="答案-10"><a href="#答案-10" class="headerlink" title="答案"></a>答案</h3><p>​    连接表删除，将 Id 比较大的删除了即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DELETE p1 </span><br><span class="line">FROM Person p1,Person p2</span><br><span class="line">WHERE p1.Id &gt; p2.Id AND p1.Email &#x3D; p2.Email</span><br></pre></td></tr></table></figure>
+
+<h2 id="197-上升的温度"><a href="#197-上升的温度" class="headerlink" title="197. 上升的温度"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rising-temperature/">197. 上升的温度</a></h2><p>难度简单190收藏分享切换为英文接收动态反馈</p>
+<p>SQL架构</p>
+<p>表 <code>Weather</code></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">+---------------+</span>---------+</span><br><span class="line">| Column Name   | Type    |</span><br><span class="line"><span class="code">+---------------+</span>---------+</span><br><span class="line">| id            | int     |</span><br><span class="line">| recordDate    | date    |</span><br><span class="line">| temperature   | int     |</span><br><span class="line"><span class="code">+---------------+</span>---------+</span><br><span class="line">id 是这个表的主键</span><br><span class="line">该表包含特定日期的温度信息</span><br></pre></td></tr></table></figure>
+
+
+
+<p>编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 <code>id</code> 。</p>
+<p>返回结果 <strong>不要求顺序</strong> 。</p>
+<p>查询结果格式如下例：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Weather</span><br><span class="line"><span class="code">+----+</span>------------<span class="code">+-------------+</span></span><br><span class="line">| id | recordDate | Temperature |</span><br><span class="line"><span class="code">+----+</span>------------<span class="code">+-------------+</span></span><br><span class="line">| 1  | 2015-01-01 | 10          |</span><br><span class="line">| 2  | 2015-01-02 | 25          |</span><br><span class="line">| 3  | 2015-01-03 | 20          |</span><br><span class="line">| 4  | 2015-01-04 | 30          |</span><br><span class="line"><span class="code">+----+</span>------------<span class="code">+-------------+</span></span><br><span class="line"></span><br><span class="line">Result table:</span><br><span class="line"><span class="code">+----+</span></span><br><span class="line">| id |</span><br><span class="line"><span class="code">+----+</span></span><br><span class="line">| 2  |</span><br><span class="line">| 4  |</span><br><span class="line"><span class="code">+----+</span></span><br><span class="line">2015-01-02 的温度比前一天高（10 -&gt; 25）</span><br><span class="line">2015-01-04 的温度比前一天高（20 -&gt; 30）</span><br></pre></td></tr></table></figure>
+
+<h3 id="答案-11"><a href="#答案-11" class="headerlink" title="答案"></a>答案</h3><p>​    注意日期的处理，不能直接加减，要用函数，可以直接用 DATE_ADD 来加一个负数，或者使用 DATE_SUB 来处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT w2.id</span><br><span class="line">FROM Weather w1,Weather w2</span><br><span class="line">WHERE w1.recordDate &#x3D; DATE_ADD(w2.recordDate,interval -1 day) AND w1.Temperature &lt; w2.Temperature;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line">SELECT w2.id</span><br><span class="line">FROM Weather w1,Weather w2</span><br><span class="line">WHERE w1.recordDate &#x3D; DATE_SUB(w2.recordDate,interval 1 day) AND w1.Temperature &lt; w2.Temperature;</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -589,11 +624,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,10 +641,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,6 +705,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言​    本文重用，用来记录 MySQL 中我可能会忘的知识点以及常用函数（有些可能是8.0才有的，会标注)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-05T15:05:12.000Z">
-<meta property="article:modified_time" content="2021-03-16T02:46:23.562Z">
+<meta property="article:modified_time" content="2021-03-19T07:40:56.842Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -188,6 +188,13 @@
 <p>ROW_NUMBER 会得到{1，2，3，4，5}，就算有两个相同的 300，他们之间也必须排序。</p>
 <p>这三个函数都需要搭配 OVER 使用，在 OVER 里面表明排序规则，例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT score, DENSE_RANK() OVER (ORDER BY Score DESC) AS &#39;Rank&#39;</span><br><span class="line">FROM Scores;</span><br></pre></td></tr></table></figure>
+
+<h3 id="日期处理方法"><a href="#日期处理方法" class="headerlink" title="日期处理方法"></a>日期处理方法</h3><p>​    DATE_ADD(date,INTERVAL expr type) 函数向日期添加指定的时间间隔。</p>
+<p>​    DATE_SUB(date,INTERVAL expr type) 函数向日期减少指定的时间间隔。（也可以通过日期增加函数来增加负数实现改功能）</p>
+<pre><code>date 参数是合法的日期表达式。</code></pre>
+<p>​    expr参数是您希望添加的时间间隔。</p>
+<p>​    type 参数可以是下列值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">MICROSECOND            <span class="comment">// 微秒</span></span><br><span class="line">SECOND                 <span class="comment">// 秒  </span></span><br><span class="line">MINUTE                 <span class="comment">// 分</span></span><br><span class="line">HOUR                   <span class="comment">// 小时</span></span><br><span class="line">DAY                    <span class="comment">// 日期</span></span><br><span class="line">WEEK                   <span class="comment">// 周</span></span><br><span class="line">MONTH                  <span class="comment">// 月</span></span><br><span class="line">QUARTER                <span class="comment">// 季</span></span><br><span class="line">YEAR                   <span class="comment">// 年</span></span><br><span class="line"><span class="comment">// 后面这几个就是联合使用而已，联合使用需要把值用双引号括起来</span></span><br><span class="line"><span class="comment">// 例如: ELECT DATE_ADD(&#x27;2100-12-31 23:59:59&#x27;, INTERVAL &#x27;1:1&#x27; MINUTE_SECOND);</span></span><br><span class="line">SECOND_MICROSECOND     </span><br><span class="line">MINUTE_MICROSECOND</span><br><span class="line">MINUTE_SECOND</span><br><span class="line">HOUR_MICROSECOND</span><br><span class="line">HOUR_SECOND</span><br><span class="line">HOUR_MINUTE</span><br><span class="line">DAY_MICROSECOND</span><br><span class="line">DAY_SECOND</span><br><span class="line">DAY_MINUTE</span><br><span class="line">DAY_HOUR</span><br><span class="line">YEAR_MONTH</span><br></pre></td></tr></table></figure>
 
 
       
@@ -450,11 +457,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
+                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人简介</a>
+                <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,10 +474,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,6 +538,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
