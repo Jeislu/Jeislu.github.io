@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="https://jeislu.github.io">
   <title>剑指Offer | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。">
+  <meta name="description" content="前言​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。 2021&#x2F;3&#x2F;22 ​    现在不止是剑指 offer 的题了，会将某些我觉得有意思，又不太好丢到每日一题里面的题放这里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指Offer">
 <meta property="og:url" content="https://jeislu.github.io/2021/03/03/%E5%89%91%E6%8C%87Offer/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="前言​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。">
+<meta property="og:description" content="前言​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。 2021&#x2F;3&#x2F;22 ​    现在不止是剑指 offer 的题了，会将某些我觉得有意思，又不太好丢到每日一题里面的题放这里">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jeislu.github.io/2021/03/03/%E5%89%91%E6%8C%87Offer/1.png">
 <meta property="article:published_time" content="2021-03-03T01:48:25.000Z">
-<meta property="article:modified_time" content="2021-03-19T09:39:47.265Z">
+<meta property="article:modified_time" content="2021-03-22T05:46:31.698Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jeislu.github.io/2021/03/03/%E5%89%91%E6%8C%87Offer/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -175,6 +177,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。</p>
+<p>2021/3/22</p>
+<p>​    现在不止是剑指 offer 的题了，会将某些我觉得有意思，又不太好丢到每日一题里面的题放这里</p>
 <a id="more"></a>
 
 
@@ -283,6 +287,79 @@
 <p>​    有一个注意点，那就是保存的变量记得声明为 long，int * 2 或者 3 会溢出，导致数据错误。</p>
 <h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">cuttingRope</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 因为必须剪一刀，所以，处理2,3这两个特殊情况</span></span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">4</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> n-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 4 也需要特殊处理</span></span><br><span class="line">    <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 先把3全切了</span></span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">4</span>)&#123;</span><br><span class="line">        ans = (ans * <span class="number">3</span>) % <span class="number">1000000007</span>;</span><br><span class="line">        n -= <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)(ans * n) % <span class="number">1000000007</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="剑指-Offer-15-二进制中1的个数"><a href="#剑指-Offer-15-二进制中1的个数" class="headerlink" title="剑指 Offer 15. 二进制中1的个数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/">剑指 Offer 15. 二进制中1的个数</a></h2><p>难度简单98收藏分享切换为英文接收动态反馈</p>
+<p>请实现一个函数，输入一个整数（以二进制串形式），输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="number">00000000000000000000000000001011</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：输入的二进制串 <span class="number">00000000000000000000000000001011</span> 中，共有三位为 &#x27;1&#x27;。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="number">00000000000000000000000010000000</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line">解释：输入的二进制串 <span class="number">00000000000000000000000010000000</span> 中，共有一位为 &#x27;1&#x27;。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：11111111111111111111111111111101</span><br><span class="line">输出：31</span><br><span class="line">解释：输入的二进制串<span class="number"> 11111111111111111111111111111101 </span>中，共有<span class="number"> 31 </span>位为 &#x27;1&#x27;。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>输入必须是长度为 <code>32</code> 的 <strong>二进制串</strong> 。</li>
+</ul>
+<p>注意：本题与主站 191 题相同：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-1-bits/">https://leetcode-cn.com/problems/number-of-1-bits/</a></p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p>​    使用位操作， n &amp;= (n-1) 每一次会消去最后面的1，计算这个等式使用的次数即可判断出有多少个 1 。</p>
+<p>​    当然，使用位操作也行，判断 n 的最后一位数，然后将 n 向右位移。</p>
+<p>​    今天的每日一题就是这个，唉。</p>
+<h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">        n &amp;= (n-<span class="number">1</span>);</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="剑指-Offer-16-数值的整数次方"><a href="#剑指-Offer-16-数值的整数次方" class="headerlink" title="剑指 Offer 16. 数值的整数次方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">剑指 Offer 16. 数值的整数次方</a></h2><p>难度中等137收藏分享切换为英文接收动态反馈</p>
+<p>实现 <a target="_blank" rel="noopener" href="https://www.cplusplus.com/reference/valarray/pow/">pow(<em>x</em>, <em>n</em>)</a> ，即计算 x 的 n 次幂函数（即，xn）。不得使用库函数，同时不需要考虑大数问题。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：x = <span class="number">2.00000</span>, n = <span class="number">10</span></span><br><span class="line">输出：<span class="number">1024.00000</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：x = <span class="number">2.10000</span>, n = <span class="number">3</span></span><br><span class="line">输出：<span class="number">9.26100</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="attr">x</span> = <span class="number">2.00000</span>, <span class="attr">n</span> = -<span class="number">2</span></span><br><span class="line">输出：<span class="number">0.25000</span></span><br><span class="line">解释：<span class="number">2</span><span class="attr">-2</span> = <span class="number">1</span>/<span class="number">22</span> = <span class="number">1</span>/<span class="number">4</span> = <span class="number">0.25</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>-100.0 &lt; x &lt; 100.0</code></li>
+<li><code>-231 &lt;= n &lt;= 231-1</code></li>
+<li><code>-104 &lt;= xn &lt;= 104</code></li>
+</ul>
+<h3 id="思路-7"><a href="#思路-7" class="headerlink" title="思路"></a>思路</h3><p>​    使用快速幂计算，假设 n 为 12，其对应的二进制为 1100 ，其中每个位置都有不同的权值，1(x ^ 8)1(x ^ 4)0(x ^ 2)0(x ^ 1)，对应了 12 个 x 的相乘。根据二进制的特点，你会发现，每个位置的权值都是上一个位置的两倍。</p>
+<p>​    根据这个特点我们就可以写出快速幂了，不过这道题有点麻烦，因为 n 可以是负数，所以先保存符号，最后根据符号再来判断是不是要返回倒数。这道题我觉得最没必要的一个点就是，它测试数据里面有 INTEGER.MIN_NUM，这个值，我们知道，负数的最小值比正数的最大值要大（绝对值），所以，无法将最小值的符号提取出来，只能使用 long 来存储，觉得有点没必要。</p>
+<h3 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag = n &gt; <span class="number">0</span> ? <span class="number">1</span> : -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">long</span> num = (<span class="keyword">long</span>)n * flag;</span><br><span class="line">    <span class="keyword">double</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(num != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>((num &amp; <span class="number">1</span>) == <span class="number">1</span>)&#123;</span><br><span class="line">            ans *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        x *= x;</span><br><span class="line">        num &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>/ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="牛客-容器盛水"><a href="#牛客-容器盛水" class="headerlink" title="牛客 容器盛水"></a>牛客 容器盛水</h2><p>给定一个整形数组arr，已知其中所有的值都是非负的，将这个数组看作一个容器，请返回容器能装多少水。</p>
+<p>示例1</p>
+<p>输入</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+<p>返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>示例2</p>
+<p>输入</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<p>返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>说明</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组长度\<span class="keyword">leq</span> <span class="number">10</span>^<span class="number">6</span>数组长度≤<span class="number">106</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="思路-8"><a href="#思路-8" class="headerlink" title="思路"></a>思路</h3><p>​    一开始题都看不懂，后面懂了，就是每一个数就是一根柱子，在柱子之间可以倒水，例如[ 3, 1, 2, 5, 2, 4] 的图示如下：</p>
+<p><img src="/2021/03/03/%E5%89%91%E6%8C%87Offer/1.png"></p>
+<p>​    你可以在 3 - 5 中间，也就是 1 2 的头上倒 3 格水，可以在 5 - 4，2的头上倒 2 格水。所以答案是 5 。</p>
+<p>​    理解万题意以后，这道题就没什么难度了，使用双指针，从两端往中间遍历，</p>
+<ul>
+<li>每一次选择两端中较低的一段（为了防止加水超过另外一段），然后往另一端遍历</li>
+<li>如果遇到比他小的柱子，则计算差值加水</li>
+<li>如果遇到大的，则跟新这一端，然后再重复这三个步骤，直到左右指针相等。</li>
+</ul>
 
       
 
@@ -536,11 +613,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,19 +665,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">事务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,6 +706,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
