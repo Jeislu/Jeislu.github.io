@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Jeislu</title>
+  <title>mysql索引 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu">
-<meta property="og:url" content="https://jeislu.github.io/page/2/index.html">
+  <meta name="description" content="前言​    总结一下关于 mysql 里面索引的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql索引">
+<meta property="og:url" content="https://jeislu.github.io/2021/04/03/mysql%E7%B4%A2%E5%BC%95/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言​    总结一下关于 mysql 里面索引的知识">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xlaXNoZW42L0ltZ0hvc3RpbmcvTXVaaUxlaV9ibG9nX2ltZy8yMDIwMDgxMzIwMjQ0Ni5qcGc?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xlaXNoZW42L0ltZ0hvc3RpbmcvTXVaaUxlaV9ibG9nX2ltZy8yMDIwMDgxMzIwMjQ0Mi5qcGc?x-oss-process=image/format,png">
+<meta property="article:published_time" content="2021-04-03T02:54:22.000Z">
+<meta property="article:modified_time" content="2021-04-03T06:53:05.319Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="索引">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xlaXNoZW42L0ltZ0hvc3RpbmcvTXVaaUxlaV9ibG9nX2ltZy8yMDIwMDgxMzIwMjQ0Ni5qcGc?x-oss-process=image/format,png">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -152,110 +158,158 @@
           </div>
           <div id="js-content" class="content-ll">
             
+    <i class="fa fa-thumb-tack"></i>
+    <font color=7D26CD>置顶</font>
+    <span class="post-meta-divider">|</span>
   
-    <article id="post-剑指Offer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+<article id="post-mysql索引" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/03/%E5%89%91%E6%8C%87Offer/">剑指Offer</a>
+    <h1 class="article-title" itemprop="name">
+      mysql索引
     </h1>
   
 
         
-        <a href="/2021/03/03/%E5%89%91%E6%8C%87Offer/" class="archive-article-date">
-  	<time datetime="2021-03-03T01:48:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-03</time>
+        <a href="/2021/04/03/mysql%E7%B4%A2%E5%BC%95/" class="archive-article-date">
+  	<time datetime="2021-04-03T02:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    想了想，还是打算来把剑指 Offer 的题目都做一遍，理论上每天做一道。</p>
-<p>2021/3/22</p>
-<p>​    现在不止是剑指 offer 的题了，会将某些我觉得有意思，又不太好丢到每日一题里面的题放这里</p>
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    总结一下关于 mysql 里面索引的知识</p>
+<a id="more"></a>
+
+<h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>​    <strong>索引是一种用于快速查询和检索数据的数据结构</strong>。索引的作用就相当于目录的作用。打个比方: 我们在查字典的时候，如果没有目录，那我们就只能一页一页的去找我们需要查的那个字，速度很慢。如果有目录了，我们只需要先去目录里查找字的位置，然后直接翻到那一页就行了。</p>
+<h2 id="为什么要使用索引"><a href="#为什么要使用索引" class="headerlink" title="为什么要使用索引"></a>为什么要使用索引</h2><h3 id="使用索引的优点"><a href="#使用索引的优点" class="headerlink" title="使用索引的优点"></a>使用索引的优点</h3><ul>
+<li>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。</li>
+<li>可以大大加快数据的检索速度（大大减少的检索的数据量）, 这也是创建索引的最主要的原因。</li>
+<li>使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间。<ul>
+<li>因为使用索引本来就是一个有序的结构了，在有序的结构上进行分组和排序效率较高</li>
+</ul>
+</li>
+<li>可以加速表和表之间的连接，特别是在实现数据的参考完整性方面特别有意义。<ul>
+<li>例如使用外键索引可以保证域完整性和引用完整性</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用索引的缺点"><a href="#使用索引的缺点" class="headerlink" title="使用索引的缺点"></a>使用索引的缺点</h3><ul>
+<li><strong>索引需要占物理空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间。如果要建立聚簇索引，那么需要的空间就会更大。 </li>
+<li><strong>创建索引和维护索引需要耗费许多时间</strong>，当对表中的数据进行增删改的时候，如果数据有索引，那么索引也需要动态的修改，会降低 SQL 执行效率。</li>
+</ul>
+<h2 id="索引的实现方式"><a href="#索引的实现方式" class="headerlink" title="索引的实现方式"></a>索引的实现方式</h2><p>​    索引有三种实现方式，分别是哈希索引、B树索引以及B+树索引。</p>
+<h3 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a>哈希索引</h3><p>​    哈希索引定位快，能在较短的时间内快速定位到目标所在的位置，这个速度是其他两者无法比较的。</p>
+<p>​    但是哈希索引也有很明显的问题：</p>
+<ul>
+<li><strong>哈希冲突</strong>，由于哈希都是使用数组来存储，所以哈希冲突是无法避免的，处理哈希冲突成为哈希索引的一个缺点，但是这还不是最大的缺点。</li>
+<li><strong>不支持顺序和范围查询</strong>，因为哈希存储是无序的，所以无法做到范围查询，如果执行<code>SELECT * FROM tb1 WHERE id &lt; 500;</code>这种语句，难道要查询500次，这显然效率低下。</li>
+</ul>
+<h3 id="B-树和-B-树索引"><a href="#B-树和-B-树索引" class="headerlink" title="B 树和 B+ 树索引"></a>B 树和 B+ 树索引</h3><p>​    B 树指的是 Balance Tree，也就是平衡树。平衡树是一颗查找树，并且所有叶子节点位于同一层。</p>
+<p>​    B+ 树 是基于 B 树和链表进行实现，B+树的叶子节点有一条引用链指向与它相邻的叶子节点，它即具有 B Tree 的平衡性，并且可以通过链表来提高区间查询的性能。</p>
+<p>两者的区别：</p>
+<ul>
+<li>B 树的叶子节点都是独立的;B+树的叶子节点有一条引用链指向与它相邻的叶子节点。</li>
+<li>B 树的所有节点既存放 键(key) 也存放 数据(data);而 B+树只有叶子节点存放 key 和 data，其他内节点只存放 key。</li>
+</ul>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h3><p>​    数据表的主键列使用的就是主键索引。一张数据表有只能有一个主键，并且主键不能为 null，不能重复。</p>
+<p>​    在 mysql 的 InnoDB 的表中，当没有显示的指定表的主键时，InnoDB 会自动先检查表中是否有唯一索引的字段，如果有，则选择该字段为默认的主键，否则 InnoDB 将会自动创建一个 6Byte 的自增主键。</p>
+<h3 id="辅助索引"><a href="#辅助索引" class="headerlink" title="辅助索引"></a>辅助索引</h3><p>​    二级索引又称为辅助索引，是因为二级索引的叶子节点存储的数据是主键。也就是说，通过二级索引，可以定位主键的位置。</p>
+<p>​    唯一索引，普通索引，前缀索引等索引属于二级索引。</p>
+<ul>
+<li><strong>唯一索引(Unique Key)</strong> ：唯一索引也是一种约束。<strong>唯一索引的属性列不能出现重复的数据，但是允许数据为 NULL，一张表允许创建多个唯一索引。</strong> 建立唯一索引的目的大部分时候都是为了该属性列的数据的唯一性，而不是为了查询效率。</li>
+<li><strong>普通索引(Index)</strong> ：<strong>普通索引的唯一作用就是为了快速查询数据，一张表允许创建多个普通索引，并允许数据重复和 NULL。</strong></li>
+<li><strong>前缀索引(Prefix)</strong> ：前缀索引只适用于字符串类型的数据。前缀索引是对文本的前几个字符创建索引，相比普通索引建立的数据更小， 因为只取前几个字符。</li>
+<li><strong>全文索引(Full Text)</strong> ：全文索引主要是为了检索大文本数据中的关键字的信息，是目前搜索引擎数据库使用的一种技术。Mysql5.6 之前只有 MYISAM 引擎支持全文索引，5.6 之后 InnoDB 也支持了全文索引。</li>
+</ul>
+<h2 id="聚集索引和非聚集索引"><a href="#聚集索引和非聚集索引" class="headerlink" title="聚集索引和非聚集索引"></a>聚集索引和非聚集索引</h2><h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p>​    <strong>聚集索引即索引结构和数据一起存放的索引。主键索引属于聚集索引。</strong></p>
+<h4 id="聚集索引的优点"><a href="#聚集索引的优点" class="headerlink" title="聚集索引的优点"></a>聚集索引的优点</h4><p>​    聚集索引的查询速度非常的快，因为整个 B+树本身就是一颗多叉平衡树，叶子节点也都是有序的，定位到索引的节点，就相当于定位到了数据。</p>
+<h4 id="聚集索引的缺点"><a href="#聚集索引的缺点" class="headerlink" title="聚集索引的缺点"></a>聚集索引的缺点</h4><ol>
+<li><strong>依赖于有序的数据</strong> ：因为 B+树是多路平衡树，如果索引的数据不是有序的，那么就需要在插入时排序，如果数据是整型还好，否则类似于字符串或 UUID 这种又长又难比较的数据，插入或查找的速度肯定比较慢。</li>
+<li><strong>更新代价大</strong> ： 如果对索引列的数据被修改时，那么对应的索引也将会被修改， 而且况聚集索引的叶子节点还存放着数据，修改代价肯定是较大的， 所以对于主键索引来说，主键一般都是不可被修改的。</li>
+</ol>
+<h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>​    <strong>非聚集索引即索引结构和数据分开存放的索引。</strong>二级索引属于非聚集索引。非聚集索引的叶子节点并不一定存放数据的指针， 因为二级索引的叶子节点就存放的是主键，根据主键再回表查数据。</p>
+<h4 id="非聚集索引的优点"><a href="#非聚集索引的优点" class="headerlink" title="非聚集索引的优点"></a>非聚集索引的优点</h4><p>​    <strong>更新代价比聚集索引要小</strong> 。非聚集索引的更新代价就没有聚集索引那么大了，非聚集索引的叶子节点是不存放数据的。</p>
+<h4 id="非聚集索引的缺点"><a href="#非聚集索引的缺点" class="headerlink" title="非聚集索引的缺点"></a>非聚集索引的缺点</h4><ol>
+<li>跟聚集索引一样，非聚集索引也依赖于有序的数据</li>
+<li><strong>可能会二次查询(回表)</strong> :这应该是非聚集索引最大的缺点了。 当查到索引对应的指针或主键后，可能还需要根据指针或主键再到数据文件或表中查询。</li>
+</ol>
+<h4 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h4><p>​    非聚集索引不一定要回表查询，例如某个表有主键索引(id)以及一个辅助索引(name)，这时候要执行语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT id FROM table WHERE name&#x3D;&#39;guang19&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>​    因为辅助索引里面存储的就是主键，那么就不需要再去主键索引里面查询了。</p>
+<h2 id="索引创建规则"><a href="#索引创建规则" class="headerlink" title="索引创建规则"></a>索引创建规则</h2><h3 id="合适的段"><a href="#合适的段" class="headerlink" title="合适的段"></a>合适的段</h3><p>1.不为 NULL 的字段</p>
+<p>​    索引字段的数据应该尽量不为 NULL，因为对于数据为 NULL 的字段，数据库较难优化。如果字段频繁被查询，但又避免不了为 NULL，建议使用 0,1,true,false 这样语义较为清晰的短值或短字符作为替代。</p>
+<p>2.被频繁查询的字段</p>
+<p>​    我们创建索引的字段应该是查询操作非常频繁的字段。</p>
+<p>3.被作为条件查询的字段</p>
+<p>​    被作为 WHERE 条件查询的字段，应该被考虑建立索引。</p>
+<p>4.被经常频繁用于连接的字段</p>
+<p>​    经常用于连接的字段可能是一些外键列，对于外键列并不一定要建立外键，只是说该列涉及到表与表的关系。对于频繁被连接查询的字段，可以考虑建立索引，提高多表连接查询的效率。</p>
+<h3 id="不合适的段"><a href="#不合适的段" class="headerlink" title="不合适的段"></a>不合适的段</h3><p>1.被频繁更新的字段应该慎重建立索引</p>
+<p>​    虽然索引能带来查询上的效率，但是维护索引的成本也是不小的。 如果一个字段不被经常查询，反而被经常修改，那么就更不应该在这种字段上建立索引了。</p>
+<p>2.不被经常查询的字段没有必要建立索引</p>
+<p>3.尽可能的考虑建立联合索引而不是单列索引</p>
+<p>​    因为索引是需要占用磁盘空间的，可以简单理解为每个索引都对应着一颗 B+树。如果一个表的字段过多，索引过多，那么当这个表的数据达到一个体量后，索引占用的空间也是很多的，且修改索引时，耗费的时间也是较多的。如果是联合索引，多个字段在一个索引上，那么将会节约很大磁盘空间，且修改数据的操作效率也会提升。</p>
+<p>4.注意避免冗余索引</p>
+<p>​    冗余索引指的是索引的功能相同，能够命中索引(a, b)就肯定能命中索引(a) ，那么索引(a)就是冗余索引。如（name,city ）和（name ）这两个索引就是冗余索引，能够命中前者的查询肯定是能够命中后者的 在大多数情况下，都应该尽量扩展已有的索引而不是创建新索引。</p>
+<p>5.考虑在字符串类型的字段上使用前缀索引代替普通索引</p>
+<p>​    前缀索引仅限于字符串类型，较普通索引会占用更小的空间，所以可以考虑使用前缀索引带替普通索引。</p>
+<h2 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h2><p>​    MySQL中的索引可以以一定顺序引用多列，这种索引叫作联合索引。如User表的name和city加联合索引就是(name,city)，而最左前缀原则指的是，如果查询的时候查询条件精确匹配索引的左边连续一列或几列，则此列就可以被用到。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user where name&#x3D;xx and city&#x3D;xx ; ／／可以命中索引</span><br><span class="line">select * from user where name&#x3D;xx ; &#x2F;&#x2F; 可以命中索引</span><br><span class="line">select * from user where city&#x3D;xx ; &#x2F;&#x2F; 无法命中索引            Copy to clipboardErrorCopied</span><br></pre></td></tr></table></figure>
+
+<p>​    这里需要注意的是，查询的时候如果两个条件都用上了，但是顺序不同，如 <code>city= xx and name ＝xx</code>，那么现在的查询引擎会自动优化为匹配联合索引的顺序，这样是能够命中索引的。</p>
+<p>​    由于最左前缀原则，在创建联合索引时，索引字段的顺序需要考虑字段值去重之后的个数，较多的放前面。ORDER BY子句也遵循此规则。</p>
+<p>​    新版本好像解决这个问题了，但是还是需要注意一下，防止什么时候就在老版本遇到。</p>
+<h2 id="冗余索引"><a href="#冗余索引" class="headerlink" title="冗余索引"></a>冗余索引</h2><p>​    冗余索引指的是索引的功能相同，能够命中索引(a, b)就肯定能命中索引(a) ，那么索引(a)就是冗余索引。如（name,city ）和（name ）这两个索引就是冗余索引，能够命中前者的查询肯定是能够命中后者的 在大多数情况下，都应该尽量扩展已有的索引而不是创建新索引。</p>
+<p>​    MySQL 5.7 版本后，可以通过查询 sys 库的 <code>schema_redundant_indexes</code> 表来查看冗余索引</p>
+<h2 id="优化数据查询"><a href="#优化数据查询" class="headerlink" title="优化数据查询"></a>优化数据查询</h2><h3 id="1-减少请求的数据量"><a href="#1-减少请求的数据量" class="headerlink" title="1. 减少请求的数据量"></a>1. 减少请求的数据量</h3><ul>
+<li>只返回必要的列：最好不要使用 SELECT * 语句。</li>
+<li>只返回必要的行：使用 LIMIT 语句来限制返回的数据。</li>
+<li>缓存重复查询的数据：使用缓存可以避免在数据库中进行查询，特别在要查询的数据经常被重复查询时，缓存带来的查询性能提升将会是非常明显的。</li>
+</ul>
+<h3 id="2-减少服务器端扫描的行数"><a href="#2-减少服务器端扫描的行数" class="headerlink" title="2. 减少服务器端扫描的行数"></a>2. 减少服务器端扫描的行数</h3><p>最有效的方式是使用索引来覆盖查询。</p>
+<h2 id="联合索引在-B-树上的存储结构"><a href="#联合索引在-B-树上的存储结构" class="headerlink" title="联合索引在 B+ 树上的存储结构"></a>联合索引在 B+ 树上的存储结构</h2><p>​    如果一个表的结构如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xlaXNoZW42L0ltZ0hvc3RpbmcvTXVaaUxlaV9ibG9nX2ltZy8yMDIwMDgxMzIwMjQ0Ni5qcGc?x-oss-process=image/format,png" alt="img"></p>
+<p>​    那么当对 b、c 以及 d 建立索引的时候，索引的结构如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xlaXNoZW42L0ltZ0hvc3RpbmcvTXVaaUxlaV9ibG9nX2ltZy8yMDIwMDgxMzIwMjQ0Mi5qcGc?x-oss-process=image/format,png" alt="img"></p>
+<p>​    也就是先对 b 进行排序，如果 b 值相等，那么再以 c 值进行排序，以此类推</p>
+
       
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/03/%E5%89%91%E6%8C%87Offer/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/01/%E4%BA%8B%E5%8A%A1/">事务的特性</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/01/%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2021-03-01T01:16:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    事务是数据库中的一项基本功能，指的是一组要做的事情（例如一组SQL语句）。要么一起完成，要么一起不完成。</p>
-        
-      
-
       
     </div>
     <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
       
 	<div class="article-tag tagcloud">
@@ -263,11 +317,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">事务</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
         		</li>
       		
 		</ul>
@@ -276,16 +330,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/01/%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/04/03/mysql%E7%B4%A2%E5%BC%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/16/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">生产者消费者</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -305,618 +418,14 @@
 
 
 
-
-  
-    <article id="post-Maven镜像仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/28/Maven%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">Maven镜像仓库</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/28/Maven%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2021-02-28T01:19:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    如果不配置镜像仓库使用 Maven，Maven 的下载速度实在是太慢了。本文保存一些 Maven 的镜像仓库。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/28/Maven%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-代理模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">代理模式</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2021-02-27T07:46:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    代理模式是设计模式中的一种，在学习 Spring 的时候，进一步了解了这个模式，所以记录一下</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring的使用流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/26/Spring%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/">Spring的使用流程</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/26/Spring%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2021-02-26T02:41:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    介绍在一个工程中使用 Spring 进行开发的大致流程。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/26/Spring%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/24/IO/">IO</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/24/IO/" class="archive-article-date">
-  	<time datetime="2021-02-24T02:19:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    本文将记载一些我学习到和 IO 相关的知识，但不意味着所有我学习到和 IO 相关的知识我都会整理进来。本文一般是描述服务器的 IO ，所以经常会出现一些和服务器相关的术语。</p>
-<p>​    本文会根据本人的学习修修改改。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/24/IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Http协议中的加密解密" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">Http协议中的加密解密</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" class="archive-article-date">
-  	<time datetime="2021-02-23T13:33:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在学习 Http 协议的过程中，遇到一个我个人觉得很关键的问题，就是数据的加密解密，然后比较糊涂的先学了一点。懂了一些概念上的东西，先记录下来。</p>
-<p>​    （注：本文只涉及一些基础概念上的东西，不涉及详细的算法）</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Http</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/23/Http%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mybatis的映射问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/08/Mybatis%E7%9A%84%E6%98%A0%E5%B0%84%E9%97%AE%E9%A2%98/">Mybatis的映射问题</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/08/Mybatis%E7%9A%84%E6%98%A0%E5%B0%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-02-08T04:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在使用 Mybatis 中 association 的时候，发现了映射时候的省略问题</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/08/Mybatis%E7%9A%84%E6%98%A0%E5%B0%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Lombok的简单介绍和使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/07/Lombok%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">Lombok的简单介绍和使用</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/07/Lombok%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-02-07T15:53:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Lombok的简单介绍和使用</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lombok</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/07/Lombok%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-log4j精简配置属性整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">log4j精简配置属性整理</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-02-05T07:05:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    保存 log4j 一些常用的配置</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日志</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/05/log4j%E7%B2%BE%E7%AE%80%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%95%B4%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -939,8 +448,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
