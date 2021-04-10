@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://jeislu.github.io">
-  <title>Tag: Redis | Jeislu</title>
+  <title>DNS解析过程详解 | Jeislu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一只广财在读，努力摆脱懒惰的菜鸡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeislu">
-<meta property="og:url" content="https://jeislu.github.io/tags/Redis/index.html">
+  <meta name="description" content="前言​    发现我计算机网络学的太浅了，打算逐步针对某个地方进行更加深度的学习。第一步就是这个DNS系统，这篇文章不敢保证百分百正确，大部分基于我的认识，如果我发现我认知有问题，会及时修改，如有问题，欢迎联系。 DNS简介​    DNS(Domain Name System)也就是域名系统，我们知道网络层是使用 IP 进行作为地址进行通信的，但是 IP 是201.133.12.33这样的，我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS解析过程详解">
+<meta property="og:url" content="https://jeislu.github.io/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Jeislu">
-<meta property="og:description" content="一只广财在读，努力摆脱懒惰的菜鸡">
+<meta property="og:description" content="前言​    发现我计算机网络学的太浅了，打算逐步针对某个地方进行更加深度的学习。第一步就是这个DNS系统，这篇文章不敢保证百分百正确，大部分基于我的认识，如果我发现我认知有问题，会及时修改，如有问题，欢迎联系。 DNS简介​    DNS(Domain Name System)也就是域名系统，我们知道网络层是使用 IP 进行作为地址进行通信的，但是 IP 是201.133.12.33这样的，我们">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201026004906489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EzMTkyMDQ4,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-04-10T06:02:48.000Z">
+<meta property="article:modified_time" content="2021-04-10T07:59:20.897Z">
 <meta property="article:author" content="Jeislu">
-<meta property="article:tag" content="Java,编程,努力,学习">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201026004906489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EzMTkyMDQ4,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -152,59 +156,190 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-DNS解析过程详解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-13T13:12:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/13/Redis%E5%AD%A6%E4%B9%A0/">Redis学习</a>
+    <h1 class="article-title" itemprop="name">
+      DNS解析过程详解
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2021-04-10T06:02:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    发现我计算机网络学的太浅了，打算逐步针对某个地方进行更加深度的学习。第一步就是这个DNS系统，这篇文章不敢保证百分百正确，大部分基于我的认识，如果我发现我认知有问题，会及时修改，如有问题，欢迎联系。</p>
+<h2 id="DNS简介"><a href="#DNS简介" class="headerlink" title="DNS简介"></a>DNS简介</h2><p>​    DNS(Domain Name System)也就是域名系统，我们知道网络层是使用 IP 进行作为地址进行通信的，但是 IP 是<code>201.133.12.33</code>这样的，我们人很难记住这么抽象的东西， 这时候就需要用到 DNS 了，DNS说白了就是将我们常见的网址<code>www.baodu.com</code>转化为通信时候的 IP 地址，就像电话簿的作用。</p>
+<h2 id="DNS流程"><a href="#DNS流程" class="headerlink" title="DNS流程"></a>DNS流程</h2><ul>
+<li>当用户输入一个地址<code>www.baidu.com</code>以后，会先查找浏览器的 DNS 缓存，如果存在和这个浏览器的映射，就直接使用这个 IP 地址映射，否则还会查询本机 DNS 缓存（host文件），如果存在 IP 地址映射，那么就会使用该 IP 地址。</li>
+<li>如果在本机的 DNS 缓存中查询不到，会向本地 DNS 服务器（LDNS）发起一个查询请求，如果存在 IP 映射，那么就会使用该 IP 地址。</li>
+<li>如果所有缓存都失效，那么会根据本地DNS服务器的设置进行查询，分为迭代查询和递归查询<ul>
+<li>迭代查询：本地 DNS 服务器会向根 DNS( . )发起请求，根服务器收到请求后会查询<code>.com</code>是谁来授权管理的，并会返回负责该顶级域名服务器的 IP，本地 DNS 服务器收到 IP 后会向其中一个 IP（可能会收到多个）发起请求，这台负责<code>.com</code>的顶级域名服务器接收到请求后，如果自己无法解析，那么他会查询<code>baidu.com</code>是谁授权管理的，然后返回负责该主域名服务器的 IP，重复这个操作，直到找到<code>www.baidu.com</code></li>
+<li>递归查询：本地 DNS 服务器会向根 DNS( . )发起请求，根服务器收到请求后，如果自己解析不了，则会向下一级 DNS 服务器发起请求，直到返回结果，而不是让主机自己去查询。</li>
+</ul>
+</li>
+</ul>
+<h2 id="DNS迭代查询和递归查询"><a href="#DNS迭代查询和递归查询" class="headerlink" title="DNS迭代查询和递归查询"></a>DNS迭代查询和递归查询</h2><p>​    两者的流程图如下</p>
+<p><img src="https://img-blog.csdnimg.cn/20201026004906489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EzMTkyMDQ4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>​    一般来说从客户端到本地DNS服务器是属于递归查询，而DNS服务器之间就是的交互查询就是迭代查询。</p>
+<h2 id="DNS解析顺序"><a href="#DNS解析顺序" class="headerlink" title="DNS解析顺序"></a>DNS解析顺序</h2><ul>
+<li><strong>浏览器缓存</strong>：当用户通过浏览器访问某域名时，浏览器首先会在自己的缓存中查找是否有该域名对应的IP地址（若曾经访问过该域名且没有清空缓存便存在）；</li>
+<li><strong>系统缓存</strong>：当浏览器缓存中无域名对应IP则会自动检查用户计算机系统Hosts文件DNS缓存是否有该域名对应IP；</li>
+<li><strong>路由器缓存</strong>：当浏览器及系统缓存中均无域名对应IP则进入路由器缓存中检查，以上三步均为客服端的DNS缓存；</li>
+<li><strong>ISP（互联网服务提供商）DNS缓存</strong>：当在用户客服端查找不到域名对应IP地址，则将进入ISP DNS缓存中进行查询。比如你用的是电信的网络，则会进入电信的DNS缓存服务器中进行查找</li>
+<li><strong>根域名服务器</strong>：当以上均未完成，则进入根服务器进行查询。全球仅有13台根域名服务器，1个主根域名服务器，其余12为辅根域名服务器。根域名收到请求后会查看区域文件记录，若无则将其管辖范围内顶级域名（如.com）服务器IP告诉本地DNS服务器；</li>
+<li><strong>顶级域名服务器</strong>：顶级域名服务器收到请求后查看区域文件记录，若无则将其管辖范围内主域名服务器的IP地址告诉本地DNS服务器</li>
+<li><strong>主域名服务器</strong>：主域名服务器接受到请求后查询自己的缓存，如果没有则进入下一级域名服务器进行查找，并重复该步骤直至找到正确纪录</li>
+<li><strong>保存结果至缓存</strong>：本地域名服务器把返回的结果保存到缓存，以备下一次使用，同时将该结果反馈给客户端，客户端通过这个IP地址与web服务器建立链接</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的心意<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://jeislu.github.io/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/04/03/mysql%E7%B4%A2%E5%BC%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql索引</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -227,9 +362,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

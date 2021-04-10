@@ -177,7 +177,7 @@
 <p>​    用尽量简洁的话语来记录学习，通俗易通就是最高境界！</p>
 <p>​    所有文章如果存在问题，可以通过 QQ 或者邮箱联系</p>
 <p>​    QQ：1172914346</p>
-<p>​    邮箱：<a href="mailto:&#x31;&#x31;&#55;&#x32;&#x39;&#x31;&#52;&#x33;&#52;&#54;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;">&#x31;&#x31;&#55;&#x32;&#x39;&#x31;&#52;&#x33;&#52;&#54;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>​    邮箱：<a href="mailto:&#49;&#49;&#55;&#50;&#x39;&#x31;&#x34;&#x33;&#52;&#x36;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#49;&#49;&#55;&#50;&#x39;&#x31;&#x34;&#x33;&#52;&#x36;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
 
       
 
@@ -399,39 +399,56 @@
 
 
   
-    <article id="post-MyBatis学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-DNS解析过程详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/">MyBatis学习</a>
+      <a class="article-title" href="/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/">DNS解析过程详解</a>
     </h1>
   
 
         
-        <a href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-15T11:37:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
+        <a href="/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2021-04-10T06:02:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    学完 SpringMVC 才发现 Mybatis 的知识没有整理，由于没有经常使用，所以知识一直要忘，就先来整理一下，当做复习，以后需要查看也比较方便。</p>
-<p>​    配置文件不动他，但是会把其他和 MyBatis 相关的文件整合过来。</p>
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    发现我计算机网络学的太浅了，打算逐步针对某个地方进行更加深度的学习。第一步就是这个DNS系统，这篇文章不敢保证百分百正确，大部分基于我的认识，如果我发现我认知有问题，会及时修改，如有问题，欢迎联系。</p>
+<h2 id="DNS简介"><a href="#DNS简介" class="headerlink" title="DNS简介"></a>DNS简介</h2><p>​    DNS(Domain Name System)也就是域名系统，我们知道网络层是使用 IP 进行作为地址进行通信的，但是 IP 是<code>201.133.12.33</code>这样的，我们人很难记住这么抽象的东西， 这时候就需要用到 DNS 了，DNS说白了就是将我们常见的网址<code>www.baodu.com</code>转化为通信时候的 IP 地址，就像电话簿的作用。</p>
+<h2 id="DNS流程"><a href="#DNS流程" class="headerlink" title="DNS流程"></a>DNS流程</h2><ul>
+<li>当用户输入一个地址<code>www.baidu.com</code>以后，会先查找浏览器的 DNS 缓存，如果存在和这个浏览器的映射，就直接使用这个 IP 地址映射，否则还会查询本机 DNS 缓存（host文件），如果存在 IP 地址映射，那么就会使用该 IP 地址。</li>
+<li>如果在本机的 DNS 缓存中查询不到，会向本地 DNS 服务器（LDNS）发起一个查询请求，如果存在 IP 映射，那么就会使用该 IP 地址。</li>
+<li>如果所有缓存都失效，那么会根据本地DNS服务器的设置进行查询，分为迭代查询和递归查询<ul>
+<li>迭代查询：本地 DNS 服务器会向根 DNS( . )发起请求，根服务器收到请求后会查询<code>.com</code>是谁来授权管理的，并会返回负责该顶级域名服务器的 IP，本地 DNS 服务器收到 IP 后会向其中一个 IP（可能会收到多个）发起请求，这台负责<code>.com</code>的顶级域名服务器接收到请求后，如果自己无法解析，那么他会查询<code>baidu.com</code>是谁授权管理的，然后返回负责该主域名服务器的 IP，重复这个操作，直到找到<code>www.baidu.com</code></li>
+<li>递归查询：本地 DNS 服务器会向根 DNS( . )发起请求，根服务器收到请求后，如果自己解析不了，则会向下一级 DNS 服务器发起请求，直到返回结果，而不是让主机自己去查询。</li>
+</ul>
+</li>
+</ul>
+<h2 id="DNS迭代查询和递归查询"><a href="#DNS迭代查询和递归查询" class="headerlink" title="DNS迭代查询和递归查询"></a>DNS迭代查询和递归查询</h2><p>​    两者的流程图如下</p>
+<p><img src="https://img-blog.csdnimg.cn/20201026004906489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EzMTkyMDQ4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>​    一般来说从客户端到本地DNS服务器是属于递归查询，而DNS服务器之间就是的交互查询就是迭代查询。</p>
+<h2 id="DNS解析顺序"><a href="#DNS解析顺序" class="headerlink" title="DNS解析顺序"></a>DNS解析顺序</h2><ul>
+<li><strong>浏览器缓存</strong>：当用户通过浏览器访问某域名时，浏览器首先会在自己的缓存中查找是否有该域名对应的IP地址（若曾经访问过该域名且没有清空缓存便存在）；</li>
+<li><strong>系统缓存</strong>：当浏览器缓存中无域名对应IP则会自动检查用户计算机系统Hosts文件DNS缓存是否有该域名对应IP；</li>
+<li><strong>路由器缓存</strong>：当浏览器及系统缓存中均无域名对应IP则进入路由器缓存中检查，以上三步均为客服端的DNS缓存；</li>
+<li><strong>ISP（互联网服务提供商）DNS缓存</strong>：当在用户客服端查找不到域名对应IP地址，则将进入ISP DNS缓存中进行查询。比如你用的是电信的网络，则会进入电信的DNS缓存服务器中进行查找</li>
+<li><strong>根域名服务器</strong>：当以上均未完成，则进入根服务器进行查询。全球仅有13台根域名服务器，1个主根域名服务器，其余12为辅根域名服务器。根域名收到请求后会查看区域文件记录，若无则将其管辖范围内顶级域名（如.com）服务器IP告诉本地DNS服务器；</li>
+<li><strong>顶级域名服务器</strong>：顶级域名服务器收到请求后查看区域文件记录，若无则将其管辖范围内主域名服务器的IP地址告诉本地DNS服务器</li>
+<li><strong>主域名服务器</strong>：主域名服务器接受到请求后查询自己的缓存，如果没有则进入下一级域名服务器进行查找，并重复该步骤直至找到正确纪录</li>
+<li><strong>保存结果至缓存</strong>：本地域名服务器把返回的结果保存到缓存，以备下一次使用，同时将该结果反馈给客户端，客户端通过这个IP地址与web服务器建立链接</li>
+</ul>
+
       
 
       
     </div>
     <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
       
       
 	<div class="article-tag tagcloud">
@@ -439,7 +456,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
@@ -449,90 +466,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/">SpringMVC学习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-11T14:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    记录我学习 SpringMVC 中的知识点，问题，流程等，不能一定保证正确。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/10/DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
         </p>
       
 
@@ -686,6 +620,81 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/16/MySQL%E8%AE%AD%E7%BB%83/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MyBatis学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/">MyBatis学习</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2021-03-15T11:37:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    学完 SpringMVC 才发现 Mybatis 的知识没有整理，由于没有经常使用，所以知识一直要忘，就先来整理一下，当做复习，以后需要查看也比较方便。</p>
+<p>​    配置文件不动他，但是会把其他和 MyBatis 相关的文件整合过来。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/15/MyBatis%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
         </p>
       
 
@@ -871,29 +880,27 @@
 
 
   
-    <article id="post-基于Selenium-Java的码云自动部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SpringMVC学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">基于Selenium+Java的码云自动部署</a>
+      <a class="article-title" href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/">SpringMVC学习</a>
     </h1>
   
 
         
-        <a href="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-  	<time datetime="2021-03-03T08:16:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-03</time>
+        <a href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2021-03-11T14:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    搭建博客的时候，由于 GitHub 有时候会出现上不去的情况，就又搭建了一个码云平台的。但是这个码云就没有 GitHub 那么良心了，他的自动部署功能是要付费才可以的，不付费就得手动。当时我就想，我肯定要弄个自动部署的。</p>
-<p>​    上学期在上课的时候，听到了老师提到 Selenium 这个工具，用来模拟人操作电脑的，我一听，妙啊，找个时间拿它来做个自动部署。</p>
-<p>​    现在做完了，记录一下全过程吧。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    记录我学习 SpringMVC 中的知识点，问题，流程等，不能一定保证正确。</p>
         
       
 
@@ -907,11 +914,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Selenium</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
         		</li>
       		
 		</ul>
@@ -921,7 +928,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/03/%E5%9F%BA%E4%BA%8ESelenium-Java%E7%9A%84%E7%A0%81%E4%BA%91%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/11/SpringMVC%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
         </p>
       
 
@@ -953,7 +960,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1048,7 +1055,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1060,11 +1067,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,19 +1115,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">索引</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">索引</a>
               </li>
              
               <li class="article-tag-list-item">
