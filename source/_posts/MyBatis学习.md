@@ -1,6 +1,5 @@
 ---
 title: MyBatis学习
-top: 1
 date: 2021-03-15 19:37:39
 tags:
  - MyBatis
