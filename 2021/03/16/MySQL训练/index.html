@@ -15,11 +15,19 @@
 <meta property="og:site_name" content="Jeislu">
 <meta property="og:description" content="前言​    身为一个后端开发员，sql 语句的编写应该是很熟练的，但是由于缺少实际项目，也没有地方训练，本人的 sql 语句能力一直处于很一般的情况。 ​    最近发现力扣上面居然还有 sql 的题目，所以打算全部认真做一遍。由于是 sql 语句，所以一般只有答案。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345279057/D2ABA1E2F5834850B16146F168AC5476">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345180512/2A26AB183839E3A01C933AE5A75B6D2F">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509678777/C7D94B6C9124C45835451E89458FFC3E">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509697144/24EC0AAEA6EF7D01BD63D4F9CCFC42BF">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509718797/4AD4F3D1E977477D6DF98854EC10149D">
 <meta property="article:published_time" content="2021-03-16T01:03:46.000Z">
-<meta property="article:modified_time" content="2021-03-19T07:04:03.374Z">
+<meta property="article:modified_time" content="2021-04-13T07:18:25.406Z">
 <meta property="article:author" content="Jeislu">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55">
   
     <link rel="alternative" href="/atom.xml" title="Jeislu" type="application/atom+xml">
   
@@ -178,6 +186,8 @@
 <p>​    最近发现力扣上面居然还有 sql 的题目，所以打算全部认真做一遍。由于是 sql 语句，所以一般只有答案。</p>
 <a id="more"></a>
 
+<p>2021/4/13</p>
+<p>​    抱歉，一段时间没来联系，后面会保持练习的</p>
 <h2 id="175-组合两个表"><a href="#175-组合两个表" class="headerlink" title="175. 组合两个表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combine-two-tables/">175. 组合两个表</a></h2><p>难度简单776收藏分享切换为英文接收动态反馈</p>
 <p>SQL架构</p>
 <p>表1: <code>Person</code></p>
@@ -362,6 +372,45 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT w2.id</span><br><span class="line">FROM Weather w1,Weather w2</span><br><span class="line">WHERE w1.recordDate &#x3D; DATE_ADD(w2.recordDate,interval -1 day) AND w1.Temperature &lt; w2.Temperature;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line">SELECT w2.id</span><br><span class="line">FROM Weather w1,Weather w2</span><br><span class="line">WHERE w1.recordDate &#x3D; DATE_SUB(w2.recordDate,interval 1 day) AND w1.Temperature &lt; w2.Temperature;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询最晚入职员工的所有信息"><a href="#查询最晚入职员工的所有信息" class="headerlink" title="查询最晚入职员工的所有信息"></a>查询最晚入职员工的所有信息</h2><p>​    有一个员工employees表简况如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55" alt="img"></p>
+<p>建表语句如下:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> TABLE <span class="symbol">`employees`</span> (<span class="symbol">``</span><span class="symbol">`emp_no`</span> <span class="symbol">``</span>int<span class="symbol">``</span>(<span class="symbol">``</span><span class="number">11</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">``</span><span class="symbol">`birth_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`first_name`</span> varchar(<span class="symbol">``</span><span class="number">14</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`last_name`</span> varchar(<span class="symbol">``</span><span class="number">16</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`gender`</span> <span class="symbol">``</span>char<span class="symbol">``</span>(<span class="symbol">``</span><span class="number">1</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`hire_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`emp_no`</span>));</span><br></pre></td></tr></table></figure>
+
+<p>请你查找employees里最晚入职员工的所有信息，以上例子输出如下:<img src="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345279057/D2ABA1E2F5834850B16146F168AC5476" alt="img"></p>
+<h3 id="答案-12"><a href="#答案-12" class="headerlink" title="答案"></a>答案</h3><p>​    假如只需要输出一位最晚入职的员工，那么直接排序然后限制输出一个即可。如果是需要输出全部的，那么先求出最晚入职的，然后再输出所有这一天入职的人。</p>
+<p>​    第一种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from employees order by hire_date desc limit 0,1;</span><br></pre></td></tr></table></figure>
+
+<p>​    第二种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from employees where hire_date &#x3D; (select max(hire_date) from employees)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找入职员工时间排名倒数第三"><a href="#查找入职员工时间排名倒数第三" class="headerlink" title="查找入职员工时间排名倒数第三"></a>查找入职员工时间排名倒数第三</h2><p>​    有一个员工employees表简况如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55" alt="img"></p>
+<p>​    建表语句如下:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> TABLE <span class="symbol">`employees`</span> (<span class="symbol">``</span><span class="symbol">`emp_no`</span> <span class="symbol">``</span>int<span class="symbol">``</span>(<span class="symbol">``</span><span class="number">11</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">``</span><span class="symbol">`birth_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`first_name`</span> varchar(<span class="symbol">``</span><span class="number">14</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`last_name`</span> varchar(<span class="symbol">``</span><span class="number">16</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`gender`</span> <span class="symbol">``</span>char<span class="symbol">``</span>(<span class="symbol">``</span><span class="number">1</span><span class="symbol">``</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`hire_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`emp_no`</span>));</span><br></pre></td></tr></table></figure>
+
+<p>​    请你查找employees里入职员工时间排名倒数第三的员工所有信息，以上例子输出如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210203/557336_1612345180512/2A26AB183839E3A01C933AE5A75B6D2F" alt="img"></p>
+<h3 id="答案-13"><a href="#答案-13" class="headerlink" title="答案"></a>答案</h3><p>​    先查询出倒数第三入职的时间（记得去重），然后查询所有入职时间和这个时间相同的就好了。</p>
+<p>​    查询第三入职的时间也可以使用 dense_rank() 函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from employees </span><br><span class="line">where (hire_date,3) &#x3D; </span><br><span class="line">    (select hire_date,dense_rank() over(order by hire_date desc) as &#96;Rank&#96;</span><br><span class="line">     from employees</span><br><span class="line">     limit 2,1)</span><br></pre></td></tr></table></figure>
+
+<p>​    如果不用函数也可以这么查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from employees</span><br><span class="line">where hire_date &#x3D; (select distinct hire_date from employees order by hire_date desc limit 2,1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找当前薪水详情以及部门编号…"><a href="#查找当前薪水详情以及部门编号…" class="headerlink" title="查找当前薪水详情以及部门编号…"></a>查找当前薪水详情以及部门编号…</h2><p>​    有一个全部员工的薪水表salaries简况如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509678777/C7D94B6C9124C45835451E89458FFC3E" alt="img"></p>
+<p>有一个各个部门的领导表dept_manager简况如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509697144/24EC0AAEA6EF7D01BD63D4F9CCFC42BF" alt="img"></p>
+<p>建表语句如下:</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> TABLE <span class="symbol">`salaries`</span> (<span class="symbol">``</span><span class="symbol">`emp_no`</span> <span class="symbol">``</span>int<span class="symbol">``</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`salary`</span> <span class="symbol">``</span>int<span class="symbol">``</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`from_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`to_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`emp_no`</span>,<span class="symbol">`from_date`</span>));`</span><br><span class="line">`<span class="keyword">CREATE</span> TABLE <span class="symbol">`dept_manager`</span> (<span class="symbol">``</span><span class="symbol">`dept_no`</span> <span class="symbol">``</span>char<span class="symbol">``</span>(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`emp_no`</span> <span class="symbol">``</span>int<span class="symbol">``</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="symbol">`to_date`</span> date <span class="keyword">NOT</span> <span class="literal">NULL</span>,<span class="symbol">``</span><span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`emp_no`</span>,<span class="symbol">`dept_no`</span>));</span><br></pre></td></tr></table></figure>
+
+<p>请你查找各个部门领导薪水详情以及其对应部门编号dept_no，输出结果以salaries.emp_no升序排序，并且请注意输出结果里面dept_no列是最后一列，以上例子输入如下:</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20210205/557336_1612509718797/4AD4F3D1E977477D6DF98854EC10149D" alt="img"></p>
+<h3 id="答案-14"><a href="#答案-14" class="headerlink" title="答案"></a>答案</h3><p>​    简单的联表查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT sa.*,dept_no</span><br><span class="line">FROM salaries as sa,dept_manager as de</span><br><span class="line">WHERE sa.emp_no &#x3D; de.emp_no</span><br><span class="line">ORDER BY emp_no</span><br></pre></td></tr></table></figure>
 
 
       
@@ -620,15 +669,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">零碎知识点</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,19 +713,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">索引</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">索引</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,10 +741,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -705,6 +750,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">其他</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
               </li>
              
               <li class="article-tag-list-item">
