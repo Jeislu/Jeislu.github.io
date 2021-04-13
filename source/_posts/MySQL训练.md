@@ -13,6 +13,10 @@ tags:
 
 <!-- more -->
 
+2021/4/13
+
+​	抱歉，一段时间没来联系，后面会保持练习的
+
 ## [175. 组合两个表](https://leetcode-cn.com/problems/combine-two-tables/)
 
 难度简单776收藏分享切换为英文接收动态反馈
@@ -690,5 +694,106 @@ WHERE w1.recordDate = DATE_ADD(w2.recordDate,interval -1 day) AND w1.Temperature
 SELECT w2.id
 FROM Weather w1,Weather w2
 WHERE w1.recordDate = DATE_SUB(w2.recordDate,interval 1 day) AND w1.Temperature < w2.Temperature;
+```
+
+## 查询最晚入职员工的所有信息
+
+​	有一个员工employees表简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55)
+
+建表语句如下:
+
+```
+CREATE TABLE `employees` (```emp_no` ``int``(``11``) NOT NULL, ```birth_date` date NOT NULL,```first_name` varchar(``14``) NOT NULL,```last_name` varchar(``16``) NOT NULL,```gender` ``char``(``1``) NOT NULL,```hire_date` date NOT NULL,``PRIMARY KEY (`emp_no`));
+```
+
+请你查找employees里最晚入职员工的所有信息，以上例子输出如下:![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612345279057/D2ABA1E2F5834850B16146F168AC5476)
+
+### 答案
+
+​	假如只需要输出一位最晚入职的员工，那么直接排序然后限制输出一个即可。如果是需要输出全部的，那么先求出最晚入职的，然后再输出所有这一天入职的人。
+
+​	第一种：
+
+```mysql
+SELECT * from employees order by hire_date desc limit 0,1;
+```
+
+​	第二种：
+
+```mysql
+SELECT * from employees where hire_date = (select max(hire_date) from employees)
+```
+
+## 查找入职员工时间排名倒数第三
+
+​	有一个员工employees表简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612345140124/0BFB4D140D9C3E92AF681D9F9CB92D55)
+
+​	建表语句如下:
+
+```
+CREATE TABLE `employees` (```emp_no` ``int``(``11``) NOT NULL, ```birth_date` date NOT NULL,```first_name` varchar(``14``) NOT NULL,```last_name` varchar(``16``) NOT NULL,```gender` ``char``(``1``) NOT NULL,```hire_date` date NOT NULL,``PRIMARY KEY (`emp_no`));
+```
+
+​	请你查找employees里入职员工时间排名倒数第三的员工所有信息，以上例子输出如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612345180512/2A26AB183839E3A01C933AE5A75B6D2F)
+
+### 答案
+
+​	先查询出倒数第三入职的时间（记得去重），然后查询所有入职时间和这个时间相同的就好了。
+
+​	查询第三入职的时间也可以使用 dense_rank() 函数
+
+```mysql
+SELECT * from employees 
+where (hire_date,3) = 
+    (select hire_date,dense_rank() over(order by hire_date desc) as `Rank`
+     from employees
+     limit 2,1)
+```
+
+​	如果不用函数也可以这么查
+
+```mysql
+SELECT * from employees
+where hire_date = (select distinct hire_date from employees order by hire_date desc limit 2,1)
+```
+
+## 查找当前薪水详情以及部门编号...
+
+​	有一个全部员工的薪水表salaries简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210205/557336_1612509678777/C7D94B6C9124C45835451E89458FFC3E)
+
+
+
+有一个各个部门的领导表dept_manager简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210205/557336_1612509697144/24EC0AAEA6EF7D01BD63D4F9CCFC42BF)
+
+建表语句如下:
+
+```
+CREATE TABLE `salaries` (```emp_no` ``int``(11) NOT NULL,```salary` ``int``(11) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`from_date`));`
+`CREATE TABLE `dept_manager` (```dept_no` ``char``(4) NOT NULL,```emp_no` ``int``(11) NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`dept_no`));
+```
+
+请你查找各个部门领导薪水详情以及其对应部门编号dept_no，输出结果以salaries.emp_no升序排序，并且请注意输出结果里面dept_no列是最后一列，以上例子输入如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210205/557336_1612509718797/4AD4F3D1E977477D6DF98854EC10149D)
+
+### 答案
+
+​	简单的联表查询
+
+```mysql
+SELECT sa.*,dept_no
+FROM salaries as sa,dept_manager as de
+WHERE sa.emp_no = de.emp_no
+ORDER BY emp_no
 ```
 
