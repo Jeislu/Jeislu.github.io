@@ -1,6 +1,5 @@
 ---
 title: mysql索引
-top: 1
 date: 2021-04-03 10:54:22
 tags:
  - mysql
