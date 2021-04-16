@@ -15,7 +15,11 @@ tags:
 
 2021/4/13
 
-​	抱歉，一段时间没来联系，后面会保持练习的
+​	抱歉，一段时间没来练习，后面会保持练习的
+
+2021/4/15
+
+​	牛客这个 SQL 练习的题目名是真的长，又隐藏部分，以后使用前缀 NK 来代表是牛客的题，然后带上题号就行了
 
 ## [175. 组合两个表](https://leetcode-cn.com/problems/combine-two-tables/)
 
@@ -696,7 +700,7 @@ FROM Weather w1,Weather w2
 WHERE w1.recordDate = DATE_SUB(w2.recordDate,interval 1 day) AND w1.Temperature < w2.Temperature;
 ```
 
-## 查询最晚入职员工的所有信息
+## NK SQL1
 
 ​	有一个员工employees表简况如下:
 
@@ -726,7 +730,7 @@ SELECT * from employees order by hire_date desc limit 0,1;
 SELECT * from employees where hire_date = (select max(hire_date) from employees)
 ```
 
-## 查找入职员工时间排名倒数第三
+## NK SQL2
 
 ​	有一个员工employees表简况如下:
 
@@ -763,7 +767,7 @@ SELECT * from employees
 where hire_date = (select distinct hire_date from employees order by hire_date desc limit 2,1)
 ```
 
-## 查找当前薪水详情以及部门编号...
+## NK SQL3
 
 ​	有一个全部员工的薪水表salaries简况如下:
 
@@ -796,4 +800,186 @@ FROM salaries as sa,dept_manager as de
 WHERE sa.emp_no = de.emp_no
 ORDER BY emp_no
 ```
+
+## NK SQL4
+
+​	有一个员工表，employees简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612333206099/2DD8A8D108E674BCB32D6E32B03492C1)
+
+有一个部门表，dept_emp简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612333284641/4BF7C729BECEE5D9215DF0C0B22855A0)
+
+建表语句如下:
+
+```
+CREATE TABLE `employees` (```emp_no` ``int``(11) NOT NULL,```birth_date` date NOT NULL,```first_name` varchar(14) NOT NULL,```last_name` varchar(16) NOT NULL,```gender` ``char``(1) NOT NULL,```hire_date` date NOT NULL,``PRIMARY KEY (`emp_no`));
+CREATE TABLE `dept_emp` (```emp_no` ``int``(11) NOT NULL,```dept_no` ``char``(4) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`dept_no`));
+```
+
+
+
+请你查找所有已经分配部门的员工的last_name和first_name以及dept_no，未分配的部门的员工不显示，以上例子如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612333512668/92EDD0ECE3222E00AE2F555AC9153034)
+
+### 答案
+
+​	就是使用外连接的特性，左外连接会保存左边全部的，右边不匹配的会被抛弃，右外连接同理。
+
+```mysql
+SELECT last_name,first_name,dept_no
+FROM employees right outer join dept_emp
+ON employees.emp_no = dept_emp.emp_no
+```
+
+## NK SQL5
+
+​	有一个员工表，employees简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612333206099/2DD8A8D108E674BCB32D6E32B03492C1)
+
+有一个部门表，dept_emp简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612333284641/4BF7C729BECEE5D9215DF0C0B22855A0)
+
+建表语句如下:
+
+```
+CREATE TABLE `employees` (```emp_no` ``int``(11) NOT NULL,```birth_date` date NOT NULL,```first_name` varchar(14) NOT NULL,```last_name` varchar(16) NOT NULL,```gender` ``char``(1) NOT NULL,```hire_date` date NOT NULL,``PRIMARY KEY (`emp_no`));
+CREATE TABLE `dept_emp` (```emp_no` ``int``(11) NOT NULL,```dept_no` ``char``(4) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`dept_no`));
+```
+
+
+
+请你查找所有已经分配部门的员工的last_name和first_name以及dept_no，也包括暂时没有分配具体部门的员工，以上例子如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612334245463/6CE804D2EED8A40F6DB3CA3B3F0E3BC8)
+
+### 答案
+
+​	无语，和上一道一样，不过右外连接换成左外连接就行了
+
+```mysql
+SELECT last_name,first_name,dept_no
+FROM employees left outer join dept_emp
+ON employees.emp_no = dept_emp.emp_no
+```
+
+## NK SQL7
+
+有一个薪水表，salaries简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612337273467/8307279490CB9F89069769B3CDABC925)
+
+建表语句如下:
+
+```
+CREATE TABLE `salaries` (```emp_no` ``int``(11) NOT NULL,```salary` ``int``(11) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`from_date`));
+```
+
+
+请你查找薪水记录超过15次的员工号emp_no以及其对应的记录次数t，以上例子输出如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612337361503/85F393DA0762A39426D8D7C5958C8976)
+
+### 答案
+
+​	简单 count 使用，没什么好说的
+
+```mysql
+SELECT emp_no,count(salary) as t
+FROM salaries
+GROUP BY emp_no
+HAVING t > 15
+```
+
+## NK SQL8
+
+​	有一个薪水表，salaries简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612339845721/0B07E4326822CEB36DFC0A8856794250)
+
+建表语句如下:
+
+```
+CREATE TABLE `salaries` (```emp_no` ``int``(11) NOT NULL,```salary` ``int``(11) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`from_date`));
+```
+
+请你找出所有员工具体的薪水salary情况，对于相同的薪水只显示一次,并按照逆序显示，以上例子输出如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612339896739/D272D88115F2A8870C9D588A098CDD57)
+
+### 答案
+
+​	简单排序去重
+
+```mysql
+SELECT DISTINCT salary
+FROM salaries
+ORDER BY salary DESC
+```
+
+## NK SQL10
+
+​	有一个员工表employees简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612344146571/013613CC3F594F2FB7444E6AD1DE4CDA)
+
+有一个部门领导表dept_manager简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612344277205/EFBA0FC874C43A13F3732087E07217A6)
+
+建表语句如下:
+
+```
+CREATE TABLE `employees` (```emp_no` ``int``(11) NOT NULL,```birth_date` date NOT NULL,```first_name` varchar(14) NOT NULL,```last_name` varchar(16) NOT NULL,```gender` ``char``(1) NOT NULL,```hire_date` date NOT NULL,``PRIMARY KEY (`emp_no`));
+CREATE TABLE `dept_manager` (```dept_no` ``char``(4) NOT NULL,```emp_no` ``int``(11) NOT NULL,```from_date` date NOT NULL,```to_date` date NOT NULL,``PRIMARY KEY (`emp_no`,`dept_no`));
+```
+
+请你找出所有非部门领导的员工emp_no，以上例子输出:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612344409824/1EB9F3AEE88291A8FF5D3E30063143CF)
+
+### 答案
+
+​	两边取差集，使用 NOT IN
+
+```mysql
+SELECT emp_no
+FROM employees 
+WHERE emp_no NOT IN(SELECT emp_no FROM dept_manager)
+```
+
+## NK SQL11
+
+有一个员工表dept_emp简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612347542783/FA1C2D23763EBC6A14D7AF61064202ED)
+
+第一行表示为员工编号为10001的部门是d001部门。
+
+有一个部门经理表dept_manager简况如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612347601846/B680BD38752346E644806C4BFAFACB0C)
+
+第一行表示为d001部门的经理是编号为10002的员工。
+
+获取所有的员工和员工对应的经理，如果员工本身是经理的话则不显示，以上例子如下:
+
+![img](https://uploadfiles.nowcoder.com/images/20210203/557336_1612347728685/C23E2BE72621CF021B0A53D9F763989B)
+
+### 答案
+
+​	联表查询，并且自己的经理不能是自己
+
+```mysql
+SELECT emp.emp_no as emp_no,manager.emp_no as manager
+FROM dept_emp as emp left outer join dept_manager as manager
+ON emp.dept_no = manager.dept_no
+WHERE emp.emp_no != manager.emp_no
+```
+
+
 
